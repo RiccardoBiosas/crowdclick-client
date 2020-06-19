@@ -1,0 +1,6 @@
+export const HOME_ROUTE = '/'
+export const REGISTER_FALLBACK_ROUTE = '/register'
+export const PUBLISHER_DASHBOARD_ROUTE = '/publisher-dashboard'
+export const PUBLISHER_WIZARD_ROUTE = '/publisher-dashboard/new-task'
+export const PUBLISHER_WIZARD_EDIT_ROUTE_WITH_PARAM = '/publisher-dashboard/edit-task/'
+export const USER_TASKS_ROUTE = '/user/tasks'
