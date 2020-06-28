@@ -10,15 +10,16 @@ import { PublisherWizardFormCampaignPreview } from "../screen/PublisherWizardFor
 import { PublisherWizardFormCampaignPayment } from "../screen/PublisherWizardFormCampaignPayment";
 import { GlobalButton } from "../../../shared/GlobalButton";
 import {
-  WizardFormParentContainer,
-  WizardFormLayoutContainer,
-  WizardFormButtonsContainer,
+  WizardFormParentLayout,
+  WizardFormLayoutWrapper,
+  WizardFormButtonsLayout,
   WizardFormNavbar,
-} from "../styles/WizardFormContainerStyles";
+} from "../styles/WizardFormLayoutStyles";
 import { useHandleKeydownEvent } from "../../../hooks/useHandleKeydownEvent";
 import { TASK_ENDPOINT, COINGECKO_API } from "../../../config/api-config";
 import { PublisherWizardFormValidationSchema } from "../validationSchema/wizardFormValidationSchema";
 import { Temporary_CampaignOutcome } from "../screen/TemporaryComponent/Temporary_CampaignOutcome";
+import { PUBLISHER_DASHBOARD_ROUTE } from "../../../config/routes-config";
 
 axios.defaults.withCredentials = true;
 
@@ -26,8 +27,8 @@ const empty_initial_values = {
   projectName: "",
   projectDescription: "",
   projectURL: "",
-  pricePerClick: null,
-  campaignBudget: null,
+  pricePerClick: 0,
+  campaignBudget: 0,
   projectQuestion: "",
   projectOptions: [{ option: "" }],
 };
@@ -62,8 +63,13 @@ export const PublisherWizardFormContainer = ({
   const [respStatus, setRespStatus] = useState();
   const [state, dispatch] = useReducer(reducer, initial_state);
   const [ethPrice, setEthPrice] = useState();
-  const [transactionId, setTransationId] = useState();
+  const [dataKey, setDataKey] = useState(null);
+  const [campaignData, setCampaignData] = useState();
+  const [transactionID, setTransactionID] = useState();
   const totalSteps = 6; //move to constant
+  const contract = drizzle.contracts.CrowdclickEscrow;
+  const address = drizzle.contracts.CrowdclickEscrow.address;
+
 
   const fetchEthPrice = async () => {
     const resp = await axios.get(
@@ -71,6 +77,44 @@ export const PublisherWizardFormContainer = ({
       { withCredentials: false }
     );
     setEthPrice(resp);
+  };
+
+  const postCampaign = async () => {
+    const {
+      projectName,
+      projectDescription,
+      projectURL,
+      pricePerClick,
+      campaignBudget,
+      projectQuestion,
+      projectOptions,
+    } = campaignData;
+
+    const filteredProjectOptionsWithoutEmptyStrings = projectOptions.filter(
+      (x) => x.option !== ""
+    );
+
+    const res = await axios.post(TASK_ENDPOINT, {
+      title: projectName,
+      description: projectDescription,
+      website_link: projectURL,
+      reward_per_click: pricePerClick,
+      time_duration: "00:00:30",
+      spend_daily: campaignBudget,
+      questions: [
+        {
+          title: projectQuestion,
+          options: filteredProjectOptionsWithoutEmptyStrings.map((x) => {
+            return { title: x.option };
+          }),
+        },
+      ],
+    });
+
+    console.log("successful payment, response after post request", res);
+
+    let respStatus = res.status;
+    setRespStatus(respStatus);
   };
 
   const keyEventHandler = (e) => {
@@ -84,10 +128,28 @@ export const PublisherWizardFormContainer = ({
   };
 
   useEffect(() => {
-    setIsError(false);
-
     if (step === 5 && !ethPrice) {
       fetchEthPrice();
+    }
+    if (step === 5 && dataKey !== null) {
+      // console.log(drizzleState);
+      setTransactionID(drizzleState.transactionStack[dataKey]);
+    }
+    if (
+      step === 5 &&
+      transactionID &&
+      drizzleState.transactions[transactionID] &&
+      !respStatus
+    ) {
+      if (drizzleState.transactions[transactionID].status === "success") {
+        postCampaign();
+      }
+      if (drizzleState.transactions[transactionID].status === "error") {
+        setRespStatus("transaction error");
+      }
+    }
+    if (step === 5 && respStatus) {
+      setStep(step + 1);
     }
 
     if (edit) {
@@ -97,7 +159,18 @@ export const PublisherWizardFormContainer = ({
     return () => {
       window.removeEventListener("keydown", keyEventHandler);
     };
-  }, [step, edit, keyEventHandler, ethPrice]);
+  }, [
+    step,
+    edit,
+    keyEventHandler,
+    ethPrice,
+    dataKey,
+    contract,
+    drizzleState,
+    transactionID,
+    postCampaign,
+    respStatus,
+  ]);
 
   useHandleKeydownEvent(
     "ArrowRight",
@@ -129,9 +202,9 @@ export const PublisherWizardFormContainer = ({
   );
   return (
     <Fragment>
-      <WizardFormParentContainer>
+      <WizardFormParentLayout>
         <h1>Bring traffic, quantitative and qualitative feedback.</h1>
-        <WizardFormLayoutContainer>
+        <WizardFormLayoutWrapper>
           <WizardFormNavbar>
             <div>
               <button
@@ -168,52 +241,60 @@ export const PublisherWizardFormContainer = ({
                 projectOptions,
               } = values;
 
-              const filteredProjectOptionsWithoutEmptyStrings = projectOptions.filter(
-                (x) => x.option !== ""
-              );
+              // const filteredProjectOptionsWithoutEmptyStrings = projectOptions.filter(
+              //   (x) => x.option !== ""
+              // );
 
               try {
                 if (!edit) {
-                 
                   const currentEthPrice = ethPrice.data.ethereum.usd;
-                  
+                  // console.log("MY ACCOUNT: ######### ", drizzleState.accounts[0])
+
                   const budgetToEth = values.campaignBudget / currentEthPrice;
                   const rewardToEth = values.pricePerClick / currentEthPrice;
                   const budgetToWei = web3.utils.toWei(budgetToEth.toString());
                   const rewardToWei = web3.utils.toWei(rewardToEth.toString());
-                  const txId = await drizzle.contracts.CrowdclickEscrow.methods[
-                    "openTask"
-                  ].cacheSend(budgetToWei, rewardToWei, {
-                    from: drizzleState.accounts[0],
-                    value: budgetToWei,
-                    gas: 500000,                    
-                  });
-                  setTransationId(txId);   
-
-                  if (txId) {
-                    const res = await axios.post(TASK_ENDPOINT, {
-                      title: projectName,
-                      description: projectDescription,
-                      website_link: projectURL,
-                      reward_per_click: pricePerClick,
-                      time_duration: "00:00:30",
-                      spend_daily: campaignBudget,
-                      questions: [
-                        {
-                          title: projectQuestion,
-                          options: filteredProjectOptionsWithoutEmptyStrings.map(
-                            (x) => {
-                              return { title: x.option };
-                            }
-                          ),
-                        },
-                      ],
-                    });
-
-                    let respStatus = res ? res.status : "failed";
-                    setRespStatus(respStatus);
-                    setStep(step + 1);
+                  const dataKey = await contract.methods["openTask"].cacheSend(
+                    budgetToWei,
+                    rewardToWei,
+                    {
+                      from: drizzleState.accounts[0],
+                      value: budgetToWei,
+                      gas: 500000,
+                    }
+                  );
+                  setDataKey(dataKey);
+                  console.log("datakey ID METAMASK PAYMENT", dataKey);
+                  if (dataKey !== null) {
+                    setCampaignData(values);
                   }
+
+                  // if (txId) {
+                  //   const res = await axios.post(TASK_ENDPOINT, {
+                  //     title: projectName,
+                  //     description: projectDescription,
+                  //     website_link: projectURL,
+                  //     reward_per_click: pricePerClick,
+                  //     time_duration: "00:00:30",
+                  //     spend_daily: campaignBudget,
+                  //     questions: [
+                  //       {
+                  //         title: projectQuestion,
+                  //         options: filteredProjectOptionsWithoutEmptyStrings.map(
+                  //           (x) => {
+                  //             return { title: x.option };
+                  //           }
+                  //         ),
+                  //       },
+                  //     ],
+                  //   });
+
+                  //   console.log('successful payment, response after post request', res)
+
+                  //   let respStatus = res ? res.status : "failed";
+                  //   setRespStatus(respStatus);
+                  //   setStep(step + 1);
+                  //}
                 } else {
                   const res = await axios.patch(`${TASK_ENDPOINT}${id}/`, {
                     title: projectName,
@@ -239,7 +320,6 @@ export const PublisherWizardFormContainer = ({
                 let errorResponse = err.response.status;
                 setRespStatus(errorResponse);
                 setStep(step + 1);
-  
               }
             }}
           >
@@ -285,7 +365,12 @@ export const PublisherWizardFormContainer = ({
                       drizzle={drizzle}
                       drizzleState={drizzleState}
                       setStep={setStep}
-                      transactionId={transactionId}
+                      address={address}
+                      transactionID={
+                        transactionID && !transactionID.startsWith("TEMP")
+                          ? transactionID
+                          : false
+                      }
                       setRespStatus={setRespStatus}
                     />
                     <Temporary_CampaignOutcome
@@ -295,7 +380,7 @@ export const PublisherWizardFormContainer = ({
                   </Form>
 
                   {step < totalSteps - 1 ? (
-                    <WizardFormButtonsContainer>
+                    <WizardFormButtonsLayout>
                       <GlobalButton
                         buttonColor={"blue"}
                         buttonTextColor={"#FFFFFF"}
@@ -382,15 +467,15 @@ export const PublisherWizardFormContainer = ({
                       <p>
                         Step {step} of {totalSteps}
                       </p>
-                    </WizardFormButtonsContainer>
+                    </WizardFormButtonsLayout>
                   ) : null}
                 </Fragment>
               );
             }}
           </Formik>
-        </WizardFormLayoutContainer>
-      </WizardFormParentContainer>
-      {redirect && <Redirect to="/publisher-dashboard" />}
+        </WizardFormLayoutWrapper>
+      </WizardFormParentLayout>
+      {redirect && <Redirect to={PUBLISHER_DASHBOARD_ROUTE} />}
     </Fragment>
   );
 };

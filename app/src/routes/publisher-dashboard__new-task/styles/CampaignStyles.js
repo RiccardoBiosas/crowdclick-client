@@ -27,13 +27,13 @@ export const CampaignCard = styled.div`
 `
   
 
-export const PublisherCampaignMainContainer = styled.div`
+export const PublisherCampaignMainLayout = styled.div`
   display: flex;
   flex-direction: column;
   align-items: center;
 `
 
-export const PublisherCampaignTaskSummaryContainer = styled.div`
+export const PublisherCampaignTaskSummaryLayout = styled.div`
   width: 60vw;
   background: #ffffff 0% 0% no-repeat padding-box;
   box-shadow: 0px 3px 6px #00000029;
@@ -42,11 +42,8 @@ export const PublisherCampaignTaskSummaryContainer = styled.div`
   display: grid;
   grid-template-columns: 300px 1fr;
   .campaignAvatar {
-    // background-color: grey;
-    // background-image: url(${crowdclick_campaign_placeholder});
     background-image: url(${props =>
-    props.og_background ? `"${props.og_background}"` : crowdclick_campaign_placeholder}); 
-    // background-size: cover;
+    props.og_background ? `"${props.og_background}"` : crowdclick_campaign_placeholder});     
     background-size: cover;
     background-position: center;
     background-repeat: no-repeat;
@@ -66,7 +63,7 @@ export const PublisherCampaignTaskSummaryContainer = styled.div`
   }
 `
 
-export const PublisherCampaignButtonContainer = styled.div`
+export const PublisherCampaignButtonLayout = styled.div`
   display: flex;
   width: 60%;
 `
@@ -75,7 +72,7 @@ export const PublisherCampaignTaskBody = styled.div`
   margin-left: 34px;
 `
 
-export const PublisherCampaignGeneralTaskContainer = styled.div`
+export const PublisherCampaignGeneralTaskLayout = styled.div`
   margin-bottom: 20px;
 
   .taskAnalyticsContainer {

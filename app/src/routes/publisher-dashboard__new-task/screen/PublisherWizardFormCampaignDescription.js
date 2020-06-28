@@ -26,11 +26,11 @@ export const PublisherWizardFormCampaignDescription = ({
     ) {
       dispatch({ type: 'first_step' })
     }
-  }, [errors, touched])
+  }, [dispatch, errors, touched])
 
 
 
-  if (step != 1) {
+  if (step !== 1) {
     return null
   } else {
     return (

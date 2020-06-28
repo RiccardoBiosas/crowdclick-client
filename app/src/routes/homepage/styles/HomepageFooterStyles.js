@@ -1,52 +1,63 @@
 import styled from "styled-components";
 
-export const FooterLayout = styled.div`
-margin-top: 4vh;
-display: flex;
-justify-content: space-around;
+export const FooterLayout = styled.footer`
+  width: 60%;
+  margin-top: 4vh;
+  display: flex;
+  justify-content: space-between;
 
-.footerLogo {    
-    width: 222px;
-    height: 55px;
-    align-self: center;
-}
-.footerIcon {
-    height: 6vh;
-    width: 6vw;
-    align-self: center;
-    color: grey;
-    cursor: pointer;    
+  .logo-container {
+      flex: 2;
 
-    &:hover {
-        color: #206DFF;
+    //   > img {
+    //     width: 222px;
+    //     height: 55px;
+    //   }
+  }
+
+  .logos-container {
+      flex: 1;
+      display: flex;
+      justify-content: space-between;
+      
+      > span, a {
+       > svg {
+        height: 6vh;
+        width: 6vw;
+        align-self: center;
+        color: grey;
+        cursor: pointer;
+    
+        &:hover {
+          color: #206dff;
+        }
+       }
+      }
+  }
+
+  
+  
+
+  @media screen and (max-width: 1080px) {
+    width: 80%;
+  }
+
+  @media screen and (max-width: 900px) {
+    height: 14rem;
+    flex-direction: column;
+    align-items: center;
+
+    > div {
+        width: 60%;
+        display: flex;
+        justify-content: center;
     }
+  }
 
-   
-}
-
-a {
-    align-self: center;
-}
-
-.githubIssue {
-    height: 15vh;
-    width: 6.5vw;
-}
-
-
-
-@media (max-width: 500px) {
+  @media (max-width: 500px) {
     .footerLogo {
-        width: 162px;
-        height: 45px;
+      width: 162px;
+      height: 45px;
     }
-}
-`
-
-export const FooterIconCol = styled.div`
-display: flex;
-flex-direction: column;
-align-items: center;
-`
-
-
+  }
+`;

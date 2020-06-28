@@ -1,7 +1,7 @@
 import styled from 'styled-components'
 import { Field, FastField } from 'formik'
 
-export const WizardPreviewContainer = styled.div`
+export const WizardPreviewLayout = styled.div`
   width: 90%;
   display: grid;
   grid-template-columns: 1fr 1fr 1fr;
@@ -61,16 +61,15 @@ export const WizardInputQuizForms = styled(WizardInputForms)`
     overflow: auto;
 
     .fieldAndIconContainer {
+      margin-bottom: 1px;
       background: #ffffff 0% 0% no-repeat padding-box;
       border: 1px solid #e2e5ed;
       border-radius: 4px;
-      height: 40px;
       display: flex;
       align-items: center;
       justify-content: space-between;
 
       .trashIcon {
-        padding-right: 20px;
         cursor: pointer;
       }
     }

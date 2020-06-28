@@ -6,9 +6,8 @@ import { LoadingIcon } from '../../shared/LoadingIcon'
 import { PublisherWizardFormContainer } from '../publisher-dashboard__new-task/containers'
 
 
-export const EditPublisherWizardFormContainer = () => {
+export const EditPublisherWizardFormContainer = ({drizzle, drizzleState}) => {
   const { id } = useParams()
-
   const resp = useFetch(`${TASK_ENDPOINT}${id}/`)
 
   if (!resp.response) {
@@ -25,6 +24,6 @@ export const EditPublisherWizardFormContainer = () => {
       projectOptions: optionsArr
     //   projectOptions: resp.response.data.questions[0].options
     }
-    return <PublisherWizardFormContainer initial_values={initial_values} edit={true} id={id} />
+    return <PublisherWizardFormContainer initial_values={initial_values} edit={true} id={id} drizzle={drizzle} drizzleState={drizzleState} />
   }
 }

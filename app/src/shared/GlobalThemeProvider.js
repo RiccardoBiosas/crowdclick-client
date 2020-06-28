@@ -19,7 +19,8 @@ const theme = {
 
     },
     global : {
-      background: ''
+      // background: ''
+      background: '#F3F6FE'
     }
   },
   dark: {

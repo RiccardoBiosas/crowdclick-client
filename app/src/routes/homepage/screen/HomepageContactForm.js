@@ -1,147 +1,120 @@
- import React from 'react'
-import axios from 'axios'
-import { 
-  ContactFormContainer,
+import React, { useState, useEffect } from "react";
+import axios from "axios";
+import {
+  ContactFormLayout,
   ContactHeading,
-  FlexContactFormContainer,
-  ContactFormImgContainer,
-  InputFormContainer,
-  ContactFormButton,
-  SpinnerContainer
-} from '../styles/HomepageContactFormStyles'
-import Stay_in_the_loop from '../../../assets/homepage/img4.svg'
-import aeternity_stay_in_the_loop from '../../../assets/images/aeternity_stay_in_the_loop.svg'
-import { Checkmark } from '../../../shared/Checkmark'
-import { ReactComponent as SvgSuccess } from '../../../assets/SVG/Success.svg';
-import { ReactComponent as SvgFailure } from '../../../assets/SVG/Failure.svg';
-import { SUBSCRIBE_ENDPOINT } from '../../../config/api-config'
+  InputFormWrapper,
+  SpinnerWrapper,
+  ContactFormWrapper,
+} from "../styles/HomepageContactFormStyles";
+import Stay_in_the_loop from "../../../assets/homepage/img4.svg";
+import aeternity_stay_in_the_loop from "../../../assets/images/aeternity_stay_in_the_loop.svg";
+import { Checkmark } from "../../../shared/Checkmark";
+import { ReactComponent as SvgSuccess } from "../../../assets/SVG/Success.svg";
+import { ReactComponent as SvgFailure } from "../../../assets/SVG/Failure.svg";
+import { SUBSCRIBE_ENDPOINT } from "../../../config/api-config";
+import { CenteredColumn } from "../styles/HomepageStyles";
 
+const HomepageContactForm = ({ currencyTheme }) => {
+  const [userInput, setUserInput] = useState("");
+  const [userEmail, setUserEmail] = useState("");
+  const [respStatus, setRespStatus] = useState();
 
-export default class HomepageContactForm extends React.Component {
-  constructor (props) {
-    super(props)
+  const handleChange = (e) => {
+    const text = e.target.value;
+    setUserInput(text);
+  };
 
-    this.state = {
-      input: '',
-      userEmail: '',
-      showNotification: false,
-      successfulPostReq: null
-    }
-    this.interval = null    
-  }
-
-
-  handleChange = e => {
-    const text = e.target.value
-    this.setState({
-      input: text
-    })
-  }
-
-  forwardEmail = async userEmail => {
+  const forwardEmail = async (email) => {
     try {
-      const response = await axios.post(
-        SUBSCRIBE_ENDPOINT,
-        {
-          email: userEmail
-        }
-      )
-      this.setState({ successfulPostReq: true, showNotification: true })
-    } catch (error) {
-      console.error(error)
-      this.setState({ successfulPostReq: false, showNotification: true })
+      const response = await axios.post(SUBSCRIBE_ENDPOINT, {
+        email,
+      });
+      setRespStatus(response.status);
+    } catch (err) {
+      setRespStatus(err.response.status || "failed");
+      console.error(err);
     }
-  }
+  };
 
-  handleClick = async () => {
-    await this.setState({
-      userEmail: this.state.input,
-      input: ''
-    })
-    await this.forwardEmail(this.state.userEmail)
-  }
+  const handleSubmit = (e) => {
+    e.preventDefault();
+    setUserEmail(userInput);
+    setUserInput("");
+  };
 
-  handleKeyDown = async e => {
-    if (e.keyCode === 13) {
-      await this.setState({
-        userEmail: this.state.input,
-        input: ''
-      })
-      await this.forwardEmail(this.state.userEmail)
+  useEffect(() => {
+    if (userEmail && !respStatus) {
+      forwardEmail(userEmail);
+
+      setTimeout(() => {setUserEmail(); setRespStatus(); }, 1200)
     }
-  }
+  }, [userEmail, respStatus, forwardEmail]);
 
-  componentDidUpdate () {
-    if (this.state.showNotification) {
-      this.interval = setTimeout(() => {
-        this.setState({
-          successfulPostReq: null,
-          showNotification: false
-        })
-      }, 3000)
-    }
-  }
+  return (
+    <ContactFormLayout currencyTheme={currencyTheme}>
+      <ContactFormWrapper>
+        <div className="logo-wrapper">
+          <img
+            src={
+              currencyTheme === "ethereumStyle"
+                ? Stay_in_the_loop
+                : aeternity_stay_in_the_loop
+            }
+            alt="cryptocurrency-theme"
+          />
+        </div>
 
-  render () {
+        <CenteredColumn>
+          <ContactHeading>
+            <h3>Launch Coming Soon…</h3>
+          </ContactHeading>
 
-    return (
-        <ContactFormContainer currencyTheme={this.props.currencyTheme} id="temporaryContactFormFooterID">
-          <ContactFormImgContainer>
-            <img
-              src={
-                this.props.currencyTheme === 'ethereumStyle'
-                  ? Stay_in_the_loop
-                  : aeternity_stay_in_the_loop
-              }  
-              alt="cryptocurrency theme"            
-            />
-          </ContactFormImgContainer>
+          <SpinnerWrapper>
+            {respStatus && (
+              <Checkmark type={"block"}>
+                {respStatus === 201 ? <SvgSuccess /> : <SvgFailure />}
+              </Checkmark>
+            )}
+          </SpinnerWrapper>
 
-          <FlexContactFormContainer>
-            <ContactHeading>
-              <h3>Launch Coming Soon…</h3>
-              <label htmlFor='subscribeForm'>Get notified about the launch & updates</label>
-            </ContactHeading>        
-            <SpinnerContainer>
-              {this.state.showNotification && (
-                <Checkmark type={"block"}>
-                  {
-                    this.state.successfulPostReq ? <SvgSuccess /> : <SvgFailure />
-                  }
-                </Checkmark>
+          <InputFormWrapper currencyTheme={currencyTheme} svgAnimation={respStatus ? "fadeIn" : null}>
+            <form onSubmit={handleSubmit}>
+              <label htmlFor="subscribeForm">
+                Get notified about the launch & updates
+              </label>
+
+              <div>
+                <input
+                  id="subscribeForm"
+                  type="text"
+                  placeholder="Your email"
+                  onChange={handleChange}
+                  value={userInput}
+                  autoComplete="off"
+                />
+
+                <input type="submit" value="Get Started" />
+              </div>
+            </form>
+            <div>
+              {respStatus && (
+                <div className="desktop-svgWrapper">
+                  <Checkmark type={"inline"}>
+                    {respStatus && respStatus === 201 ? (
+                      <SvgSuccess />
+                    ) : (
+                      <SvgFailure />
+                    )}
+                  </Checkmark>
+                </div>
               )}
-            </SpinnerContainer>
+            </div>
+          </InputFormWrapper>
+        </CenteredColumn>
+      </ContactFormWrapper>
+    </ContactFormLayout>
+  );
+};
 
-
-            <InputFormContainer>
-              { this.state.showNotification &&  (
-                <Checkmark type={"inline"}>
-                  {
-                    this.state.successfulPostReq ? <SvgSuccess /> : <SvgFailure />
-                  }
-                </Checkmark>
-              )}
-
-              <input
-                id='subscribeForm'
-                placeholder='Email Address'
-                onChange={this.handleChange}
-                value={this.state.input}
-                onKeyDown={this.handleKeyDown}
-                className='inputContactForm'
-                autoComplete='off'
-              />
-
-              <ContactFormButton
-                currencyTheme={this.props.currencyTheme}
-                onClick={this.handleClick}
-              >
-                Get Started
-              </ContactFormButton>
-            </InputFormContainer>
-          </FlexContactFormContainer>
-        </ContactFormContainer>
-    )
-  }
-}
-
+export default HomepageContactForm;

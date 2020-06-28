@@ -5,13 +5,11 @@ import aeternity_become_user_img from '../../../assets/images/aeternity_become_u
 import { GlobalButton } from '../../../shared/GlobalButton'
 
 import {
-  ImgContainer,
-  Container,
+  ImgWrapper,
   CardMainHeading,
   CardList,
-  CardContainer,
-  CardBtnContainer,
   CardLayout,
+  CenteredColumnWithMediaQueries
 } from '../styles/HomepageStyles'
 import { useSpring, animated } from 'react-spring'
 import { Spring } from 'react-spring/renderprops'
@@ -19,18 +17,31 @@ import { HomepageBecomeAUserFlipped } from './HomepageBecomeAUserFlipped'
 
 export const HomepageBecomeAUser = ({currencyTheme}) => {
   const [flipped, setFlipped] = useState(false)
-  const [visibilityTriggered, setVisibilityTriggered] = useState(false)
+  const [isVizSensorActive, setIsVizSensorActive] = useState(true)
+  const [visibilityCount, setVisibilityCount] = useState(0)
 
-  const slideAnimationFromRight = useSpring({
-    from: { right: '80%', opacity: 0, position: 'relative', width: '100%' },
-    to: { width: '0%', right: '0%', height: '0%', opacity: 1 },
-    config: { duration: 800 }
-  })
-  const slideAnimationFromLeft = useSpring({
-    from: { left: '80%', opacity: 0, position: 'relative', width: '100%' },
-    to: { width: '0%', left: '0%', height: '0%', opacity: 1 },
-    config: { duration: 800 }
-  })
+
+  const handleVisibility = (isVisible) => {
+    if(isVisible < 1) {
+      setVisibilityCount(visibilityCount+1)
+    }
+    if(visibilityCount >= 1) {
+      setIsVizSensorActive(false)
+      
+    }
+  }
+
+
+  // const slideAnimationFromRight = useSpring({
+  //   from: { right: '80%', opacity: 0, position: 'relative', width: '100%' },
+  //   to: { width: '0%', right: '0%', height: '0%', opacity: 1 },
+  //   config: { duration: 800 }
+  // })
+  // const slideAnimationFromLeft = useSpring({
+  //   from: { left: '80%', opacity: 0, position: 'relative', width: '100%' },
+  //   to: { width: '0%', left: '0%', height: '0%', opacity: 1 },
+  //   config: { duration: 800 }
+  // })
 
 
   const { transform, opacity, display } = useSpring({
@@ -42,9 +53,9 @@ export const HomepageBecomeAUser = ({currencyTheme}) => {
   return (
     <VizSensor 
     partialVisibility={true}
-    once 
-   
-    onChange={(isVisible) => !visibilityTriggered && isVisible && setVisibilityTriggered(true)}    
+    minTopValue={120}
+    active={isVizSensorActive}   
+    onChange={handleVisibility}    
     >
       {({isVisible}) => (
         <div>
@@ -56,7 +67,7 @@ export const HomepageBecomeAUser = ({currencyTheme}) => {
             }}
           >
             <CardLayout>
-              <ImgContainer style={{width: '100%'}} type={'disappearing'}>
+              <ImgWrapper style={{width: '100%'}} type={'disappearing'}>
                 <img
                   src={
                     currencyTheme === 'ethereumStyle'
@@ -66,7 +77,7 @@ export const HomepageBecomeAUser = ({currencyTheme}) => {
                   className='user-img'
                   alt='user_image'
                 />
-              </ImgContainer>
+              </ImgWrapper>
 
               {/* <animated.div style={slideAnimationFromRight}> */}
               <Spring
@@ -74,13 +85,13 @@ export const HomepageBecomeAUser = ({currencyTheme}) => {
                   right: !isVisible ? '80%' : '0%',
                   opacity: !isVisible ? 0 : 1,
                   position: 'relative',
-                  width: '100%'
+                  
                 }}
                 to={{right: isVisible ? '0%' : '80%', height: '0%', opacity: isVisible ? 1 : 0 }}
                 config={{ duration: 800 }}
               >
                 {props => (
-                  <CardContainer style={props} side={'left'}>
+                  <CenteredColumnWithMediaQueries containerMargin="0 0 48px 0" style={props} side={'left'}>
                     <CardMainHeading
                       type={'no-break-paragraph'}
                       mainHeadline={32}
@@ -88,7 +99,7 @@ export const HomepageBecomeAUser = ({currencyTheme}) => {
                       Become a user
                     </CardMainHeading>
 
-                    <Container>
+                    <div>
                       <CardList
                         color={
                           currencyTheme === 'ethereumStyle'
@@ -106,11 +117,13 @@ export const HomepageBecomeAUser = ({currencyTheme}) => {
                           as the reward
                         </li>
                       </CardList>
-                    </Container>
+                    </div>
 
-                    <CardBtnContainer>
+                    <div>
                       <GlobalButton
                         onClick={() => setFlipped(!flipped)}
+                        buttonWidth='135'
+                        buttonMargin='30px 0 0 0'
                         buttonColor={
                           currencyTheme === 'ethereumStyle' ? 'green' : 'purple'
                         }
@@ -120,14 +133,14 @@ export const HomepageBecomeAUser = ({currencyTheme}) => {
                           ? 'Earn ETH'
                           : 'Earn AE'}
                       </GlobalButton>
-                    </CardBtnContainer>
-                  </CardContainer>
+                    </div>
+                  </CenteredColumnWithMediaQueries>
                 )}
               </Spring>
 
               {/* </animated.div> */}
 
-              <ImgContainer type={'appearing'}>
+              <ImgWrapper type={'appearing'}>
                 <img
                   src={
                     currencyTheme === 'ethereumStyle'
@@ -136,7 +149,7 @@ export const HomepageBecomeAUser = ({currencyTheme}) => {
                   }
                   alt='publisher_image'
                 />
-              </ImgContainer>
+              </ImgWrapper>
             </CardLayout>
           </animated.div>
           <animated.div

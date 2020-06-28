@@ -1,21 +1,20 @@
 import React, { Fragment, useState } from 'react'
-import { Redirect, useHistory } from 'react-router'
+import { Redirect, useHistory, useLocation } from 'react-router'
 import {ReactComponent as Placeholder} from "../../../assets/Iframe/ETH-Reward.svg"
 import {
-  WizardFormParentContainer,
-  WizardFormLayoutContainer,
-  WizardFormButtonsContainer,
-} from '../../publisher-dashboard__new-task/styles/WizardFormContainerStyles'
+  WizardFormParentLayout,
+  WizardFormLayoutWrapper,
+  WizardFormButtonsLayout,
+} from '../../publisher-dashboard__new-task/styles/WizardFormLayoutStyles'
 import { CampaignHeader } from '../../publisher-dashboard__new-task/styles/CampaignStyles'
 import MetamaskButton from '../../../metamask/MetamaskButton'
-import { USER_TASKS_ROUTE, PUBLISHER_WIZARD_ROUTE } from '../../../config/routes-config'
+import { USER_TASKS_LIST_ROUTE, PUBLISHER_WIZARD_ROUTE, HOME_ROUTE } from '../../../config/routes-config'
 
 
 export const SignupFallback = (props) => {
-  console.log('signup fallback props', props)
   const [redirect, setRedirect] = useState(false)
   const history = useHistory()
-
+  const location = useLocation()
 
 
   const login = () => {
@@ -23,9 +22,9 @@ export const SignupFallback = (props) => {
   }
   return (
     <Fragment>
-      <WizardFormParentContainer style={{height: "420px"}}>
+      <WizardFormParentLayout style={{height: "420px"}}>
         <h1>Click. Answer. Earn.</h1>
-        <WizardFormLayoutContainer>
+        <WizardFormLayoutWrapper>
           {/* <ProgressBar totalSteps={4} step={step} /> */}
           <div
             style={{
@@ -58,7 +57,7 @@ export const SignupFallback = (props) => {
           </div>
 
 
-          <WizardFormButtonsContainer>
+          <WizardFormButtonsLayout>
             <div>
               <MetamaskButton
                 btnColor={'orange'}
@@ -81,10 +80,10 @@ export const SignupFallback = (props) => {
             </div>
 
             <p>Step 1 of 2</p>
-          </WizardFormButtonsContainer>
-        </WizardFormLayoutContainer>
-      </WizardFormParentContainer>
-      {redirect && <Redirect to={props.location.state.next_redirect === "publisher" ? PUBLISHER_WIZARD_ROUTE : USER_TASKS_ROUTE} />}
+          </WizardFormButtonsLayout>
+        </WizardFormLayoutWrapper>
+      </WizardFormParentLayout>
+      {redirect && <Redirect to={location.state ? location.state.next_redirect === "publisher" ? PUBLISHER_WIZARD_ROUTE : USER_TASKS_LIST_ROUTE : HOME_ROUTE} />}
     </Fragment> 
   )
 }

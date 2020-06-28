@@ -1,7 +1,7 @@
 import React from 'react'
 import { FaTelegramPlane } from 'react-icons/fa'
 import { FirstDivGroup } from './styles/DesktopNavbarStyles'
-import { GlobalButton } from '../../../shared/GlobalButton'
+import { GlobalButton } from '../../../GlobalButton'
 
 export const NavbarNotAuthElements = () => {
   const scrollToCoordinate = x => {

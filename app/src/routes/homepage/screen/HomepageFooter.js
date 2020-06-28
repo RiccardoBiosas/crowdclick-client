@@ -5,29 +5,32 @@ import Logo from "../../../assets/images/Logo.svg";
 import { FooterLayout } from "../styles/HomepageFooterStyles";
 
 export const HomepageFooter = forwardRef((props, ref) => {
+  return (
+    <FooterLayout ref={ref}>
+      <div className="logo-container">
+        <img src={Logo}  alt="crowdclick-logo" />
+      </div>
 
+      <div className="logos-container">
+        <span>
+          <FaTelegram className="footerIcon" />
+        </span>
+        <a
+          href="https://medium.com/crowdclick"
+          target="_blank"
+          rel="noopener noreferrer"
+        >
+          <FaMedium className="footerIcon" />
+        </a>
 
-    return (
-
-        <FooterLayout ref={ref}>
-           
-                <img src={Logo} className="footerLogo" alt="crowdclick footer logo" />
-          
-            <div>
-                
-                           
-               
-                    <FaTelegram  className="footerIcon" />                
-                    <a href="https://medium.com/crowdclick" target="_blank" rel="noopener noreferrer"><FaMedium className="footerIcon" /></a>
-            
-                    {/* <a href="https://github.com/CrowdClick" target="_blank" rel="noopener noreferrer"><img src={GithubIssue} className="githubIssue" /></a> */}
-                    <a href="https://github.com/CrowdClick" target="_blank" rel="noopener noreferrer"><FaGithub className="footerIcon" /></a>
-
-
-
-            </div>
-        </FooterLayout>
-
-
-    )
-}); 
+        <a
+          href="https://github.com/crowd-tools/CrowdClick"
+          target="_blank"
+          rel="noopener noreferrer"
+        >
+          <FaGithub className="footerIcon" />
+        </a>
+      </div>
+    </FooterLayout>
+  );
+});

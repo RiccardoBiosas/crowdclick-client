@@ -1,6 +1,6 @@
 import styled from 'styled-components'
 
-export const WizardFormParentContainer = styled.div`
+export const WizardFormParentLayout = styled.div`
   display: flex;
   flex-direction: column;
   align-items: center;
@@ -9,7 +9,7 @@ export const WizardFormParentContainer = styled.div`
   }
 `
 
-export const WizardFormLayoutContainer = styled.div`
+export const WizardFormLayoutWrapper = styled.div`
   display: flex;
   flex-direction: column;
   align-items: center;
@@ -48,14 +48,7 @@ export const WizardFormNavbar = styled.div`
   }
 `
 
-// export const WizardFormButtonsContainer = styled.div`
-//   width: 60%;
-//   height: 100%;
-//   display: flex;
-//   justify-content: space-around;
-//   align-items: flex-end;
-// `
-export const WizardFormButtonsContainer = styled.div`
+export const WizardFormButtonsLayout = styled.div`
   margin-top: 20px;
   width: 100%;
   height: 100%;
@@ -122,70 +115,3 @@ export const WizardInputForms = styled.div`
   }
 `
 
-export const PaymentContainer = styled.div`
-  .budgetContainer {
-    & > p {
-      font-weight: 600;
-      color: #9ea0a5;
-    }
-    & > div {
-      width: 360px;
-      height: 40px;
-      background: #ffffff 0% 0% no-repeat padding-box;
-      border: 1px solid #e2e5ed;
-      border-radius: 4px;
-      padding-left: 8px;
-      color: #3e3f42;
-      font-weight: 400;
-    }
-  }
-
-  .addressContainer {
-    display: flex;
-
-    & > p {
-      font-weight: 600;
-      color: #9ea0a5;
-    }
-
-    & > div {
-      background: #ffffff 0% 0% no-repeat padding-box;
-      border: 1px solid #e2e5ed;
-      border-radius: 4px;
-      width: 360px;
-      height: 50px;
-      overflow: auto;
-      padding-left: 8px;
-      color: #3e3f42;
-      font-weight: 400;
-    }
-    & > button {
-      margin-left: 10px;
-      background-color: transparent;
-      outline: none;
-      border: none;
-    }
-  }
-
-  .paymentButtonContainer {
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-  }
-
-  .copyIcon {
-    cursor: pointer;
-  }
-`
-
-export const CampaignPreviewContainer = styled.div`
-
-  .dataContainer {
-    display: flex; 
-    flex-direction: column;
-    align-items: center;
-    height: 120px;
-    width: 60vw;
-    overflow: auto;
-  }
-`

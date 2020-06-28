@@ -6,16 +6,16 @@ import { useSelector, useDispatch } from 'react-redux'
 import {
   ethereumStyleAction,
   aeternityStyleAction
-} from '../../../redux/CurrencyStyle/currencyStyleActions'
-import aeternity_currency_menu_logo from '../../../assets/images/aeternity_currency_menu_logo.png'
-import { ReactComponent as Sun } from '../../../assets/navbar/sun.svg'
-import { ReactComponent as Moon } from '../../../assets/navbar/moon.svg'
+} from '../../../../redux/CurrencyStyle/currencyStyleActions'
+import aeternity_currency_menu_logo from '../../../../assets/images/aeternity_currency_menu_logo.png'
+import { ReactComponent as Sun } from '../../../../assets/navbar/sun.svg'
+import { ReactComponent as Moon } from '../../../../assets/navbar/moon.svg'
 import {
   StyledBurger,
   StyledMenu,
   CustomizedMobileBackgroundThemeButton
 } from './styles/MobileNavbarStyles'
-import { lightModeAction, darkModeAction } from '../../../redux/ThemeMode/themeModeActions'
+import { lightModeAction, darkModeAction } from '../../../../redux/ThemeMode/themeModeActions'
 
 const backgroundStyle = {
   light: 'white',

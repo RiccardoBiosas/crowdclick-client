@@ -1,6 +1,6 @@
 import React, { Fragment, createRef, useEffect, useRef } from "react";
 import { FieldArray } from "formik";
-import { MdClose } from "react-icons/md";
+import { IoMdClose } from "react-icons/io";
 import { IoMdAdd } from "react-icons/io";
 import { CampaignHeader } from "../styles/CampaignStyles";
 import {
@@ -27,20 +27,20 @@ export const PublisherWizardFormCampaignQuiz = ({
   hoverState,
   isError,
 }) => {
-  const questionInputRef = useRef("projectQuestion");
+  const { projectQuestion, projectOptions } = errors;
+  const questionInputRef = useRef();
+  const optionsArrayContainerRef = createRef();
 
   useEffect(() => {
     if (step === 3) {
       window.addEventListener("keypress", (e) => {
         if (e.key === "Enter") {
-          if (e.target.name != questionInputRef.current) {
+          if (e.target.name !== questionInputRef.current) {
             e.target.parentElement.parentElement.nextElementSibling.firstChild.firstChild.focus();
           }
         }
       });
     }
-
-    const { projectQuestion, projectOptions } = errors;
 
     if (
       !projectQuestion &&
@@ -50,11 +50,10 @@ export const PublisherWizardFormCampaignQuiz = ({
     ) {
       dispatch({ type: "third_step" });
     }
-  }, [dispatch, errors, step, touched]);
-  if (step != 3) {
+  }, [dispatch, errors, projectOptions, projectQuestion, step, touched]);
+  if (step !== 3) {
     return null;
   } else {
-    const optionsArrayContainerRef = createRef();
     const onEnterClick = (onClickFunc) => (e) => {
       if (e.key === "Enter") {
         onClickFunc(e);
@@ -79,12 +78,13 @@ export const PublisherWizardFormCampaignQuiz = ({
                   readOnly
                 />
               ) : (
-                <CustomInputField
-                  ref={questionInputRef}
-                  name="projectQuestion"
-                  id="projectQuestion"
-                  placeholder="project question"
-                />
+                <span ref={questionInputRef}>
+                  <CustomInputField
+                    name="projectQuestion"
+                    id="projectQuestion"
+                    placeholder="project question"
+                  />
+                </span>
               )}
 
               {errors.projectQuestion && touched.projectQuestion ? (
@@ -106,7 +106,7 @@ export const PublisherWizardFormCampaignQuiz = ({
               <FieldArray
                 name="projectOptions"
                 readOnly
-                render={({ push, remove }) => (
+                render={({ push }) => (
                   <Fragment>
                     <div
                       className="quizOptionsContainer"
@@ -114,10 +114,12 @@ export const PublisherWizardFormCampaignQuiz = ({
                     >
                       {values.projectOptions.length > 0 &&
                         values.projectOptions.map((elm, index) => (
-                          <div className="inputAndErrorContainer">
+                          <div
+                            className="inputAndErrorContainer"
+                            key={`wizardPublisherWizardArrayContainer${index}`}
+                          >
                             <div
                               className="fieldAndIconContainer"
-                              key={`wizardPublisherWizardArrayContainer${index}`}
                               onKeyPress={onEnterClick(() =>
                                 push({ option: "" })
                               )}
@@ -128,7 +130,7 @@ export const PublisherWizardFormCampaignQuiz = ({
                                 readOnly
                                 style={{ border: "none" }}
                               />
-                              <MdClose
+                              <IoMdClose
                                 className="trashIcon"
                                 size={20}
                                 data-index={index}
@@ -191,10 +193,12 @@ export const PublisherWizardFormCampaignQuiz = ({
                     >
                       {values.projectOptions.length > 0 &&
                         values.projectOptions.map((elm, index) => (
-                          <div className="inputAndErrorContainer">
+                          <div
+                            className="inputAndErrorContainer"
+                            key={`wizardPublisherWizardArrayContainer${index}`}
+                          >
                             <div
                               className="fieldAndIconContainer"
-                              key={`wizardPublisherWizardArrayContainer${index}`}
                               onKeyPress={onEnterClick(() =>
                                 push({ option: "" })
                               )}
@@ -204,9 +208,9 @@ export const PublisherWizardFormCampaignQuiz = ({
                                 type="text"
                                 style={{ border: "none" }}
                               />
-                              <MdClose
+                              <IoMdClose
                                 className="trashIcon"
-                                size={20}
+                                size={"20px"}
                                 onClick={() => remove(index)}
                                 data-index={index}
                               />

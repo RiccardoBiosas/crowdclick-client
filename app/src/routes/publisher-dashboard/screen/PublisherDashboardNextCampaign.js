@@ -1,8 +1,8 @@
 import React from 'react'
 import {
-    PublisherCampaignTaskSummaryContainer,
+    PublisherCampaignTaskSummaryLayout,
     PublisherCampaignTaskBody,
-    PublisherCampaignButtonContainer,
+    PublisherCampaignButtonLayout,
   } from '../../publisher-dashboard__new-task/styles/CampaignStyles'
 import {useRedirectWithProps} from "../../../hooks/useRedirectWithProps"
 import { PUBLISHER_WIZARD_ROUTE } from '../../../config/routes-config'
@@ -13,16 +13,16 @@ export const PublisherDashboardNextCampaign = () => {
 
 
   return (
-      <PublisherCampaignTaskSummaryContainer style={{marginBottom: "20px"}}>
+      <PublisherCampaignTaskSummaryLayout style={{marginBottom: "20px"}}>
         <div className='nextCampaignLogo' />
         <PublisherCampaignTaskBody>
           <h2>My next campaign</h2>
           <p>Description of the campaign</p>
-          <PublisherCampaignButtonContainer>     
+          <PublisherCampaignButtonLayout>     
 
             {useRedirectWithProps(`${PUBLISHER_WIZARD_ROUTE}`, 'blue', 'My Next Campaign')}
-          </PublisherCampaignButtonContainer>
+          </PublisherCampaignButtonLayout>
         </PublisherCampaignTaskBody>
-      </PublisherCampaignTaskSummaryContainer>
+      </PublisherCampaignTaskSummaryLayout>
   )
 }

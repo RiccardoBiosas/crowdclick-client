@@ -1,8 +1,9 @@
 import React, { useEffect, useState, useCallback } from 'react'
 import { useHistory } from 'react-router'
 import { useWeb3 } from '@openzeppelin/network/react'
-import { GlobalButton } from '../../../shared/GlobalButton'
+import { GlobalButton } from '../../../GlobalButton'
 import { FirstDivGroup } from './styles/DesktopNavbarStyles'
+import { USER_WITHDRAW_ROUTE } from '../../../../config/routes-config'
 
 export const GetBalanceComponent = ({ web3Context }) => {
   const [balance, setBalance] = useState(0)
@@ -37,8 +38,7 @@ export const NavbarAuthElements = () => {
           buttonColor={'blue'}
           buttonTextColor={'#FFFFFF'}
           buttonWidth={140}
-          // onClick={() => scrollToCoordinate(4200)}
-          onClick={() => history.push('/withdraw')}
+          onClick={() => history.push(USER_WITHDRAW_ROUTE)}
         >
           Withdraw
         </GlobalButton>

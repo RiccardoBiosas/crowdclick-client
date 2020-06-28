@@ -1,7 +1,8 @@
-import React, { useState, useEffect } from 'react'
+import React from 'react'
 import {useHistory} from 'react-router-dom'
-import { PublisherCampaignTaskSummaryContainer as UserTaskSummaryContainer } from  '../../publisher-dashboard__new-task/styles/CampaignStyles'
+import { PublisherCampaignTaskSummaryLayout as UserTaskSummaryLayout } from  '../../publisher-dashboard__new-task/styles/CampaignStyles'
 import { GlobalButton } from '../../../shared/GlobalButton'
+import { USER_TASK_ROUTE_WITH_PARAM } from '../../../config/routes-config'
 
 export const TasksConsoleList = ({ id, title, description, og_image, task_owner_address }) => {
   const history = useHistory()
@@ -12,7 +13,7 @@ export const TasksConsoleList = ({ id, title, description, og_image, task_owner_
 
   return (
     <div style={{ display: 'flex', justifyContent: 'center', marginBottom: "20px" }}>
-      <UserTaskSummaryContainer og_background={!isPlaceholderNeeded ? og_image : ""}>
+      <UserTaskSummaryLayout og_background={!isPlaceholderNeeded ? og_image : ""}>
         <div className='campaignAvatar' />
         {/* <div>
           <img src={og_image} />
@@ -26,14 +27,14 @@ export const TasksConsoleList = ({ id, title, description, og_image, task_owner_
             buttonMargin={'0px 20px 20px 0px'}
             buttonTextColor={'#FFFFFF'}
             buttonWidth={200}
-            onClick={() => history.push({pathname: `/task/${id}`, state: {task_owner_address}})}
+            onClick={() => history.push({pathname: `${USER_TASK_ROUTE_WITH_PARAM}${id}`, state: {task_owner_address}})}
           >
             Start Task
           </GlobalButton>
             {/* {useRedirectWithProps(`/task/${id}`, 'blue', 'Start Task')} */}
           </div>
         </div>
-      </UserTaskSummaryContainer>
+      </UserTaskSummaryLayout>
     </div>
   )
 }

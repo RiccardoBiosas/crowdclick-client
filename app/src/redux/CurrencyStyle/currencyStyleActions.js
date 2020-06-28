@@ -1,12 +1,7 @@
 export const ethereumStyleAction = {
-    
-    type: "ethereum"
-}
+  type: "ethereum",
+};
 
-export const aeternityStyleAction = () => {
-    return {
-        type: "aeternity"
-
-
-    }
-}
+export const aeternityStyleAction = {
+  type: "aeternity",
+};

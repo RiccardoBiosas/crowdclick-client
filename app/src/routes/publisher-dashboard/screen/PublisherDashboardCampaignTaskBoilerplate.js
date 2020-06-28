@@ -1,5 +1,5 @@
 import React from 'react'
-import { PublisherCampaignMainContainer } from '../../publisher-dashboard__new-task/styles/CampaignStyles'
+import { PublisherCampaignMainLayout } from '../../publisher-dashboard__new-task/styles/CampaignStyles'
 import {
   PublisherDashboardCampaignTask,
 } from './PublisherDashboardCampaignTask'
@@ -8,7 +8,7 @@ import { PublisherDashboardNextCampaign } from './PublisherDashboardNextCampaign
 
 export const PublisherDashboardCampaignTaskBoilerplate = () => {
   return (
-    <PublisherCampaignMainContainer style={{ marginTop: '20px' }}>
+    <PublisherCampaignMainLayout style={{ marginTop: '20px' }}>
       <PublisherDashboardNextCampaign />
 
       <PublisherDashboardCampaignTask
@@ -18,14 +18,14 @@ export const PublisherDashboardCampaignTaskBoilerplate = () => {
         }
         weeklyViews={'231'}
         surveyData={{
-          ['answer A']: 20,
-          ['answer B']: 14,
-          ['answer C']: 26,
-          ['answer D']: 40,
-          ['answer E']: 120,
-          ['answer F']: 11
+          'answer A': 20,
+          'answer B': 14,
+          'answer C': 26,
+          'answer D': 40,
+          'answer E': 120,
+          'answer F': 11
         }}
       />
-    </PublisherCampaignMainContainer>
+    </PublisherCampaignMainLayout>
   )
 }

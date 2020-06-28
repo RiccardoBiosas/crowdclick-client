@@ -2,16 +2,15 @@ import React, { useState } from 'react'
 import {  animated, useTransition } from 'react-spring'
 import {useHistory} from 'react-router-dom'
 import {
-  PublisherCampaignTaskSummaryContainer,
+  PublisherCampaignTaskSummaryLayout,
   PublisherCampaignTaskBody,
-  PublisherCampaignMainContainer,
-  PublisherCampaignButtonContainer,
-  PublisherCampaignAnalyticsContainer,
-  PublisherCampaignGeneralTaskContainer,
+  PublisherCampaignButtonLayout,  
+  PublisherCampaignGeneralTaskLayout,
   PercentageBarItem
 } from '../../publisher-dashboard__new-task/styles/CampaignStyles'
 import { GlobalButton } from '../../../shared/GlobalButton'
 import { isWhatPercentage } from '../../../utils/isWhatPercentage'
+import { PUBLISHER_WIZARD_EDIT_ROUTE_WITH_PARAM } from '../../../config/routes-config'
 
 export const PublisherDashboardCampaignTask = ({
   campaignID,
@@ -31,13 +30,13 @@ export const PublisherDashboardCampaignTask = ({
   })
 
   return (
-    <PublisherCampaignGeneralTaskContainer>
-      <PublisherCampaignTaskSummaryContainer campaignToggle={campaignState}>
+    <PublisherCampaignGeneralTaskLayout>
+      <PublisherCampaignTaskSummaryLayout campaignToggle={campaignState}>
         <div className='campaignAvatar' />
         <PublisherCampaignTaskBody>
           <h2>{campaignID}</h2>
           <p>{campaignDescription}</p>
-          <PublisherCampaignButtonContainer>
+          <PublisherCampaignButtonLayout>
             {/* <button>Edit Campaign</button>
             <button>Results</button> */}
             <GlobalButton
@@ -58,9 +57,9 @@ export const PublisherDashboardCampaignTask = ({
               {!campaignState && 'Show results'}{' '}
               {campaignState && 'Hide results'}
             </GlobalButton>
-          </PublisherCampaignButtonContainer>
+          </PublisherCampaignButtonLayout>
         </PublisherCampaignTaskBody>
-      </PublisherCampaignTaskSummaryContainer>
+      </PublisherCampaignTaskSummaryLayout>
 
       {transitions.map(({ item, key, props }) => {
         return (
@@ -109,7 +108,7 @@ export const PublisherDashboardCampaignTask = ({
           )
         )
       })}
-    </PublisherCampaignGeneralTaskContainer>
+    </PublisherCampaignGeneralTaskLayout>
   )
 }
 
@@ -147,14 +146,14 @@ export const Temporary__PublisherDashboardCampaignTask = ({
   })
 
   return (
-    <PublisherCampaignGeneralTaskContainer>
-      <PublisherCampaignTaskSummaryContainer og_background={!isPlaceholderNeeded ? og_image : ""} campaignToggle={campaignState}>
+    <PublisherCampaignGeneralTaskLayout>
+      <PublisherCampaignTaskSummaryLayout og_background={!isPlaceholderNeeded ? og_image : ""} campaignToggle={campaignState}>
         <div className='campaignAvatar' />
         <PublisherCampaignTaskBody>
           {/* <h2>{campaignID}</h2> */}
           <h2>{title}</h2>
           <p>{campaignDescription}</p>
-          <PublisherCampaignButtonContainer>
+          <PublisherCampaignButtonLayout>
             {/* <button>Edit Campaign</button>
             <button>Results</button> */}
             <GlobalButton
@@ -162,7 +161,7 @@ export const Temporary__PublisherDashboardCampaignTask = ({
               buttonMargin={'0px 20px 20px 0px'}
               buttonTextColor={'#FFFFFF'}
               buttonWidth={200}
-              onClick={() => history.push(`/publisher-dashboard/edit/${taskID}`)}
+              onClick={() => history.push(`${PUBLISHER_WIZARD_EDIT_ROUTE_WITH_PARAM}${taskID}`)}
             >
               Edit Campaign
             </GlobalButton>
@@ -176,9 +175,9 @@ export const Temporary__PublisherDashboardCampaignTask = ({
               {!campaignState && 'Show results'}{' '}
               {campaignState && 'Hide results'}
             </GlobalButton>
-          </PublisherCampaignButtonContainer>
+          </PublisherCampaignButtonLayout>
         </PublisherCampaignTaskBody>
-      </PublisherCampaignTaskSummaryContainer>
+      </PublisherCampaignTaskSummaryLayout>
 
       {transitions.map(({ item, key, props }) => {
         return (
@@ -197,6 +196,6 @@ export const Temporary__PublisherDashboardCampaignTask = ({
           )
         )
       })}
-    </PublisherCampaignGeneralTaskContainer>
+    </PublisherCampaignGeneralTaskLayout>
   )
 }

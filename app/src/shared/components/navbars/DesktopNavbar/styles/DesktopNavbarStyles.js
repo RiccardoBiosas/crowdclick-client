@@ -1,6 +1,7 @@
 import styled from 'styled-components'
 
-export const MainNavbarFlexWrapper = styled.div`
+export const NavbarFlexWrapper = styled.header`
+  width: 100vw;
   display: flex;
   justify-content: center;
   margin-bottom: 4vh;
@@ -8,8 +9,8 @@ export const MainNavbarFlexWrapper = styled.div`
 `
 
 
-export const MainDesktopContainer = styled.div`
-  width: 60vw;
+export const DesktopNavbarLayout = styled.div`
+  width: 60%;
   display: flex;
   justify-content: space-between;
 
@@ -18,9 +19,10 @@ export const MainDesktopContainer = styled.div`
   }
  
   @media screen and (max-width: 1480px) {
-    width: 80vw;
+    width: 80%;
   }
 `
+
 
 export const FirstDivGroup = styled.div`
   flex: 4;
@@ -88,16 +90,9 @@ export const BackgroundThemeButton = styled.button`
     align-items: center;
     justify-content: center;
     transition: all 0.3s linear;
-
-
-
   }
   
-  svg {
-      height: 12px;
-      width: 11px;
-      
-  }
+
 
   .sunContainer {       
       transform: ${props =>
@@ -110,52 +105,4 @@ export const BackgroundThemeButton = styled.button`
         props.bgtheme === 'dark' ? 'translateX(0)' : 'translateX(-50px)'};
     }
 }
-`
-
-export const CurrencyMenuParentWrapper = styled.div`
-  .currencyMenuContainer {
-    background: #ffffff 0% 0% no-repeat padding-box;
-    box-shadow: 0px 3px 6px #00000029;
-    border-radius: 8px;
-    width: 62px;
-    height: 48px;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    flex-wrap: nowrap;
-    margin-bottom: 4px;
-  }
-
-  .navbarCurrencyDropdownArrow {
-    color: #206dff;
-    cursor: pointer;
-  }
-
-
-`
-
-export const CurrencyOptionsDropdownLayout = styled.div`
-  display: ${props => (props.isVisible ? '' : 'none')};
-  position: absolute;
-  zindex: 999;
-
-  background: #ffffff 0% 0% no-repeat padding-box;
-  box-shadow: 0px 12px 36px #00000014;
-  border-radius: 8px;
-  border: 1px solid #e7e7ed;
-  width: 62px;
-
-  & > p {
-    font-size: 15px;
-    letter-spacing: 0;
-    color: #9d9fa4;
-    cursor: pointer;
-    text-align: center;
-    // margin-bottom: -8px;
-
-    &:hover {
-      color: #206dff;
-      font-weight: bold;
-    }
-  }
 `

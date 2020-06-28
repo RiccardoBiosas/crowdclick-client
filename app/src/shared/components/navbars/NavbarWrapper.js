@@ -1,7 +1,7 @@
 import React, {Fragment } from 'react'
 import { DesktopNavbar } from './DesktopNavbar/DesktopNavbar'
 import { MobileNavbar } from './MobileNavbar/MobileNavbar'
-import { useWindowSize } from '../../hooks/useWindowSize'
+import { useWindowSize } from '../../../hooks/useWindowSize'
 
 export const NavbarWrapper = () => {
   const screenDimensions = useWindowSize()

@@ -1,88 +1,24 @@
-import React, { Fragment, useState, useEffect } from "react";
-import axios from "axios";
+import React, { Fragment } from "react";
+import PackmanLoader from "react-spinners/PacmanLoader";
+import { ROPSTEN_ETHERSCAN_TX } from "../../../config/api-config";
 import { CampaignHeader } from "../styles/CampaignStyles";
-import { PaymentContainer } from "../styles/WizardFormContainerStyles";
+import metamaskLogo from "../../../assets/wallet-logos/metamask-logo.svg";
 import { GlobalButton } from "../../../shared/GlobalButton";
 import Copy from "../../../assets/images/copy.svg";
-import { LoadingIcon } from "../../../shared/LoadingIcon";
-import { COINGECKO_API, TASK_ENDPOINT } from "../../../config/api-config";
+import CopyToClipboard from "../../../shared/copyToClipboard/CopyToClipboard";
 
 export const PublisherWizardFormCampaignPayment = ({
   step,
-  values,
-  drizzle,
-  drizzleState,
-  setStep,
-  transactionId,
-  setRespStatus,
+  address,
+  transactionID,
 }) => {
-  // const web3Context = useWeb3(process.env.REACT_APP_INFURA_ROPSTEN)
-  // const {networkId, accounts, lib} = web3Context
-  // const [wasPaymentSuccessful, setWasPaymentSuccessful] = useState(false)
-  const address = drizzle.contracts.CrowdclickEscrow.address;
-
-  // const fetchEthPrice = async() => {
-  //   const resp = await axios.get(`${COINGECKO_API}simple/price?ids=ethereum&vs_currencies=usd&include_market_cap=false&include_24hr_vol=false&include_24hr_change=false&include_last_updated_at=false`, {withCredentials: false})
-  //   setEthPrice(resp)
-
-  // }
-
-  const postCampaign = async () => {
-    const {
-      projectName,
-      projectDescription,
-      projectURL,
-      pricePerClick,
-      campaignBudget,
-      projectQuestion,
-      projectOptions,
-    } = values;
-
-    const filteredProjectOptionsWithoutEmptyStrings = projectOptions.filter(
-      (x) => x.option !== ""
-    );
-
-    const res = await axios.post(TASK_ENDPOINT, {
-      title: projectName,
-      description: projectDescription,
-      website_link: projectURL,
-      reward_per_click: pricePerClick,
-      time_duration: "00:00:30",
-      spend_daily: campaignBudget,
-      questions: [
-        {
-          title: projectQuestion,
-          options: filteredProjectOptionsWithoutEmptyStrings.map((x) => {
-            return { title: x.option };
-          }),
-        },
-      ],
-    });
-
-    let respStatus = res ? res.status : "failed";
-    setRespStatus(respStatus);
-    setStep(step + 1);
-  };
-
-  useEffect(() => {
-    if (step === 5) {
-      if (drizzleState.transactionStack.length > 0) {
-        const tx = drizzleState.transactionStack[transactionId];
-
-        if (
-          drizzleState.transactions[tx] &&
-          drizzleState.transactions[tx].status === "success"
-        ) {
-          postCampaign();
-        }
-      }
-    }
-  }, [drizzleState, postCampaign, step, transactionId]); //pass drizzleState to observe the state for changes!
+  // console.log("TRANSACTION ID CAMPAIGN PAYMENT", transactionID);
 
   if (step !== 5) {
     return null;
   } else {
     const copyToClickboard = (txt) => {
+      console.log("COPY CLIPBPARD FUNCTION");
       const temporaryInput = document.createElement("input");
       document.body.appendChild(temporaryInput);
       temporaryInput.setAttribute("value", txt);
@@ -91,38 +27,138 @@ export const PublisherWizardFormCampaignPayment = ({
       document.body.removeChild(temporaryInput);
     };
 
-    // if (!ethPrice) {
-    //   return <LoadingIcon />
-    // }
-
+    // if (!transactionID) {
     return (
       <Fragment>
         <CampaignHeader>
           <h2>You're almost done! Just deposit ETH</h2>
           <p>Here is your total campaign cost</p>
         </CampaignHeader>
-        <PaymentContainer>
-          <p>Send ETH to your campaign contract:</p>
-          <div className="addressContainer">
-            <div>{address}</div>
-            <button onClick={() => copyToClickboard(address)}>
+        <div
+          style={{
+            height: "90%",
+            display: "flex",
+            flexDirection: "column",
+            alignItems: "center",
+          }}
+        >
+          <p>The ETH will be deposited on:</p>
+          <div style={{ display: "flex" }}>
+            <div
+              style={{
+                border: "1px solid #E2E5ED",
+                height: "38px",
+                borderRadius: "4px",
+                display: "flex",
+                alignItems: "center",
+              }}
+            >
+              {address}
+            </div>
+            {/* <CopyToClipboard condition={true} contentToCopy={address} successTxt={"address copied!"} failureTxt={"nothing was copied!"} /> */}
+            <button
+              style={{
+                background: "none",
+                outline: "none",
+                border: "none",
+                marginLeft: "6px",
+              }}
+              type="button"
+              onClick={() => copyToClickboard(address)}
+            >
               <img src={Copy} alt="copy" />
             </button>
           </div>
-          <div className="paymentButtonContainer">
-            <GlobalButton
-              type="submit"
-              buttonColor={"orange"}
-              buttonMargin={"34px 0px 0px 0px"}
-              buttonTextColor={"#FFFFFF"}
-              buttonWidth={280}
-              // onClick={openTask}
-            >
-              Pay with Metamask
-            </GlobalButton>
+          <div
+            style={{
+              display: "flex",
+              flexDirection: "column",
+              alignItems: "center",
+              marginTop: "1rem",
+            }}
+          >
+            {!transactionID ? (
+              <>
+                {" "}
+                <div>
+                  <img
+                    style={{ width: "120px" }}
+                    src={metamaskLogo}
+                    alt="wallet-logo"
+                  />
+                </div>
+                <div>
+                  <GlobalButton
+                    type="submit"
+                    buttonColor={"orange"}
+                    buttonMargin={"34px 0px 0px 0px"}
+                    buttonTextColor={"#FFFFFF"}
+                    buttonWidth={280}
+                    // onClick={openTask}
+                  >
+                    Pay with Metamask
+                  </GlobalButton>
+                </div>
+              </>
+            ) : (
+              <>
+                <div style={{ height: "100px" }}>
+                  <PackmanLoader color="#206DFF" size={30} />
+                </div>
+                <div
+                  style={{
+                    display: "flex",
+                    flexDirection: "column",
+                    alignItems: "center",
+                  }}
+                >
+                  <p style={{ fontWeight: 900, color: "#9ea0a5" }}>
+                    Check your transaction on etherscan:
+                  </p>
+                  <div>
+                    <a
+                      href={`${ROPSTEN_ETHERSCAN_TX}${transactionID}`}
+                      style={{ color: "#9ea0a5" }}
+                      target="_blank"
+                      rel="noopener noreferrer"
+                    >
+                      {transactionID}
+                    </a>
+                  </div>
+                </div>
+              </>
+            )}
           </div>
-        </PaymentContainer>
+        </div>
       </Fragment>
     );
+    // } else {
+    //   return (
+    //     <Fragment>
+    //       <CampaignHeader>
+    //         <h2>You're almost done! Just deposit ETH</h2>
+    //         <p>Here is your total campaign cost</p>
+    //       </CampaignHeader>
+    //       <div>
+    //         <p>The ETH will be deposited on:</p>
+    //         <div style={{ display: "flex" }}>
+    //           <div>{address}</div>
+    //           {/* <CopyToClipboard condition={true} contentToCopy={address} successTxt={"address copied!"} failureTxt={"nothing was copied!"} /> */}
+    //           <button type="button" onClick={() => copyToClickboard(address)}>
+    //             <img src={Copy} alt="copy" />
+    //           </button>
+    //         </div>
+    //         <div
+    //           style={{
+    //             display: "flex",
+    //             flexDirection: "column",
+    //             alignItems: "center",
+    //             justifyContent: "center",
+    //           }}
+    //         ></div>
+    //       </div>
+    //     </Fragment>
+    //   );
+    // }
   }
 };
