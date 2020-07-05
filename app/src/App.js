@@ -23,8 +23,10 @@ import {
   USER_TASKS_LIST_ROUTE,
   USER_TASK_ROUTE_WITH_PARAM,
   USER_WITHDRAW_ROUTE,
+  NO_METAMASK_ROUTE,
 } from "./config/routes-config";
 import WithdrawBalance from "./routes/withdraw/WithdrawComponent";
+import InstallMetamaskWarning from "./routes/no-metamask/screen/InstallMetamaskWarning";
 
 export const drizzle = new Drizzle(options);
 
@@ -50,6 +52,8 @@ const App = () => {
             path={`${USER_TASK_ROUTE_WITH_PARAM}:id`}
             component={() => WithDrizzleInitializer(TaskIframe)}
           />
+
+          <Route path={NO_METAMASK_ROUTE} component={InstallMetamaskWarning} />
 
           <ProtectedRoute
             exact

@@ -31,7 +31,8 @@ const WithdrawBalance = ({ drizzle, drizzleState }) => {
     }
   }, [dataKey, drizzleState.transactionStack, fetchBalance, userBalance]);
 
-  const withdraw = async () => {
+  const withdraw = async (e) => {
+    e.preventDefault()
     const resp = await axios.get(
       `${COINGECKO_API}simple/price?ids=ethereum&vs_currencies=usd&include_market_cap=false&include_24hr_vol=false&include_24hr_change=false&include_last_updated_at=false`,
       { withCredentials: false }
@@ -67,6 +68,7 @@ const WithdrawBalance = ({ drizzle, drizzleState }) => {
             justifyContent: "space-around",
             height: "60%",
           }}
+          onSubmit={withdraw}
         >
           <label
             style={{ color: "#9EA0A5", fontWeight: 900 }}

@@ -6,3 +6,4 @@ export const PUBLISHER_WIZARD_EDIT_ROUTE_WITH_PARAM = '/publisher-dashboard/edit
 export const USER_TASKS_LIST_ROUTE = '/user/tasks'
 export const USER_TASK_ROUTE_WITH_PARAM = '/user/task/'
 export const USER_WITHDRAW_ROUTE = '/user/withdraw'
+export const NO_METAMASK_ROUTE = "/no-metamask"

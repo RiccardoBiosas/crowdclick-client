@@ -1,22 +1,21 @@
-import React, { useState, Fragment } from "react";
+import React from "react";
+import {useHistory} from 'react-router-dom'
 import Web3 from "web3";
 import Web3Utils from "web3-utils";
 import { useDispatch } from "react-redux";
 import axios from "axios";
-import  StyledGlobalButton from "../shared/styles/StyledGlobalButton";
+import StyledGlobalButton from "../shared/styles/StyledGlobalButton";
 import { AUTH_ENDPOINT } from "../config/api-config";
-import { createPortal } from "react-dom";
-import { MetamaskModal } from "./MetamaskModal";
 import { navAuthTrueAction } from "../redux/NavAuth/navAuthActions";
+import { NO_METAMASK_ROUTE } from "../config/routes-config";
 
 axios.defaults.withCredentials = true;
 
-const modalRoot = document.getElementById("portal-root");
 
 const MetamaskButton = (props) => {
   const { btnColor, btnWidth, btnText } = props;
-  const [showModal, setShowModal] = useState();
-  const dispatch = useDispatch()
+  const history = useHistory()
+  const dispatch = useDispatch();
 
   const checkMetamask = async () => {
     if (window.ethereum) {
@@ -24,30 +23,27 @@ const MetamaskButton = (props) => {
 
       try {
         await window.ethereum.enable();
-      } catch (error) {}
+      } catch (error) {
+        console.error(error)
+      }
     } else if (window.web3) {
       window.web3 = new Web3(window.web3.currentProvider);
     } else {
-      setShowModal(true);
+      history.push(NO_METAMASK_ROUTE)      
     }
 
     const resp = await axios.get(AUTH_ENDPOINT);
-    const nonce = resp.data.nonce
-      ? resp.data.nonce
-      : null;
+    const nonce = resp.data.nonce ? resp.data.nonce : null;
     const coinbase = await window.web3.eth.getCoinbase(console.log);
 
-    if(!nonce) {
-      const isAlreadyAuth = resp.data.is_authenticated
-      if(isAlreadyAuth) {
+    if (!nonce) {
+      const isAlreadyAuth = resp.data.is_authenticated;
+      if (isAlreadyAuth) {
         window.localStorage.setItem("userPubKey", `"${coinbase}"`);
         dispatch(navAuthTrueAction);
-
       } else {
-        window.localStorage.removeItem("userPubKey")
+        window.localStorage.removeItem("userPubKey");
       }
-
-       
     } else {
       const sig = await window.web3.eth.sign(
         // Web3Utils.sha3(nonce.data.nonce),
@@ -55,13 +51,12 @@ const MetamaskButton = (props) => {
         coinbase,
         console.log
       );
-  
+
       const response = await axios.post(AUTH_ENDPOINT, {
         user_address: coinbase,
         user_signature: sig,
       });
-  
-  
+
       if (response.data.is_authenticated === true) {
         dispatch(navAuthTrueAction);
         window.localStorage.setItem("userPubKey", `"${coinbase}"`);
@@ -69,41 +64,26 @@ const MetamaskButton = (props) => {
           props.cb_login();
         }
       } else {
-        window.localStorage.removeItem("userPubKey")
-
+        window.localStorage.removeItem("userPubKey");
       }
-  
     }
-   
-
   };
 
-  const closeModal = () => {
-    setShowModal(false);
-  };
 
   return (
-    <Fragment>
-      {showModal &&
-        createPortal(
-          <MetamaskModal closeModalCallback={closeModal} />,
-          modalRoot
-        )}
-      <StyledGlobalButton
-        buttonColor={btnColor}
-        buttonTextColor={"#FFFFFF"}
-        buttonWidth={btnWidth}
-        onClick={checkMetamask}
-      >
-        {btnText}
-      </StyledGlobalButton>
-    </Fragment>
+    <StyledGlobalButton
+      buttonColor={btnColor}
+      buttonTextColor={"#FFFFFF"}
+      buttonWidth={btnWidth}
+      onClick={checkMetamask}
+    >
+      {btnText}
+    </StyledGlobalButton>
   );
 };
 
 MetamaskButton.defaultProps = {
-  btnText: "connect"
-}
+  btnText: "connect",
+};
 
-export default MetamaskButton
-
+export default MetamaskButton;
