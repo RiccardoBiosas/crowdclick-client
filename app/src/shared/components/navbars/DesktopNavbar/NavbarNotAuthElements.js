@@ -1,7 +1,7 @@
 import React from 'react'
 import { FaTelegramPlane } from 'react-icons/fa'
 import { FirstDivGroup } from './styles/DesktopNavbarStyles'
-import { GlobalButton } from '../../../GlobalButton'
+import StyledGlobalButton  from '../../../styles/StyledGlobalButton'
 
 export const NavbarNotAuthElements = () => {
   const scrollToCoordinate = x => {
@@ -18,7 +18,7 @@ export const NavbarNotAuthElements = () => {
         </p>
       </div>
       <div>
-        <GlobalButton
+        <StyledGlobalButton
           buttonColor={'blue'}
           buttonTextColor={'#FFFFFF'}
           buttonWidth={140}
@@ -30,7 +30,7 @@ export const NavbarNotAuthElements = () => {
           onClick={() => scrollToCoordinate(2800)}
         >
           Launch on <FaTelegramPlane size={24} />
-        </GlobalButton>
+        </StyledGlobalButton>
       </div>
     </FirstDivGroup>
   )

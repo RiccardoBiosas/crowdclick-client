@@ -1,14 +1,11 @@
 import React, { Fragment } from "react";
-import { CampaignHeader } from "../styles/CampaignStyles";
 import { WizardPreviewLayout } from "../styles/WizardFormStyles";
 import { useFetch } from "../../../hooks/useFetch";
 import { LoadingIcon } from "../../../shared/LoadingIcon";
 import { COINGECKO_API } from "../../../config/api-config";
+import { StyledGeneralHeadingTwo } from "../../../shared/styles/StyledGeneralHeadings";
 
-export const PublisherWizardFormCampaignPreview = ({
-  step,
-  values
-}) => {
+export const PublisherWizardFormCampaignPreview = ({ step, values }) => {
   const resp = useFetch(
     `${COINGECKO_API}simple/price?ids=ethereum&vs_currencies=usd&include_market_cap=false&include_24hr_vol=false&include_24hr_change=false&include_last_updated_at=false`,
     { withCredentials: false }
@@ -33,9 +30,11 @@ export const PublisherWizardFormCampaignPreview = ({
     }
     return (
       <Fragment>
-        <CampaignHeader>
-          <h2>Your Campaign Preview</h2>
-        </CampaignHeader>
+        <div>
+          <StyledGeneralHeadingTwo headingFontSize="24px">
+            Your Campaign Preview
+          </StyledGeneralHeadingTwo>
+        </div>
         <div style={{ display: "flex", justifyContent: "center" }}>
           <WizardPreviewLayout>
             <div>

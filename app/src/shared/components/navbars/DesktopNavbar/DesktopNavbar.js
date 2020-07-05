@@ -29,10 +29,10 @@ import { AccountDropdown } from "./AccountDropdown";
 import { NavbarAuthElements } from "./NavbarAuthElements";
 import MetamaskButton from "../../../../metamask/MetamaskButton";
 import {
-  ArrowLayout,
-  DropdownLayout,
-  DropdownButton
-} from "../../../styles/DropdownLayout";
+  StyledArrowLayout,
+  StyledDropdownLayout,
+  StyledDropdownButton
+} from "../../../styles/StyledDropdownLayout";
 import { HOME_ROUTE } from "../../../../config/routes-config";
 
 export const DesktopNavbar = () => {
@@ -74,7 +74,6 @@ export const DesktopNavbar = () => {
   );
 
   const toggleBackground = () => {
-    // const updatedBackgroundState = backgroundState === "light" ? "dark" : "light";
     const updatedBackgroundState =
       currentScreenTheme === "light" ? darkModeAction : lightModeAction;
     dispatch(updatedBackgroundState);
@@ -141,7 +140,7 @@ export const DesktopNavbar = () => {
                 style={{ position: "relative" }}
                 ref={currencyThemeContainerRef}
               >
-                <DropdownButton size="small" dropdownBtnPadding='0 0 0 4px'>
+                <StyledDropdownButton size="small" dropdownBtnPadding='0 0 0 4px'>
                   {currencyTheme === "ethereumStyle" ? (
                     <FaEthereum color="#206dff" size="28px" />
                   ) : (
@@ -150,17 +149,17 @@ export const DesktopNavbar = () => {
                       alt="cryptocurrency-logo"
                     />
                   )}
-                  <ArrowLayout>
+                  <StyledArrowLayout>
                     <MdKeyboardArrowDown
                       size="28px"
                       color="#206dff"
                       className="arrow"
                       onClick={handleCurrency}
                     />
-                  </ArrowLayout>
-                </DropdownButton>
+                  </StyledArrowLayout>
+                </StyledDropdownButton>
 
-                <DropdownLayout
+                <StyledDropdownLayout
                   size="small"
                   active={currencyMenuStatus}
                   itemPadding="12px 0 8px 14px"
@@ -177,7 +176,7 @@ export const DesktopNavbar = () => {
                   >
                     AE
                   </li>
-                </DropdownLayout>
+                </StyledDropdownLayout>
               </div>
             </>
           </AuthSecondDivGroup>

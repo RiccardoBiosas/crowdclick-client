@@ -150,9 +150,9 @@ export const TaskIframe = ({ drizzle, drizzleState }) => {
     )
     console.log('selected task', selected_task)
     const taskID = selected_task[0].id ? selected_task[0].id : null
-    const questionID = selected_task[0].questions[0].id
-      ? selected_task[0].questions[0].id
-      : null
+    // const questionID = selected_task[0].questions[0].id
+    //   ? selected_task[0].questions[0].id
+    //   : null
     const URL = selected_task[0].website_link
       ? selected_task[0].website_link
       : null

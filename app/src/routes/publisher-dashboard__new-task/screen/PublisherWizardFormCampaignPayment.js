@@ -1,11 +1,12 @@
 import React, { Fragment } from "react";
 import PackmanLoader from "react-spinners/PacmanLoader";
 import { ROPSTEN_ETHERSCAN_TX } from "../../../config/api-config";
-import { CampaignHeader } from "../styles/CampaignStyles";
+import { StyledGeneralHeadingTwo } from "../../../shared/styles/StyledGeneralHeadings";
 import metamaskLogo from "../../../assets/wallet-logos/metamask-logo.svg";
-import { GlobalButton } from "../../../shared/GlobalButton";
+import  StyledGlobalButton  from "../../../shared/styles/StyledGlobalButton";
 import Copy from "../../../assets/images/copy.svg";
 import CopyToClipboard from "../../../shared/copyToClipboard/CopyToClipboard";
+import StyledGeneralParagraph from "../../../shared/styles/StyledGeneralParagraph";
 
 export const PublisherWizardFormCampaignPayment = ({
   step,
@@ -18,7 +19,7 @@ export const PublisherWizardFormCampaignPayment = ({
     return null;
   } else {
     const copyToClickboard = (txt) => {
-      console.log("COPY CLIPBPARD FUNCTION");
+      // console.log("COPY CLIPBPARD FUNCTION");
       const temporaryInput = document.createElement("input");
       document.body.appendChild(temporaryInput);
       temporaryInput.setAttribute("value", txt);
@@ -30,10 +31,10 @@ export const PublisherWizardFormCampaignPayment = ({
     // if (!transactionID) {
     return (
       <Fragment>
-        <CampaignHeader>
-          <h2>You're almost done! Just deposit ETH</h2>
-          <p>Here is your total campaign cost</p>
-        </CampaignHeader>
+        <div>
+          <StyledGeneralHeadingTwo headingFontSize="24px">You're almost done! Just deposit ETH</StyledGeneralHeadingTwo>
+          <StyledGeneralParagraph paragraphColor="#9ea0a5" paragraphFontSize="16px" >Here is your total campaign cost</StyledGeneralParagraph>
+        </div>
         <div
           style={{
             height: "90%",
@@ -88,7 +89,7 @@ export const PublisherWizardFormCampaignPayment = ({
                   />
                 </div>
                 <div>
-                  <GlobalButton
+                  <StyledGlobalButton
                     type="submit"
                     buttonColor={"orange"}
                     buttonMargin={"34px 0px 0px 0px"}
@@ -97,7 +98,7 @@ export const PublisherWizardFormCampaignPayment = ({
                     // onClick={openTask}
                   >
                     Pay with Metamask
-                  </GlobalButton>
+                  </StyledGlobalButton>
                 </div>
               </>
             ) : (
@@ -132,33 +133,5 @@ export const PublisherWizardFormCampaignPayment = ({
         </div>
       </Fragment>
     );
-    // } else {
-    //   return (
-    //     <Fragment>
-    //       <CampaignHeader>
-    //         <h2>You're almost done! Just deposit ETH</h2>
-    //         <p>Here is your total campaign cost</p>
-    //       </CampaignHeader>
-    //       <div>
-    //         <p>The ETH will be deposited on:</p>
-    //         <div style={{ display: "flex" }}>
-    //           <div>{address}</div>
-    //           {/* <CopyToClipboard condition={true} contentToCopy={address} successTxt={"address copied!"} failureTxt={"nothing was copied!"} /> */}
-    //           <button type="button" onClick={() => copyToClickboard(address)}>
-    //             <img src={Copy} alt="copy" />
-    //           </button>
-    //         </div>
-    //         <div
-    //           style={{
-    //             display: "flex",
-    //             flexDirection: "column",
-    //             alignItems: "center",
-    //             justifyContent: "center",
-    //           }}
-    //         ></div>
-    //       </div>
-    //     </Fragment>
-    //   );
-    // }
   }
 };

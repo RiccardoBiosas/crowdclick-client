@@ -1,8 +1,8 @@
 import React, { Fragment } from 'react'
-import { CampaignHeader } from '../../styles/CampaignStyles'
 import { ReactComponent as SvgSuccess } from '../../../../assets/SVG/Success.svg'
 import { ReactComponent as SvgFailure } from '../../../../assets/SVG/Failure.svg'
 import { LoadingIcon } from '../../../../shared/LoadingIcon'
+import { StyledGeneralHeadingTwo } from '../../../../shared/styles/StyledGeneralHeadings'
 
 export const Temporary_CampaignOutcome = ({ step, respStatus }) => {
  
@@ -18,9 +18,9 @@ export const Temporary_CampaignOutcome = ({ step, respStatus }) => {
       if (respStatus === 201) {
         return (
           <Fragment>
-            <CampaignHeader>
-              <h2>Campaign Successfully Created!</h2>
-            </CampaignHeader>
+            <div>
+              <StyledGeneralHeadingTwo headingFontSize="24px">Campaign Successfully Created!</StyledGeneralHeadingTwo>
+            </div>
             <div
               style={{
                 display: 'flex',
@@ -35,9 +35,9 @@ export const Temporary_CampaignOutcome = ({ step, respStatus }) => {
       } else if(respStatus === 200) {
         return (
             <Fragment>
-              <CampaignHeader>
-                <h2>Campaign Successfully Edited!</h2>
-              </CampaignHeader>
+              <div>
+                <StyledGeneralHeadingTwo headingFontSize="24px">Campaign Successfully Edited!</StyledGeneralHeadingTwo>
+              </div>
               <div
                 style={{
                   display: 'flex',
@@ -53,10 +53,10 @@ export const Temporary_CampaignOutcome = ({ step, respStatus }) => {
       } else {
         return (
           <Fragment>
-            <CampaignHeader>
-              <h2>Campaign Not Successfully Complete</h2>
+            <div>
+              <StyledGeneralHeadingTwo headingFontSize="24px">Campaign Not Successfully Complete</StyledGeneralHeadingTwo>
               <p>Try to go back and review the submitted data</p>
-            </CampaignHeader>
+            </div>
             <div
               style={{
                 display: 'flex',

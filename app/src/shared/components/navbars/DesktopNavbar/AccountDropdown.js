@@ -2,10 +2,10 @@ import React, { useState, useRef } from "react";
 import { useHistory, NavLink } from "react-router-dom";
 import { useDispatch } from "react-redux";
 import {
-  ArrowLayout,
-  DropdownLayout,
-  DropdownButton,
-} from "../../../styles/DropdownLayout";
+  StyledArrowLayout,
+  StyledDropdownLayout,
+  StyledDropdownButton,
+} from "../../../styles/StyledDropdownLayout";
 import { MdKeyboardArrowDown } from "react-icons/md";
 import { useHandleEventOutsideRef } from "../../../../hooks/useHandleEventOutsideRef";
 import axios from "axios";
@@ -43,18 +43,18 @@ export const AccountDropdown = () => {
 
   return (
     <div style={{ position: "relative" }} ref={dropdownContainerRef}>
-      <DropdownButton
+      <StyledDropdownButton
         size="medium"
         dropdownBtnPadding='0 0 0 8px'
         onClick={() => setDropdownStatus(!dropdownStatus)}
       >
         <p>ACCOUNT</p>
-        <ArrowLayout>
+        <StyledArrowLayout>
           <MdKeyboardArrowDown size="28px" color="#206dff" className="arrow" />
-        </ArrowLayout>
-      </DropdownButton>
+        </StyledArrowLayout>
+      </StyledDropdownButton>
 
-      <DropdownLayout
+      <StyledDropdownLayout
         size="medium"
         active={dropdownStatus}
         itemPadding="12px 0 8px 32px"
@@ -80,7 +80,7 @@ export const AccountDropdown = () => {
         <li className="dropdown-item" onClick={handleClick}>
           Logout
         </li>
-      </DropdownLayout>
+      </StyledDropdownLayout>
     </div>
   );
 };

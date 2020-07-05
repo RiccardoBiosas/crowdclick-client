@@ -2,24 +2,23 @@ import React, { Fragment, useState, useReducer, useEffect } from "react";
 import { Formik, Form } from "formik";
 import axios from "axios";
 import web3 from "web3";
-import { Prompt, matchPath, Redirect } from "react-router-dom";
+// import { Prompt, matchPath, Redirect } from "react-router-dom";
+import { Redirect } from "react-router-dom";
 import { PublisherWizardFormCampaignDescription } from "../screen/PublisherWizardFormCampaignDescription";
 import { PublisherWizardFormCampaignPublisherBudget } from "../screen/PublisherWizardFormCampaignBudget";
 import { PublisherWizardFormCampaignQuiz } from "../screen/PublisherWizardFormCampaignQuiz";
 import { PublisherWizardFormCampaignPreview } from "../screen/PublisherWizardFormCampaignPreview";
 import { PublisherWizardFormCampaignPayment } from "../screen/PublisherWizardFormCampaignPayment";
-import { GlobalButton } from "../../../shared/GlobalButton";
-import {
-  WizardFormParentLayout,
-  WizardFormLayoutWrapper,
-  WizardFormButtonsLayout,
-  WizardFormNavbar,
-} from "../styles/WizardFormLayoutStyles";
+import StyledGlobalButton  from "../../../shared/styles/StyledGlobalButton";
+import { WizardFormNavbar } from "../styles/WizardFormLayoutStyles";
 import { useHandleKeydownEvent } from "../../../hooks/useHandleKeydownEvent";
 import { TASK_ENDPOINT, COINGECKO_API } from "../../../config/api-config";
 import { PublisherWizardFormValidationSchema } from "../validationSchema/wizardFormValidationSchema";
 import { Temporary_CampaignOutcome } from "../screen/TemporaryComponent/Temporary_CampaignOutcome";
 import { PUBLISHER_DASHBOARD_ROUTE } from "../../../config/routes-config";
+import StyledGeneralCardLayout from "../../../shared/styles/StyledGeneralCardLayout";
+import StyledGeneralCardWrapper from "../../../shared/styles/StyledGeneralCardWrapper";
+import StyledGeneralColumnWrapper from "../../../shared/styles/StyledGeneralColumnWrapper";
 
 axios.defaults.withCredentials = true;
 
@@ -47,6 +46,8 @@ const reducer = (state, action) => {
       return { ...state, second_step_no_error: true };
     case "third_step":
       return { ...state, third_step_no_error: true };
+    default:
+      break
   }
 };
 
@@ -69,7 +70,6 @@ export const PublisherWizardFormContainer = ({
   const totalSteps = 6; //move to constant
   const contract = drizzle.contracts.CrowdclickEscrow;
   const address = drizzle.contracts.CrowdclickEscrow.address;
-
 
   const fetchEthPrice = async () => {
     const resp = await axios.get(
@@ -202,9 +202,11 @@ export const PublisherWizardFormContainer = ({
   );
   return (
     <Fragment>
-      <WizardFormParentLayout>
-        <h1>Bring traffic, quantitative and qualitative feedback.</h1>
-        <WizardFormLayoutWrapper>
+      <StyledGeneralCardLayout>
+        <div>
+          <h1>Bring traffic, quantitative and qualitative feedback.</h1>
+        </div>
+        <StyledGeneralCardWrapper>
           <WizardFormNavbar>
             <div>
               <button
@@ -380,8 +382,8 @@ export const PublisherWizardFormContainer = ({
                   </Form>
 
                   {step < totalSteps - 1 ? (
-                    <WizardFormButtonsLayout>
-                      <GlobalButton
+                    <StyledGeneralColumnWrapper columnJustify="flex-end">
+                      <StyledGlobalButton
                         buttonColor={"blue"}
                         buttonTextColor={"#FFFFFF"}
                         buttonWidth={280}
@@ -462,19 +464,19 @@ export const PublisherWizardFormContainer = ({
                         }}
                       >
                         Next step
-                      </GlobalButton>
+                      </StyledGlobalButton>
 
-                      <p>
+                      <p style={{ color: "#9ea0a5", fontSize: "16px" }}>
                         Step {step} of {totalSteps}
                       </p>
-                    </WizardFormButtonsLayout>
+                    </StyledGeneralColumnWrapper>
                   ) : null}
                 </Fragment>
               );
             }}
           </Formik>
-        </WizardFormLayoutWrapper>
-      </WizardFormParentLayout>
+        </StyledGeneralCardWrapper>
+      </StyledGeneralCardLayout>
       {redirect && <Redirect to={PUBLISHER_DASHBOARD_ROUTE} />}
     </Fragment>
   );

@@ -1,7 +1,7 @@
 import React from 'react'
 import {useHistory} from 'react-router-dom'
 import { PublisherCampaignTaskSummaryLayout as UserTaskSummaryLayout } from  '../../publisher-dashboard__new-task/styles/CampaignStyles'
-import { GlobalButton } from '../../../shared/GlobalButton'
+import  StyledGlobalButton  from '../../../shared/styles/StyledGlobalButton'
 import { USER_TASK_ROUTE_WITH_PARAM } from '../../../config/routes-config'
 
 export const TasksConsoleList = ({ id, title, description, og_image, task_owner_address }) => {
@@ -22,7 +22,7 @@ export const TasksConsoleList = ({ id, title, description, og_image, task_owner_
           <h2>{title}</h2>
           <p>{description}</p>
           <div style={{ display: 'flex', width: '60%' }}>
-            <GlobalButton
+            <StyledGlobalButton
             buttonColor={'blue'}
             buttonMargin={'0px 20px 20px 0px'}
             buttonTextColor={'#FFFFFF'}
@@ -30,7 +30,7 @@ export const TasksConsoleList = ({ id, title, description, og_image, task_owner_
             onClick={() => history.push({pathname: `${USER_TASK_ROUTE_WITH_PARAM}${id}`, state: {task_owner_address}})}
           >
             Start Task
-          </GlobalButton>
+          </StyledGlobalButton>
             {/* {useRedirectWithProps(`/task/${id}`, 'blue', 'Start Task')} */}
           </div>
         </div>

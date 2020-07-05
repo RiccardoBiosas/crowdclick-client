@@ -1,14 +1,14 @@
 import React from 'react'
-import { PublisherCampaignMainLayout } from '../../publisher-dashboard__new-task/styles/CampaignStyles'
 import {
   PublisherDashboardCampaignTask,
 } from './PublisherDashboardCampaignTask'
 import { PublisherDashboardNextCampaign } from './PublisherDashboardNextCampaign'
+import StyledGeneralCardLayout from '../../../shared/styles/StyledGeneralCardLayout'
 
 
 export const PublisherDashboardCampaignTaskBoilerplate = () => {
   return (
-    <PublisherCampaignMainLayout style={{ marginTop: '20px' }}>
+    <StyledGeneralCardLayout style={{ marginTop: '20px' }}>
       <PublisherDashboardNextCampaign />
 
       <PublisherDashboardCampaignTask
@@ -26,6 +26,6 @@ export const PublisherDashboardCampaignTaskBoilerplate = () => {
           'answer F': 11
         }}
       />
-    </PublisherCampaignMainLayout>
+    </StyledGeneralCardLayout>
   )
 }

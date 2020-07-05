@@ -76,7 +76,7 @@ const App = () => {
           <ProtectedRoute
             exact
             path={USER_WITHDRAW_ROUTE}
-            component={WithdrawBalance}
+            component={() => WithDrizzleInitializer(WithdrawBalance)}
           />
 
           <Route path="*" component={NotFound} />

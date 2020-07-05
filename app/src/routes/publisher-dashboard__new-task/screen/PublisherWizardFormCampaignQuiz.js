@@ -2,12 +2,13 @@ import React, { Fragment, createRef, useEffect, useRef } from "react";
 import { FieldArray } from "formik";
 import { IoMdClose } from "react-icons/io";
 import { IoMdAdd } from "react-icons/io";
-import { CampaignHeader } from "../styles/CampaignStyles";
 import {
   WizardInputQuizForms,
   CustomInputField,
   CustomInputFastField,
 } from "../styles/WizardFormStyles";
+import { StyledGeneralHeadingTwo } from "../../../shared/styles/StyledGeneralHeadings";
+import StyledGeneralParagraph from "../../../shared/styles/StyledGeneralParagraph";
 
 const errorMessageStyle = {
   position: "absolute",
@@ -62,10 +63,14 @@ export const PublisherWizardFormCampaignQuiz = ({
 
     return (
       <Fragment>
-        <CampaignHeader>
-          <h2>Ask a question!</h2>
-          <p>Receive feedback from the crowd</p>
-        </CampaignHeader>
+        <div>
+          <StyledGeneralHeadingTwo headingFontSize="24px">
+            Ask a question!
+          </StyledGeneralHeadingTwo>
+          <StyledGeneralParagraph paragraphColor="#9ea0a5" paragraphFontSize="16px">
+            Receive feedback from the crowd
+          </StyledGeneralParagraph>
+        </div>
         <WizardInputQuizForms>
           <div className="labelFieldContainer">
             <label htmlFor="projectQuestion">Your question:</label>

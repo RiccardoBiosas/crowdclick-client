@@ -1,6 +1,6 @@
 import styled from "styled-components";
 
-export const DropdownButton = styled.div`
+export const StyledDropdownButton = styled.div`
   background: #ffffff 0% 0% no-repeat padding-box;  
   box-shadow: 0px 3px 6px #00000029;
   border-radius: 8px;
@@ -12,18 +12,15 @@ export const DropdownButton = styled.div`
     switch (props.size) {
       case "medium":
         return "width: 139px; height: 48px;";
-        break;
       case "small":
         return "width: 62px; height: 48px;";
-        break;
       default:
-        return ``;
-        break;
+        return `width: inherit; height: auto`;        
     }
   }}
 `;
 
-export const DropdownLayout = styled.ul`
+export const StyledDropdownLayout = styled.ul`
   position: absolute;
   z-index: 99999;
   background: #ffffff 0% 0% no-repeat padding-box;
@@ -37,13 +34,10 @@ export const DropdownLayout = styled.ul`
     switch (size) {
       case "medium":
         return "139px;";
-        break;
       case "small":
         return "62px;";
-        break;
       default:
         return `inherit`;
-        break;
     }
   }}
   transition: height 0.6s ease-out; 
@@ -57,14 +51,12 @@ export const DropdownLayout = styled.ul`
     &:hover {
       color: #206dff;
       font-weight: bold;
-    }
-
-  
+    }  
   }
 
 `;
 
-export const ArrowLayout = styled.div`
+export const StyledArrowLayout = styled.div`
   display: flex;
   align-items: center;
   .arrow {

@@ -2,7 +2,7 @@ import React, { useState, div } from 'react'
 import VizSensor from 'react-visibility-sensor'
 import default_landing_user_image from '../../../assets/homepage/img2.svg'
 import aeternity_become_user_img from '../../../assets/images/aeternity_become_user.svg'
-import { GlobalButton } from '../../../shared/GlobalButton'
+import StyledGlobalButton  from '../../../shared/styles/StyledGlobalButton'
 
 import {
   ImgWrapper,
@@ -120,7 +120,7 @@ export const HomepageBecomeAUser = ({currencyTheme}) => {
                     </div>
 
                     <div>
-                      <GlobalButton
+                      <StyledGlobalButton
                         onClick={() => setFlipped(!flipped)}
                         buttonWidth='135'
                         buttonMargin='30px 0 0 0'
@@ -132,7 +132,7 @@ export const HomepageBecomeAUser = ({currencyTheme}) => {
                         {currencyTheme === 'ethereumStyle'
                           ? 'Earn ETH'
                           : 'Earn AE'}
-                      </GlobalButton>
+                      </StyledGlobalButton>
                     </div>
                   </CenteredColumnWithMediaQueries>
                 )}

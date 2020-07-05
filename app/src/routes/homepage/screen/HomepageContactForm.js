@@ -17,8 +17,8 @@ import { CenteredColumn } from "../styles/HomepageStyles";
 
 const HomepageContactForm = ({ currencyTheme }) => {
   const [userInput, setUserInput] = useState("");
-  const [userEmail, setUserEmail] = useState("");
-  const [respStatus, setRespStatus] = useState();
+  // const [userEmail, setUserEmail] = useState("");
+  const [respStatus, setRespStatus] = useState(null);
 
   const handleChange = (e) => {
     const text = e.target.value;
@@ -32,24 +32,23 @@ const HomepageContactForm = ({ currencyTheme }) => {
       });
       setRespStatus(response.status);
     } catch (err) {
-      setRespStatus(err.response.status || "failed");
+      setRespStatus((err.response && err.response.status) || 503);
       console.error(err);
     }
   };
 
-  const handleSubmit = (e) => {
+  const handleSubmit = async(e) => {
     e.preventDefault();
-    setUserEmail(userInput);
+    await forwardEmail()    
     setUserInput("");
   };
 
   useEffect(() => {
-    if (userEmail && !respStatus) {
-      forwardEmail(userEmail);
+    if (respStatus) {     
 
-      setTimeout(() => {setUserEmail(); setRespStatus(); }, 1200)
+      setTimeout(() => {setRespStatus(null); }, 1200)
     }
-  }, [userEmail, respStatus, forwardEmail]);
+  }, [respStatus]);
 
   return (
     <ContactFormLayout currencyTheme={currencyTheme}>

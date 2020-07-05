@@ -1,21 +1,21 @@
-import React, { Fragment, useEffect } from 'react'
-import { CampaignHeader } from '../styles/CampaignStyles'
+import React, { Fragment, useEffect } from "react";
 import {
   WizardInputForms,
   CustomTextareaField,
-  CustomInputField
-} from '../styles/WizardFormStyles'
-
+  CustomInputField,
+} from "../styles/WizardFormStyles";
+import { StyledGeneralHeadingTwo } from "../../../shared/styles/StyledGeneralHeadings";
+import StyledGeneralParagraph from "../../../shared/styles/StyledGeneralParagraph";
 
 export const PublisherWizardFormCampaignDescription = ({
   step,
   errors,
   touched,
   dispatch,
-  isError
+  isError,
 }) => {
   useEffect(() => {
-    const { projectName, projectDescription, projectURL } = errors
+    const { projectName, projectDescription, projectURL } = errors;
     if (
       !projectName &&
       !projectDescription &&
@@ -24,58 +24,60 @@ export const PublisherWizardFormCampaignDescription = ({
       touched.projectDescription &&
       touched.projectURL
     ) {
-      dispatch({ type: 'first_step' })
+      dispatch({ type: "first_step" });
     }
-  }, [dispatch, errors, touched])
-
-
+  }, [dispatch, errors, touched]);
 
   if (step !== 1) {
-    return null
+    return null;
   } else {
     return (
       <Fragment>
-        <CampaignHeader>
-          <h2>Tell us about your project!</h2>
-          <p>Introduce your project to the crowd</p>
-        </CampaignHeader>
+        <div>
+          <StyledGeneralHeadingTwo headingFontSize="24px">
+            Tell us about your project!
+          </StyledGeneralHeadingTwo>
+          <StyledGeneralParagraph paragraphColor="#9ea0a5" paragraphFontSize="16px">
+            Introduce your project to the crowd
+          </StyledGeneralParagraph>
+        </div>
         <WizardInputForms>
-          <div className='labelFieldContainer'>
-            <label htmlFor='projectName'>Project title:</label>
-            <div className='inputAndErrorContainer'>
+          <div className="labelFieldContainer">
+            <label htmlFor="projectName">Project title:</label>
+            <div className="inputAndErrorContainer">
               <CustomInputField
-                type='text'
-                name='projectName'
-                id='projectName'
-                placeholder='project name'
-                component='input'
+                type="text"
+                name="projectName"
+                id="projectName"
+                placeholder="project name"
+                component="input"
               />
               {errors.projectName && touched.projectName ? (
                 <span
-                  style={{ color: `${isError ? 'red' : ''}` }}
-                  className='errorMessage'
+                  style={{ color: `${isError ? "red" : ""}` }}
+                  className="errorMessage"
                 >
                   {errors.projectName}
                 </span>
               ) : null}
             </div>
           </div>
-          <div className='labelFieldContainer'>
-            <label htmlFor='projectDescription'>
+          <div className="labelFieldContainer">
+            <label htmlFor="projectDescription">
               Project description (max 100 characters):
             </label>
-            <div className='inputAndErrorContainer'>
+            <div className="inputAndErrorContainer">
               <CustomTextareaField
-                type='text'
-                name='projectDescription'
-                id='projectDescription'
-                placeholder='project description'
-                component='textarea'
+                type="text"
+                name="projectDescription"
+                id="projectDescription"
+                placeholder="project description"
+                component="textarea"
               />
               {errors.projectDescription && touched.projectDescription ? (
                 <span
-                  style={{ color: `${isError ? 'red' : ''}` }}
-                  className='errorMessage'
+                  style={{ color: `${isError ? "red" : ""}` }}
+                  className="errorMessage"
                 >
                   {errors.projectDescription}
                 </span>
@@ -83,20 +85,20 @@ export const PublisherWizardFormCampaignDescription = ({
             </div>
           </div>
 
-          <div className='labelFieldContainer'>
-            <label htmlFor='projectURL'>Project URL:</label>
-            <div className='inputAndErrorContainer'>
+          <div className="labelFieldContainer">
+            <label htmlFor="projectURL">Project URL:</label>
+            <div className="inputAndErrorContainer">
               <CustomInputField
-                type='text'
-                name='projectURL'
-                id='projectURL'
-                placeholder='your project URL'
-                component='input'
+                type="text"
+                name="projectURL"
+                id="projectURL"
+                placeholder="your project URL"
+                component="input"
               />
               {errors.projectURL && touched.projectURL ? (
                 <span
-                  style={{ color: `${isError ? 'red' : ''}` }}
-                  className='errorMessage'
+                  style={{ color: `${isError ? "red" : ""}` }}
+                  className="errorMessage"
                 >
                   {errors.projectURL}
                 </span>
@@ -105,6 +107,6 @@ export const PublisherWizardFormCampaignDescription = ({
           </div>
         </WizardInputForms>
       </Fragment>
-    )
+    );
   }
-}
+};

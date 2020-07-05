@@ -1,7 +1,8 @@
 import React, { Fragment, useEffect } from "react";
-import { CampaignHeader } from "../styles/CampaignStyles";
+import { StyledGeneralHeadingTwo } from "../../../shared/styles/StyledGeneralHeadings";
 import { WizardInputForms, CustomInputField } from "../styles/WizardFormStyles";
 import { whatIsXPercentOfY } from "../../../utils/isWhatPercentage";
+import StyledGeneralParagraph from "../../../shared/styles/StyledGeneralParagraph";
 
 const errorMessageStyle = {
   position: "absolute",
@@ -54,10 +55,14 @@ export const PublisherWizardFormCampaignPublisherBudget = ({
   } else {
     return (
       <Fragment>
-        <CampaignHeader>
-          <h2>Plan your budget!</h2>
-          <p>Select your price per click</p>
-        </CampaignHeader>
+        <div>
+          <StyledGeneralHeadingTwo headingFontSize="24px">
+            Plan your budget!
+          </StyledGeneralHeadingTwo>
+          <StyledGeneralParagraph paragraphColor="#9ea0a5" paragraphFontSize="16px">
+            Select your price per click
+          </StyledGeneralParagraph>
+        </div>
         <WizardInputForms>
           <div className="labelFieldContainer">
             <label htmlFor="pricePerClick">Rewards per click:</label>

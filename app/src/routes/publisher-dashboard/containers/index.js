@@ -1,15 +1,15 @@
 import React from "react";
 import { TASK_ENDPOINT, DASHBOARD_ENDPOINT } from "../../../config/api-config";
-import { PublisherCampaignMainLayout } from "../../publisher-dashboard__new-task/styles/CampaignStyles";
 import { Temporary__PublisherDashboardCampaignTask } from "../screen/PublisherDashboardCampaignTask";
 import { PublisherDashboardNextCampaign } from "../screen/PublisherDashboardNextCampaign";
 import { useFetch } from "../../../hooks/useFetch";
 import { LoadingIcon } from "../../../shared/LoadingIcon";
 import { PublisherDashboardCampaignTaskBoilerplate } from "../screen/PublisherDashboardCampaignTaskBoilerplate";
+import StyledGeneralCardLayout from "../../../shared/styles/StyledGeneralCardLayout";
 
 export const PublisherDashboardContainer = () => {
   const res = useFetch(TASK_ENDPOINT);
-  const dashboard_res = useFetch(DASHBOARD_ENDPOINT); //concatenate the promises task_endpoint + dashboard_endpoint
+  // const dashboard_res = useFetch(DASHBOARD_ENDPOINT);
 
   // const specific_res = useFetch(`${TASK_ENDPOINT}${JSON.parse(window.localStorage.getItem('userPubKey'))}`)
 
@@ -26,7 +26,7 @@ export const PublisherDashboardContainer = () => {
       return <PublisherDashboardCampaignTaskBoilerplate />;
     } else {
       return (
-        <PublisherCampaignMainLayout style={{ marginTop: "80px" }}>
+        <StyledGeneralCardLayout style={{ marginTop: "80px" }}>
           <PublisherDashboardNextCampaign />
 
           {userCampaigns.map((x, i) => (
@@ -39,7 +39,7 @@ export const PublisherDashboardContainer = () => {
               og_image={x.og_image_link}
             />
           ))}
-        </PublisherCampaignMainLayout>
+        </StyledGeneralCardLayout>
       );
     }
   }

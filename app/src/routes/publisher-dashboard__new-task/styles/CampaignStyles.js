@@ -1,76 +1,37 @@
-import styled from 'styled-components'
-import crowdclick_logo from '../../../assets/images/miniLogo.png'
-import crowdclick_campaign_placeholder from '../../../assets/userTasksConsole/SocialMediaPlaceholder.png'
-
-export const CampaignHeader = styled.div`
-  text-align: center;
-
-  h2 {
-    font-size: 24px;
-  }
-
-  p {
-    font-size: 16px;
-    color: #9ea0a5;
-  }
-`
-
-
-export const CampaignCard = styled.div`
-  display: flex;
-  flex-direction: column;
-  width: 70vw;
-  margin-top: 4vh;
-  background: #ffffff 0% 0% no-repeat padding-box;
-  box-shadow: 0px 3px 6px #00000029;
-  border-radius: 21px;
-`
-  
-
-export const PublisherCampaignMainLayout = styled.div`
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-`
+import styled from "styled-components";
+import crowdclick_logo from "../../../assets/images/miniLogo.png";
+import crowdclick_campaign_placeholder from "../../../assets/userTasksConsole/SocialMediaPlaceholder.png";
 
 export const PublisherCampaignTaskSummaryLayout = styled.div`
   width: 60vw;
   background: #ffffff 0% 0% no-repeat padding-box;
   box-shadow: 0px 3px 6px #00000029;
-  border-radius: ${props =>
-    props.campaignToggle ? '21px 21px 0px 0px' : '21px'};
+  border-radius: ${(props) =>
+    props.campaignToggle ? "21px 21px 0px 0px" : "21px"};
   display: grid;
   grid-template-columns: 300px 1fr;
   .campaignAvatar {
-    background-image: url(${props =>
-    props.og_background ? `"${props.og_background}"` : crowdclick_campaign_placeholder});     
+    background-image: url(${(props) =>
+      props.og_background
+        ? `"${props.og_background}"`
+        : crowdclick_campaign_placeholder});
     background-size: cover;
     background-position: center;
     background-repeat: no-repeat;
-    border-radius: ${props =>
-      props.campaignToggle ? '21px 0px 0px 0px' : '21px 0px 0px 21px'};
+    border-radius: ${(props) =>
+      props.campaignToggle ? "21px 0px 0px 0px" : "21px 0px 0px 21px"};
     max-height: 100%;
   }
-
 
   .nextCampaignLogo {
     background-image: url(${crowdclick_logo});
     background-size: contain;
     background-position: center;
     background-repeat: no-repeat;
-    border-radius: ${props =>
-      props.campaignToggle ? '21px 0px 0px 0px' : '21px 0px 0px 21px'};
+    border-radius: ${(props) =>
+      props.campaignToggle ? "21px 0px 0px 0px" : "21px 0px 0px 21px"};
   }
-`
-
-export const PublisherCampaignButtonLayout = styled.div`
-  display: flex;
-  width: 60%;
-`
-
-export const PublisherCampaignTaskBody = styled.div`
-  margin-left: 34px;
-`
+`;
 
 export const PublisherCampaignGeneralTaskLayout = styled.div`
   margin-bottom: 20px;
@@ -93,7 +54,7 @@ export const PublisherCampaignGeneralTaskLayout = styled.div`
   .viewsContainer {
     margin-left: 14px;
   }
-`
+`;
 
 export const PercentageBarItem = styled.div`
   width: 60%;
@@ -102,10 +63,9 @@ export const PercentageBarItem = styled.div`
   height: 14px;
 
   .itemPercentage {
-    width: ${props => Math.round(props.percentage)}%;
+    width: ${({percentage}) => Math.round(percentage)}%;
     background-color: #206dff;
     border-radius: 8px;
     height: 14px;
   }
-`
-
+`;

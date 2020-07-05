@@ -1,6 +1,6 @@
 import React, { Fragment, useState } from 'react'
 import { Redirect } from 'react-router-dom'
-import { GlobalButton } from '../shared/GlobalButton'
+import  StyledGlobalButton  from '../shared/styles/StyledGlobalButton'
 
 
 
@@ -12,7 +12,7 @@ export const useRedirectWithProps = (route, btnColor, btnText, params) => {
 
   return (
     <Fragment>
-      <GlobalButton
+      <StyledGlobalButton
         buttonColor={btnColor}
         buttonMargin={'0px 20px 20px 0px'}
         buttonTextColor={'#FFFFFF'}
@@ -20,7 +20,7 @@ export const useRedirectWithProps = (route, btnColor, btnText, params) => {
         onClick={() => setRedirect(true)}
       >
         {btnText}
-      </GlobalButton>
+      </StyledGlobalButton>
       {redirect && <Redirect push to={{
         pathname: route,        
         state: {...params}

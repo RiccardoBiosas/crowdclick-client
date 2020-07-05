@@ -2,7 +2,7 @@ import React, {useState} from "react";
 import VizSensor from "react-visibility-sensor";
 import default_landing_double_image from "../../../assets/homepage/img1.svg";
 import aeternity_landing_img from "../../../assets/images/aeternity_landing-page.svg";
-import { GlobalButton } from "../../../shared/GlobalButton";
+import  StyledGlobalButton  from "../../../shared/styles/StyledGlobalButton";
 
 import {
   ImgWrapper,
@@ -81,7 +81,7 @@ export const HomepageDoubleCard = ({ currencyTheme }) => {
                       : " & earn AE"}
                   </CardsParagraph>
                   <div>
-                    <GlobalButton
+                    <StyledGlobalButton
                       onClick={() => handleRedirect("user")}
                       buttonWidth="135"
                       buttonMargin="30px 0 30px 0"
@@ -93,7 +93,7 @@ export const HomepageDoubleCard = ({ currencyTheme }) => {
                       {currencyTheme === "ethereumStyle"
                         ? "Earn ETH"
                         : "Earn AE"}
-                    </GlobalButton>
+                    </StyledGlobalButton>
                   </div>
                 </CenteredColumnWithMediaQueries>
                 <CenteredColumnWithMediaQueries containerMargin="0 0 48px 0">
@@ -103,7 +103,7 @@ export const HomepageDoubleCard = ({ currencyTheme }) => {
                   <CardsParagraph>Publish your site, set a reward and ask a question.</CardsParagraph>
                   <CardsParagraph>Get traffic and first impression feedback.</CardsParagraph>
                   <div>
-                    <GlobalButton
+                    <StyledGlobalButton
                       onClick={() => handleRedirect("publisher")}
                       buttonWidth="135"
                       buttonMargin="30px 0 0 0"
@@ -113,7 +113,7 @@ export const HomepageDoubleCard = ({ currencyTheme }) => {
                       buttonTextColor={"#FFFFFF"}
                     >
                       Get answers
-                    </GlobalButton>
+                    </StyledGlobalButton>
                   </div>
                 </CenteredColumnWithMediaQueries>
               </div>

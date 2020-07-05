@@ -3,7 +3,7 @@ import Web3 from "web3";
 import Web3Utils from "web3-utils";
 import { useDispatch } from "react-redux";
 import axios from "axios";
-import { GlobalButton } from "../shared/GlobalButton";
+import  StyledGlobalButton from "../shared/styles/StyledGlobalButton";
 import { AUTH_ENDPOINT } from "../config/api-config";
 import { createPortal } from "react-dom";
 import { MetamaskModal } from "./MetamaskModal";
@@ -89,17 +89,21 @@ const MetamaskButton = (props) => {
           <MetamaskModal closeModalCallback={closeModal} />,
           modalRoot
         )}
-      <GlobalButton
+      <StyledGlobalButton
         buttonColor={btnColor}
         buttonTextColor={"#FFFFFF"}
         buttonWidth={btnWidth}
         onClick={checkMetamask}
       >
-        connect
-      </GlobalButton>
+        {btnText}
+      </StyledGlobalButton>
     </Fragment>
   );
 };
+
+MetamaskButton.defaultProps = {
+  btnText: "connect"
+}
 
 export default MetamaskButton
 
