@@ -1,7 +1,7 @@
 import styled from 'styled-components'
 import { Field, FastField } from 'formik'
 
-export const WizardPreviewLayout = styled.div`
+export const StyledWizardPreviewLayout = styled.div`
   width: 90%;
   display: grid;
   grid-template-columns: 1fr 1fr 1fr;
@@ -21,7 +21,7 @@ export const WizardPreviewLayout = styled.div`
   }
 `
 
-export const WizardInputForms = styled.div`
+export const StyledWizardInputForms = styled.div`
   .labelFieldContainer {
     margin-top: 16px;
     display: flex;
@@ -48,7 +48,7 @@ export const WizardInputForms = styled.div`
   }
 `
 
-export const WizardInputQuizForms = styled(WizardInputForms)`
+export const StyledWizardInputQuizForms = styled(StyledWizardInputForms)`
   &&& {
     .projectOptionsLabel {
       margin-bottom: 6px;
@@ -91,7 +91,7 @@ export const WizardInputQuizForms = styled(WizardInputForms)`
   }
 `
 
-export const CustomInputField = styled(Field)`
+export const StyledCustomInputField = styled(Field)`
   background: #ffffff 0% 0% no-repeat padding-box;
   border: 1px solid #e2e5ed;
   border-radius: 4px;
@@ -114,7 +114,7 @@ export const CustomInputField = styled(Field)`
   }
 `
 
-export const CustomTextareaField = styled(Field)`
+export const StyledCustomTextareaField = styled(Field)`
   background: #ffffff 0% 0% no-repeat padding-box;
   border: 1px solid #e2e5ed;
   border-radius: 4px;
@@ -131,9 +131,8 @@ export const CustomTextareaField = styled(Field)`
   }
 `
 
-export const CustomInputFastField = styled(FastField)`
+export const StyledCustomInputFastField = styled(FastField)`
   background: #ffffff 0% 0% no-repeat padding-box;
-  // border: 1px solid #e2e5ed;
   border-radius: 4px;
   width: 360px;
   height: 40px;

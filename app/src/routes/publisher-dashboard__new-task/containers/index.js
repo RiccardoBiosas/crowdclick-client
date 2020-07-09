@@ -10,7 +10,7 @@ import { PublisherWizardFormCampaignQuiz } from "../screen/PublisherWizardFormCa
 import { PublisherWizardFormCampaignPreview } from "../screen/PublisherWizardFormCampaignPreview";
 import { PublisherWizardFormCampaignPayment } from "../screen/PublisherWizardFormCampaignPayment";
 import StyledGlobalButton  from "../../../shared/styles/StyledGlobalButton";
-import { WizardFormNavbar } from "../styles/WizardFormLayoutStyles";
+import  StyledCardNavbar  from "../../../shared/styles/StyledCardNavbar";
 import { useHandleKeydownEvent } from "../../../hooks/useHandleKeydownEvent";
 import { TASK_ENDPOINT, COINGECKO_API } from "../../../config/api-config";
 import { PublisherWizardFormValidationSchema } from "../validationSchema/wizardFormValidationSchema";
@@ -207,7 +207,7 @@ export const PublisherWizardFormContainer = ({
           <h1>Bring traffic, quantitative and qualitative feedback.</h1>
         </div>
         <StyledGeneralCardWrapper>
-          <WizardFormNavbar>
+          <StyledCardNavbar>
             <div>
               <button
                 className="stepBack"
@@ -218,13 +218,13 @@ export const PublisherWizardFormContainer = ({
             </div>
             <div>
               <button
-                className="closePublisherDashboard"
+                className="closeCard"
                 onClick={() => setRedirect(true)}
               >
                 x
               </button>
             </div>
-          </WizardFormNavbar>
+          </StyledCardNavbar>
           <Formik
             initialValues={
               initial_values ? initial_values : empty_initial_values

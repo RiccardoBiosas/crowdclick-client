@@ -1,8 +1,8 @@
 import React, { Fragment, useEffect } from "react";
 import {
-  WizardInputForms,
-  CustomTextareaField,
-  CustomInputField,
+  StyledWizardInputForms,
+  StyledCustomTextareaField,
+  StyledCustomInputField,
 } from "../styles/WizardFormStyles";
 import { StyledGeneralHeadingTwo } from "../../../shared/styles/StyledGeneralHeadings";
 import StyledGeneralParagraph from "../../../shared/styles/StyledGeneralParagraph";
@@ -41,11 +41,11 @@ export const PublisherWizardFormCampaignDescription = ({
             Introduce your project to the crowd
           </StyledGeneralParagraph>
         </div>
-        <WizardInputForms>
+        <StyledWizardInputForms>
           <div className="labelFieldContainer">
             <label htmlFor="projectName">Project title:</label>
             <div className="inputAndErrorContainer">
-              <CustomInputField
+              <StyledCustomInputField
                 type="text"
                 name="projectName"
                 id="projectName"
@@ -67,7 +67,7 @@ export const PublisherWizardFormCampaignDescription = ({
               Project description (max 100 characters):
             </label>
             <div className="inputAndErrorContainer">
-              <CustomTextareaField
+              <StyledCustomTextareaField
                 type="text"
                 name="projectDescription"
                 id="projectDescription"
@@ -88,7 +88,7 @@ export const PublisherWizardFormCampaignDescription = ({
           <div className="labelFieldContainer">
             <label htmlFor="projectURL">Project URL:</label>
             <div className="inputAndErrorContainer">
-              <CustomInputField
+              <StyledCustomInputField
                 type="text"
                 name="projectURL"
                 id="projectURL"
@@ -105,7 +105,7 @@ export const PublisherWizardFormCampaignDescription = ({
               ) : null}
             </div>
           </div>
-        </WizardInputForms>
+        </StyledWizardInputForms>
       </Fragment>
     );
   }

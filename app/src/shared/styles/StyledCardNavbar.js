@@ -1,6 +1,6 @@
 import styled from 'styled-components'
 
-export const WizardFormNavbar = styled.div`
+const StyledCardNavbar = styled.div`
   width: 100%;
   display: flex;
   justify-content: space-between;
@@ -14,7 +14,7 @@ export const WizardFormNavbar = styled.div`
     cursor: pointer;
   }
 
-  .closePublisherDashboard {
+  .closeCard {
     padding-right: 20px;
     padding-top: 14px;
     border: none;
@@ -22,3 +22,5 @@ export const WizardFormNavbar = styled.div`
     cursor: pointer;
   }
 `
+
+export default StyledCardNavbar

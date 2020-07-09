@@ -1,5 +1,5 @@
 import React, { Fragment } from "react";
-import { WizardPreviewLayout } from "../styles/WizardFormStyles";
+import { StyledWizardPreviewLayout } from "../styles/WizardFormStyles";
 import { useFetch } from "../../../hooks/useFetch";
 import { LoadingIcon } from "../../../shared/LoadingIcon";
 import { COINGECKO_API } from "../../../config/api-config";
@@ -36,7 +36,7 @@ export const PublisherWizardFormCampaignPreview = ({ step, values }) => {
           </StyledGeneralHeadingTwo>
         </div>
         <div style={{ display: "flex", justifyContent: "center" }}>
-          <WizardPreviewLayout>
+          <StyledWizardPreviewLayout>
             <div>
               <div className="valuesContainer">
                 <h4>Project name</h4>
@@ -85,7 +85,7 @@ export const PublisherWizardFormCampaignPreview = ({ step, values }) => {
                 ))}
               </div>
             </div>
-          </WizardPreviewLayout>
+          </StyledWizardPreviewLayout>
         </div>
       </Fragment>
     );

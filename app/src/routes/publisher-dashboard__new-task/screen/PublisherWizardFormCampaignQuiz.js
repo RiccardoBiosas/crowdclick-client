@@ -3,9 +3,9 @@ import { FieldArray } from "formik";
 import { IoMdClose } from "react-icons/io";
 import { IoMdAdd } from "react-icons/io";
 import {
-  WizardInputQuizForms,
-  CustomInputField,
-  CustomInputFastField,
+  StyledWizardInputQuizForms,
+  StyledCustomInputField,
+  StyledCustomInputFastField,
 } from "../styles/WizardFormStyles";
 import { StyledGeneralHeadingTwo } from "../../../shared/styles/StyledGeneralHeadings";
 import StyledGeneralParagraph from "../../../shared/styles/StyledGeneralParagraph";
@@ -71,12 +71,12 @@ export const PublisherWizardFormCampaignQuiz = ({
             Receive feedback from the crowd
           </StyledGeneralParagraph>
         </div>
-        <WizardInputQuizForms>
+        <StyledWizardInputQuizForms>
           <div className="labelFieldContainer">
             <label htmlFor="projectQuestion">Your question:</label>
             <div className="inputAndErrorContainer">
               {edit ? (
-                <CustomInputField
+                <StyledCustomInputField
                   name="projectQuestion"
                   id="projectQuestion"
                   placeholder="project question"
@@ -84,7 +84,7 @@ export const PublisherWizardFormCampaignQuiz = ({
                 />
               ) : (
                 <span ref={questionInputRef}>
-                  <CustomInputField
+                  <StyledCustomInputField
                     name="projectQuestion"
                     id="projectQuestion"
                     placeholder="project question"
@@ -129,7 +129,7 @@ export const PublisherWizardFormCampaignQuiz = ({
                                 push({ option: "" })
                               )}
                             >
-                              <CustomInputFastField
+                              <StyledCustomInputFastField
                                 name={`projectOptions.${index}.option`}
                                 type="text"
                                 readOnly
@@ -208,7 +208,7 @@ export const PublisherWizardFormCampaignQuiz = ({
                                 push({ option: "" })
                               )}
                             >
-                              <CustomInputFastField
+                              <StyledCustomInputFastField
                                 name={`projectOptions.${index}.option`}
                                 type="text"
                                 style={{ border: "none" }}
@@ -271,7 +271,7 @@ export const PublisherWizardFormCampaignQuiz = ({
               />
             )}
           </div>
-        </WizardInputQuizForms>
+        </StyledWizardInputQuizForms>
       </Fragment>
     );
   }

@@ -1,13 +1,11 @@
-import styled, { keyframes, css } from "styled-components";
-
-
+import styled, { keyframes, css } from 'styled-components'
 
 export const StyledQuestionLayout = styled.div`
   display: flex;
   flex-direction: column;
   justify-content: center;
   animation: ${(props) =>
-      props.animation === "fadeIn"
+      props.animation === 'fadeIn'
         ? css`
             ${fadeIn} 1s ease-in;
           `
@@ -17,7 +15,7 @@ export const StyledQuestionLayout = styled.div`
     .questionTitle {
     text-align: center;
   }
-`;
+`
 
 export const StyledListLayout = styled.ul`
   list-style: none;
@@ -26,7 +24,7 @@ export const StyledListLayout = styled.ul`
   display: flex;
   flex-direction: column;
   align-items: center;
-`;
+`
 
 export const StyledItemLayout = styled.li`
   background: #ffffff 0% 0% no-repeat padding-box;
@@ -40,11 +38,6 @@ export const StyledItemLayout = styled.li`
   display: block;
   position: relative;
   float: left;
-
-  input[type="radio"] {
-    position: absolute;
-    visibility: hidden;
-  }
 
   label {
     display: block;
@@ -79,7 +72,7 @@ export const StyledItemLayout = styled.li`
   .check:before {
     display: block;
     position: relative;
-    content: "";
+    content: '';
     height: 12px;
     width: 12px;
     border-radius: 100%;
@@ -89,18 +82,23 @@ export const StyledItemLayout = styled.li`
     transition: background 0.2s linear;
   }
 
-  input[type="radio"]:checked ~ label {
+  input[type='radio'] {
+    position: absolute;
+    visibility: hidden;
+  }
+
+  input[type='radio']:checked ~ label {
     color: #00e15d;
   }
 
-  input[type="radio"]:checked ~ .check {
+  input[type='radio']:checked ~ .check {
     border: 5px solid #00e15d;
   }
 
-  input[type="radio"]:checked ~ .check:before {
+  input[type='radio']:checked ~ .check:before {
     background: #00e15d;
   }
-`;
+`
 
 const fadeIn = keyframes`
     0% {
@@ -112,8 +110,7 @@ const fadeIn = keyframes`
         background-color: green;
 
     }
-`;
-
+`
 
 const fadeOut = keyframes`
   0% {
@@ -134,4 +131,4 @@ const fadeOut = keyframes`
   }
 
   
-`;
+`

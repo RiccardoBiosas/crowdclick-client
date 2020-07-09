@@ -1,10 +1,10 @@
-import React, { useEffect } from 'react'
-import { StyledItemLayout } from '../styles/MultichoiceItemStyles'
-import {
-  StyledListLayout,
-  StyledQuestionLayout,
-} from '../styles/MultichoiceItemStyles'
+import React, { useEffect, useState, useRef } from 'react'
+import {createPortal} from 'react-dom'
 import StyledPulsatingDot from '../styles/StyledPulsatingDot'
+import QuizCollection from './QuizCollection'
+
+const modalRoot = document.getElementById('portal-root')
+
 
 export const MultichoiceQuestion = ({
   question,
@@ -16,44 +16,52 @@ export const MultichoiceQuestion = ({
   setIndx,
   questionId,
 }) => {
+  const [quizProperties, setQuizProperties] = useState()
+  const [openQuiz, setOpenQuiz] = useState(false)
+  const ref = useRef()
   useEffect(() => {
+    if (ref && !quizProperties) {
+      const btnRef = ref.current.getBoundingClientRect()
+      console.log(btnRef)
+      setQuizProperties({
+        ...quizProperties,
+        coordX: btnRef.right,
+        coordY: btnRef.top,
+        openerWidth: btnRef.width,
+        openerHeight: btnRef.height
+      })
+    }
     if (currentIndx === questionIndx) {
       if (selectedAnswer[questionId]) {
         setIndx(currentIndx + 1)
       }
     }
-  }, [selectedAnswer, setIndx, currentIndx, questionIndx, questionId])
+  }, [selectedAnswer, setIndx, currentIndx, questionIndx, questionId, quizProperties])
 
   return (
-    // <StyledQuestionLayout animation={currentIndx === questionIndx && !selectedAnswer[questionId] ? "fadeIn" : "fadeOut"}>
-    <div>
-      <StyledPulsatingDot>
+    <div style={{position: "static"}}>
+      <StyledPulsatingDot ref={ref}>
         <div />
-        <button />
+        <button type='button' onClick={() => setOpenQuiz(true)} />
       </StyledPulsatingDot>
-      {/* <h2 className="questionTitle">{question}</h2>
 
-      <StyledListLayout>
-        {options.map((x) => (
-          <StyledItemLayout>
-            <input
-              type="radio"
-              name="radioFeedbackGroup"
-              checked={selectedAnswer[questionId] === x.id}
-              id={x.id}
-              value={x.id}
-              onChange={() => setSelectedAnswer({...selectedAnswer, [questionId]: x.id})}
+      {quizProperties && createPortal(
+        <QuizCollection
+          options={options}
+          question={question}
+          questionId={questionId}
+          setSelectedAnswer={setSelectedAnswer}
+          selectedAnswer={selectedAnswer}
+          quizProperties={quizProperties}
+          openQuiz={openQuiz}
+          setOpenQuiz={setOpenQuiz}
+          currentIndx={currentIndx}
+          questionIndx={questionIndx}
+        />, modalRoot
+      )}
 
-            />
 
-            <label htmlFor={x.id}>{x.title}</label>
-
-            <div className="check" />
-          </StyledItemLayout>
-        ))}
-      </StyledListLayout> */}
     </div>
 
-    // </StyledQuestionLayout>
   )
 }

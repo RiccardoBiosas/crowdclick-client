@@ -1,6 +1,6 @@
 import React, { Fragment, useEffect } from "react";
 import { StyledGeneralHeadingTwo } from "../../../shared/styles/StyledGeneralHeadings";
-import { WizardInputForms, CustomInputField } from "../styles/WizardFormStyles";
+import { StyledWizardInputForms, StyledCustomInputField } from "../styles/WizardFormStyles";
 import { whatIsXPercentOfY } from "../../../utils/isWhatPercentage";
 import StyledGeneralParagraph from "../../../shared/styles/StyledGeneralParagraph";
 
@@ -63,11 +63,11 @@ export const PublisherWizardFormCampaignPublisherBudget = ({
             Select your price per click
           </StyledGeneralParagraph>
         </div>
-        <WizardInputForms>
+        <StyledWizardInputForms>
           <div className="labelFieldContainer">
             <label htmlFor="pricePerClick">Rewards per click:</label>
             <div style={{ position: "relative" }}>
-              <CustomInputField
+              <StyledCustomInputField
                 name="pricePerClick"
                 id="pricePerClick"
                 placeholder="0.8"
@@ -93,7 +93,7 @@ export const PublisherWizardFormCampaignPublisherBudget = ({
               Max budget to spend (in total):
             </label>
             <div style={{ position: "relative" }}>
-              <CustomInputField
+              <StyledCustomInputField
                 name="campaignBudget"
                 id="campaignBudget"
                 placeholder="20"
@@ -137,7 +137,7 @@ export const PublisherWizardFormCampaignPublisherBudget = ({
             <p style={fixedTimeLabelStyle}>Time duration (fixed):</p>
             <div style={fixedTimeStyle}>30 seconds</div>
           </div>
-        </WizardInputForms>
+        </StyledWizardInputForms>
       </Fragment>
     );
   }
