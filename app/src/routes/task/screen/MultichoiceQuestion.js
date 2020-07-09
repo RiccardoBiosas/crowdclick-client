@@ -1,10 +1,10 @@
-import React, { useEffect } from "react";
-import { ItemLayout } from "../styles/MultichoiceItemStyles";
+import React, { useEffect } from 'react'
+import { StyledItemLayout } from '../styles/MultichoiceItemStyles'
 import {
-  ListLayout,
-  QuestionLayout,
-} from "../styles/MultichoiceItemStyles";
-
+  StyledListLayout,
+  StyledQuestionLayout,
+} from '../styles/MultichoiceItemStyles'
+import StyledPulsatingDot from '../styles/StyledPulsatingDot'
 
 export const MultichoiceQuestion = ({
   question,
@@ -14,28 +14,28 @@ export const MultichoiceQuestion = ({
   questionIndx,
   currentIndx,
   setIndx,
-  questionId
+  questionId,
 }) => {
-
-
   useEffect(() => {
-    if(currentIndx === questionIndx) {
+    if (currentIndx === questionIndx) {
       if (selectedAnswer[questionId]) {
-        setIndx(currentIndx + 1);
+        setIndx(currentIndx + 1)
       }
     }
- 
-  }, [selectedAnswer, setIndx, currentIndx, questionIndx, questionId]);
-
-
+  }, [selectedAnswer, setIndx, currentIndx, questionIndx, questionId])
 
   return (
-    <QuestionLayout animation={currentIndx === questionIndx && !selectedAnswer[questionId] ? "fadeIn" : "fadeOut"}>
-    <h2 className="questionTitle">{question}</h2>
+    // <StyledQuestionLayout animation={currentIndx === questionIndx && !selectedAnswer[questionId] ? "fadeIn" : "fadeOut"}>
+    <div>
+      <StyledPulsatingDot>
+        <div />
+        <button />
+      </StyledPulsatingDot>
+      {/* <h2 className="questionTitle">{question}</h2>
 
-      <ListLayout>
+      <StyledListLayout>
         {options.map((x) => (
-          <ItemLayout>
+          <StyledItemLayout>
             <input
               type="radio"
               name="radioFeedbackGroup"
@@ -49,9 +49,11 @@ export const MultichoiceQuestion = ({
             <label htmlFor={x.id}>{x.title}</label>
 
             <div className="check" />
-          </ItemLayout>
+          </StyledItemLayout>
         ))}
-      </ListLayout>
-    </QuestionLayout>
-  );
-};
+      </StyledListLayout> */}
+    </div>
+
+    // </StyledQuestionLayout>
+  )
+}

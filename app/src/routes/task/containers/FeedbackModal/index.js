@@ -1,9 +1,11 @@
-import React, { useState, useEffect } from "react";
-import axios from "axios";
-import { FeedbackModalLayout } from "../../styles/FeedbackModalLayout";
-import { MultichoiceQuestion } from "../../screen/MultichoiceQuestion";
-import { TaskCompletionPopup } from "../../screen/TaskCompletionPopup";
-import { TASK_ENDPOINT } from "../../../../config/api-config";
+import React, { useState, useEffect } from 'react'
+import { useDispatch } from 'react-redux'
+import axios from 'axios'
+import { iframeNormalScreenAction } from '../../../../redux/Iframe/IframeActions'
+import  StyledFeedbackModalLayout  from '../../styles/StyledFeedbackModalLayout'
+import { MultichoiceQuestion } from '../../screen/MultichoiceQuestion'
+import { TaskCompletionPopup } from '../../screen/TaskCompletionPopup'
+import { TASK_ENDPOINT } from '../../../../config/api-config'
 
 export const FeedbackModal = ({
   slide,
@@ -15,27 +17,13 @@ export const FeedbackModal = ({
   drizzleState,
   task_owner_address,
 }) => {
-  const [indx, setIndx] = useState(0);
+  const [indx, setIndx] = useState(0)
   const [selectedAnswer, setSelectedAnswer] = useState(
     ...Object.keys(taskQuestions).map((x) => {
-      return { [taskQuestions[x].id]: "" };
-    })
-  );
-
-  // const postAnswers = useCallback(async () => {
-  //   const answersBatch = Object.keys(selectedAnswer).map((x) => {
-  //     return {
-  //       id: x,
-  //       options: [
-  //         {
-  //           id: selectedAnswer[x],
-  //         },
-  //       ],
-  //     };
-  //   });
-  //   console.log("ANSWERS BATCH", answersBatch);
-  //   await axios.post(`${TASK_ENDPOINT}${taskID}/answer/`, answersBatch);
-  // }, [selectedAnswer, taskID]);
+      return { [taskQuestions[x].id]: '' }
+    }),
+  )
+  const dispatch = useDispatch()
 
   useEffect(() => {
     const postAnswers = async () => {
@@ -47,40 +35,39 @@ export const FeedbackModal = ({
               id: selectedAnswer[x],
             },
           ],
-        };
-      });
+        }
+      })
 
       await axios.post(`${TASK_ENDPOINT}${taskID}/answer/`, {
         questions: answersBatch,
-      });
-    };
-    if (indx === taskQuestions.length) {
-      postAnswers();
+      })
     }
-  }, [selectedAnswer, indx, taskID, taskQuestions, questionID]);
+    if (indx === taskQuestions.length) {
+      dispatch(iframeNormalScreenAction)
+      postAnswers()
+    }
+  }, [selectedAnswer, indx, taskID, taskQuestions, questionID, dispatch])
 
   if (indx === taskQuestions.length) {
-    return <TaskCompletionPopup url={url} />;
+    return <TaskCompletionPopup url={url} />
   }
 
   return (
     <>
-      <FeedbackModalLayout slide={slide}>
+      <StyledFeedbackModalLayout slide={slide}>
         {taskQuestions.map((x, i) => (
-          <>
-            <MultichoiceQuestion
-              selectedAnswer={selectedAnswer}
-              setSelectedAnswer={setSelectedAnswer}
-              options={x.options}
-              question={x.title}
-              questionId={x.id}
-              setIndx={setIndx}
-              questionIndx={i}
-              currentIndx={indx}
-            />
-          </>
+          <MultichoiceQuestion
+            selectedAnswer={selectedAnswer}
+            setSelectedAnswer={setSelectedAnswer}
+            options={x.options}
+            question={x.title}
+            questionId={x.id}
+            setIndx={setIndx}
+            questionIndx={i}
+            currentIndx={indx}
+          />
         ))}
-      </FeedbackModalLayout>
+      </StyledFeedbackModalLayout>
     </>
-  );
-};
+  )
+}

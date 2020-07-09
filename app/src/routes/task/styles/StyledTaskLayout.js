@@ -1,6 +1,6 @@
 import styled from 'styled-components'
 
-export const TaskCompletionLayout = styled.div`
+const StyledTaskLayout = styled.div`
   position: absolute;
   top: calc(50vh - 80px);
   left: calc(50vw - 300px);
@@ -18,3 +18,4 @@ export const TaskCompletionLayout = styled.div`
     margin-top: 20px;
   }
 `
+export default StyledTaskLayout

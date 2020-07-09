@@ -8,8 +8,8 @@ import {
   iframeNormalScreenAction
 } from '../../../../redux/Iframe/IframeActions'
 import { FeedbackModal } from '../FeedbackModal'
-import { TaskIframeLayout } from '../../styles/IframeStyles'
-import { IframeProgressBarContainer } from '../../styles/IframeProgressBar'
+import StyledTaskIframeLayout  from '../../styles/StyledTaskIframeLayout'
+import  StyledIframeProgressBar  from '../../styles/IframeProgressBar'
 import { ResumeTaskLayout } from '../../styles/ResumeTaskLayout'
 import { TASK_ENDPOINT } from '../../../../config/api-config'
 import { useFetch } from '../../../../hooks/useFetch'
@@ -106,7 +106,7 @@ export const TaskIframe = ({ drizzle, drizzleState }) => {
             elapsedTime++
           } else {
             dispatch({ type: WAS_TASK_SUCCESSFUL_TRUE_ACTION })
-            reduxDispatch(iframeNormalScreenAction)
+            // reduxDispatch(iframeNormalScreenAction)
             clearInterval(intervalId)
           }
         }
@@ -172,7 +172,7 @@ export const TaskIframe = ({ drizzle, drizzleState }) => {
     return (
       <Fragment>
         {!isLoading && (
-          <IframeProgressBarContainer
+          <StyledIframeProgressBar
             currentSecondPercentage={Math.floor(
               isWhatPercentage(currentSecond - 1, time)
             )}
@@ -180,9 +180,9 @@ export const TaskIframe = ({ drizzle, drizzleState }) => {
             taskFrozen={isTaskStopped}
           >
             <div className='filledInProgressBar' />
-          </IframeProgressBarContainer>
+          </StyledIframeProgressBar>
         )}
-        <TaskIframeLayout slide={wasTaskSuccessful}>
+        <StyledTaskIframeLayout slide={wasTaskSuccessful}>
           {isLoading && <RingLoader size={140} />}
 
           <animated.iframe
@@ -196,7 +196,7 @@ export const TaskIframe = ({ drizzle, drizzleState }) => {
             onLoad={() => dispatch({ type: IS_LOADING_COMPLETED_ACTION })}
             frameBorder='0'
           />
-        </TaskIframeLayout>
+        </StyledTaskIframeLayout>
 
         {isTaskStopped && (
           <ResumeTaskLayout>

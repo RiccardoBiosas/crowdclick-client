@@ -1,7 +1,7 @@
 import styled from 'styled-components'
 
-export const TaskIframeLayout = styled.div`
-  height: ${props => props.slide ? "calc(100vh - 460px)" : "100vh"};
+const StyledTaskIframeLayout = styled.div`
+  height: ${props => props.slide ? "calc(100vh - 160px)" : "100vh"};
   position: relative;
   display: flex;
   justify-content: center;
@@ -10,3 +10,5 @@ export const TaskIframeLayout = styled.div`
   transition: bottom 0.6s ease-out;
   
 `
+
+export default StyledTaskIframeLayout

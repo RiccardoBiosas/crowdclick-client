@@ -1,6 +1,8 @@
 import styled, { keyframes, css } from "styled-components";
 
-export const QuestionLayout = styled.div`
+
+
+export const StyledQuestionLayout = styled.div`
   display: flex;
   flex-direction: column;
   justify-content: center;
@@ -17,7 +19,7 @@ export const QuestionLayout = styled.div`
   }
 `;
 
-export const ListLayout = styled.ul`
+export const StyledListLayout = styled.ul`
   list-style: none;
   margin: 0;
   padding: 0;
@@ -26,7 +28,7 @@ export const ListLayout = styled.ul`
   align-items: center;
 `;
 
-export const ItemLayout = styled.li`
+export const StyledItemLayout = styled.li`
   background: #ffffff 0% 0% no-repeat padding-box;
   border: 1px solid #e2e5ed;
   border-radius: 4px;
