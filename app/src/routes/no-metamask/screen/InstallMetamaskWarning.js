@@ -50,7 +50,7 @@ const InstallMetamaskWarning = () => {
             paragraphColor="#000000"
             paragraphFontSize="20px"
           >
-            MetaMask is compatible with Chrome, Brave & Firefox
+            MetaMask is compatible with <span style={{fontWeight: 900}}>Chrome, Brave & Firefox</span>
           </StyledGeneralParagraph>
         </div>
         <div>

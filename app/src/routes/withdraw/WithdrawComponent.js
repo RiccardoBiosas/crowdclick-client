@@ -1,7 +1,6 @@
 import React, { useState, useEffect } from "react";
 import { COINGECKO_API } from "../../config/api-config";
 import web3 from "web3";
-
 import axios from "axios";
 import StyledGeneralCardLayout from "../../shared/styles/StyledGeneralCardLayout";
 import StyledGeneralCardWrapper from "../../shared/styles/StyledGeneralCardWrapper";
@@ -17,7 +16,7 @@ const WithdrawBalance = ({ drizzle, drizzleState }) => {
 
 
   const fetchBalance = async() => {
-    const balance = await contract.methods.balancesOf(drizzleState.accounts[0]).call({from: drizzleState.accounts[0]})
+    const balance = await contract.methods.balancesOfUser(drizzleState.accounts[0]).call({from: drizzleState.accounts[0]})
     console.log('datakey fetchbalance', dataKey)
     setUserBalance(balance)
 }
@@ -44,7 +43,7 @@ const WithdrawBalance = ({ drizzle, drizzleState }) => {
     const withdrawalToWei = web3.utils.toWei(withdrawalToEth.toString());
     console.log("current account", drizzleState.accounts[0]);
 
-    const dataKey = await contract.methods["withdraw"].cacheSend(
+    const dataKey = await contract.methods["withdrawUserBalance"].cacheSend(
       withdrawalToWei,
       {
         from: drizzleState.accounts[0],
