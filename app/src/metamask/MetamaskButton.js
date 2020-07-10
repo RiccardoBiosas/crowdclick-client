@@ -45,9 +45,9 @@ const MetamaskButton = (props) => {
         window.localStorage.removeItem("userPubKey");
       }
     } else {
-      const sig = await window.web3.eth.sign(
-        // Web3Utils.sha3(nonce.data.nonce),
-        Web3Utils.sha3(nonce),
+      const sig = await window.web3.eth.personal.sign(
+        // Web3Utils.sha3(nonce),
+        nonce,
         coinbase,
         console.log
       );

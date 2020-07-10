@@ -55,8 +55,8 @@ export const MultichoiceQuestion = ({
           quizProperties={quizProperties}
           openQuiz={openQuiz}
           setOpenQuiz={setOpenQuiz}
-          currentIndx={currentIndx}
-          questionIndx={questionIndx}
+          // currentIndx={currentIndx}
+          // questionIndx={questionIndx}
         />, modalRoot
       )}
 
