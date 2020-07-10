@@ -3,7 +3,7 @@ import {useHistory} from 'react-router-dom'
 import StyledGeneralCardLayout from "../../../shared/styles/StyledGeneralCardLayout";
 import StyledGeneralCardWrapper from "../../../shared/styles/StyledGeneralCardWrapper";
 import { ReactComponent as MetamaskIcon } from "../../../assets/no-metamask/metamask_small_icon.svg";
-import StyledGlobalButton from "../../../shared/styles/StyledGlobalButton";
+import StyledGlobalButton from "../../../shared/styles/StyledGeneralButton";
 import StyledGeneralParagraph from "../../../shared/styles/StyledGeneralParagraph";
 import { HOME_ROUTE } from "../../../config/routes-config";
 

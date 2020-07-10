@@ -4,8 +4,7 @@ import 'normalize.css'
 import App from "./App";
 import { Provider } from "react-redux";
 import { store } from "./redux/store";
-import './index.css'
-import { Theme } from "./shared/GlobalThemeProvider";
+import  Theme  from "./shared/styles/GlobalThemeProvider";
 require("dotenv").config();
 
 ReactDOM.render(
@@ -16,8 +15,3 @@ ReactDOM.render(
   </Provider>,
   document.getElementById("root")
 );
-
-// ReactDOM.render(
-//   <div style={{width: "100vw"}}>hi</div>,
-//   document.getElementById('root')
-// )

@@ -3,7 +3,7 @@ import { useDispatch } from 'react-redux'
 import axios from 'axios'
 import { iframeNormalScreenAction } from '../../../../redux/Iframe/IframeActions'
 import  StyledFeedbackModalLayout  from '../../styles/StyledFeedbackModalLayout'
-import { MultichoiceQuestion } from '../../screen/MultichoiceQuestion'
+import  MultichoiceQuestion  from '../MultichoiceQuestion/index'
 import { TaskCompletionPopup } from '../../screen/TaskCompletionPopup'
 import { TASK_ENDPOINT } from '../../../../config/api-config'
 

@@ -1,7 +1,7 @@
 import styled from 'styled-components'
 
 export const NavbarFlexWrapper = styled.header`
-  width: 100vw;
+  width: 100%;
   display: flex;
   justify-content: center;
   margin-bottom: 4vh;

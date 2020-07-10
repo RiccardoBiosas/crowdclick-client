@@ -8,7 +8,7 @@ import {
 } from '../styles/MultichoiceItemStyles'
 import { StyledGeneralHeadingTwo } from '../../../shared/styles/StyledGeneralHeadings'
 
-const QuizCollection = ({
+const MultichoiceQuestionQuiz = ({
   options,
   setSelectedAnswer,
   selectedAnswer,
@@ -109,4 +109,4 @@ const QuizCollection = ({
   )
 }
 
-export default QuizCollection
+export default MultichoiceQuestionQuiz

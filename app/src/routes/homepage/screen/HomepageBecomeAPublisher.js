@@ -2,7 +2,7 @@ import React, { useState } from "react";
 import VizSensor from "react-visibility-sensor";
 import default_landing_publisher_image from "../../../assets/homepage/img3.svg";
 import aeternity_become_publisher_img from "../../../assets/images/aeternity_become_publisher.svg";
-import  StyledGlobalButton  from "../../../shared/styles/StyledGlobalButton";
+import  StyledGeneralButton  from "../../../shared/styles/StyledGeneralButton";
 import {
   ImgWrapper,
   CardMainHeading,
@@ -104,7 +104,7 @@ export const HomepageBecomeAPublisher = ({ currencyTheme }) => {
                     </div>
 
                     <div>
-                      <StyledGlobalButton
+                      <StyledGeneralButton
                         onClick={() => setFlipped(!flipped)}
                         buttonWidth="135"
                         buttonMargin="30px 0 0 0"
@@ -116,7 +116,7 @@ export const HomepageBecomeAPublisher = ({ currencyTheme }) => {
                         buttonTextColor={"#FFFFFF"}
                       >
                         Get answers
-                      </StyledGlobalButton>
+                      </StyledGeneralButton>
                     </div>
                   </CenteredColumnWithMediaQueries>
                 )}

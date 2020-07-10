@@ -1,6 +1,6 @@
 import React from "react";
 import { PublisherCampaignTaskSummaryLayout } from "../../publisher-dashboard__new-task/styles/CampaignStyles";
-import { useRedirectWithProps } from "../../../hooks/useRedirectWithProps";
+import  useRedirectWithProps  from "../../../hooks/useRedirectWithProps";
 import { PUBLISHER_WIZARD_ROUTE } from "../../../config/routes-config";
 
 export const PublisherDashboardNextCampaign = () => {

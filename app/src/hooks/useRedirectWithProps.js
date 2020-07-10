@@ -1,18 +1,13 @@
 import React, { Fragment, useState } from 'react'
 import { Redirect } from 'react-router-dom'
-import  StyledGlobalButton  from '../shared/styles/StyledGlobalButton'
+import  StyledGeneralButton  from '../shared/styles/StyledGeneralButton'
 
-
-
-
-
-
-export const useRedirectWithProps = (route, btnColor, btnText, params) => {
+const useRedirectWithProps = (route, btnColor, btnText, params) => {
   const [redirect, setRedirect] = useState(false)
 
   return (
     <Fragment>
-      <StyledGlobalButton
+      <StyledGeneralButton
         buttonColor={btnColor}
         buttonMargin={'0px 20px 20px 0px'}
         buttonTextColor={'#FFFFFF'}
@@ -20,7 +15,7 @@ export const useRedirectWithProps = (route, btnColor, btnText, params) => {
         onClick={() => setRedirect(true)}
       >
         {btnText}
-      </StyledGlobalButton>
+      </StyledGeneralButton>
       {redirect && <Redirect push to={{
         pathname: route,        
         state: {...params}
@@ -28,3 +23,5 @@ export const useRedirectWithProps = (route, btnColor, btnText, params) => {
     </Fragment>
   )
 }
+
+export default useRedirectWithProps

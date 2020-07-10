@@ -4,7 +4,7 @@ import web3 from "web3";
 import axios from "axios";
 import StyledGeneralCardLayout from "../../shared/styles/StyledGeneralCardLayout";
 import StyledGeneralCardWrapper from "../../shared/styles/StyledGeneralCardWrapper";
-import  StyledGlobalButton  from "../../shared/styles/StyledGlobalButton";
+import  StyledGeneralButton  from "../../shared/styles/StyledGeneralButton";
 
 const WithdrawBalance = ({ drizzle, drizzleState }) => {
   const [userInput, setUserInput] = useState();
@@ -87,14 +87,14 @@ const WithdrawBalance = ({ drizzle, drizzleState }) => {
             type="number"
             onChange={(e) => setUserInput(e.target.value)}
           />
-          <StyledGlobalButton
+          <StyledGeneralButton
             buttonWidth="380px"
             buttonColor="blue"
             buttonTextColor="white"
             type="submit"
           >
             Confirm withdrawal
-          </StyledGlobalButton>
+          </StyledGeneralButton>
         </form>
       </StyledGeneralCardWrapper>
     </StyledGeneralCardLayout>

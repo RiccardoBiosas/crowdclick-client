@@ -3,7 +3,7 @@ import PackmanLoader from "react-spinners/PacmanLoader";
 import { ROPSTEN_ETHERSCAN_TX } from "../../../config/api-config";
 import { StyledGeneralHeadingTwo } from "../../../shared/styles/StyledGeneralHeadings";
 import metamaskLogo from "../../../assets/wallet-logos/metamask-logo.svg";
-import  StyledGlobalButton  from "../../../shared/styles/StyledGlobalButton";
+import  StyledGeneralButton  from "../../../shared/styles/StyledGeneralButton";
 import Copy from "../../../assets/images/copy.svg";
 import CopyToClipboard from "../../../shared/copyToClipboard/CopyToClipboard";
 import StyledGeneralParagraph from "../../../shared/styles/StyledGeneralParagraph";
@@ -89,7 +89,7 @@ export const PublisherWizardFormCampaignPayment = ({
                   />
                 </div>
                 <div>
-                  <StyledGlobalButton
+                  <StyledGeneralButton
                     type="submit"
                     buttonColor={"orange"}
                     buttonMargin={"34px 0px 0px 0px"}
@@ -98,7 +98,7 @@ export const PublisherWizardFormCampaignPayment = ({
                     // onClick={openTask}
                   >
                     Pay with Metamask
-                  </StyledGlobalButton>
+                  </StyledGeneralButton>
                 </div>
               </>
             ) : (

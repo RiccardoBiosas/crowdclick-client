@@ -6,7 +6,7 @@ import {
   PublisherCampaignGeneralTaskLayout,
   PercentageBarItem,
 } from "../../publisher-dashboard__new-task/styles/CampaignStyles";
-import  StyledGlobalButton  from "../../../shared/styles/StyledGlobalButton";
+import  StyledGeneralButton  from "../../../shared/styles/StyledGeneralButton";
 import { isWhatPercentage } from "../../../utils/isWhatPercentage";
 import { PUBLISHER_WIZARD_EDIT_ROUTE_WITH_PARAM } from "../../../config/routes-config";
 
@@ -37,15 +37,15 @@ export const PublisherDashboardCampaignTask = ({
           <div>
             {/* <button>Edit Campaign</button>
             <button>Results</button> */}
-            <StyledGlobalButton
+            <StyledGeneralButton
               buttonColor={"blue"}
               buttonMargin={"0px 20px 20px 0px"}
               buttonTextColor={"#FFFFFF"}
               buttonWidth={200}
             >
               Edit Campaign
-            </StyledGlobalButton>
-            <StyledGlobalButton
+            </StyledGeneralButton>
+            <StyledGeneralButton
               buttonColor={"transparent"}
               buttonMargin={"0px 0px 20px 0px"}
               buttonTextColor={"#206DFF"}
@@ -54,7 +54,7 @@ export const PublisherDashboardCampaignTask = ({
             >
               {!campaignState && "Show results"}{" "}
               {campaignState && "Hide results"}
-            </StyledGlobalButton>
+            </StyledGeneralButton>
           </div>
         </div>
       </PublisherCampaignTaskSummaryLayout>
@@ -154,7 +154,7 @@ export const Temporary__PublisherDashboardCampaignTask = ({
           <div>
             {/* <button>Edit Campaign</button>
             <button>Results</button> */}
-            <StyledGlobalButton
+            <StyledGeneralButton
               buttonColor={"blue"}
               buttonMargin={"0px 20px 20px 0px"}
               buttonTextColor={"#FFFFFF"}
@@ -166,8 +166,8 @@ export const Temporary__PublisherDashboardCampaignTask = ({
               }
             >
               Edit Campaign
-            </StyledGlobalButton>
-            <StyledGlobalButton
+            </StyledGeneralButton>
+            <StyledGeneralButton
               buttonColor={"transparent"}
               buttonMargin={"0px 0px 20px 0px"}
               buttonTextColor={"#206DFF"}
@@ -176,7 +176,7 @@ export const Temporary__PublisherDashboardCampaignTask = ({
             >
               {!campaignState && "Show results"}{" "}
               {campaignState && "Hide results"}
-            </StyledGlobalButton>
+            </StyledGeneralButton>
           </div>
         </div>
       </PublisherCampaignTaskSummaryLayout>

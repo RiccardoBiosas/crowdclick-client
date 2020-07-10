@@ -20,6 +20,8 @@ export const HomepageWrapper = styled.main`
   display: flex;
   flex-direction: column;
   align-items: center;
+  width: 100%;
+  overflow-x: hidden;
 `;
 
 export const FlexWrapper = styled.div`

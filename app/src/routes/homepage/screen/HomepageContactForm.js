@@ -9,7 +9,7 @@ import {
 } from "../styles/HomepageContactFormStyles";
 import Stay_in_the_loop from "../../../assets/homepage/img4.svg";
 import aeternity_stay_in_the_loop from "../../../assets/images/aeternity_stay_in_the_loop.svg";
-import { Checkmark } from "../../../shared/Checkmark";
+import  StyledCheckmark  from "../../../shared/styles/StyledCheckmark";
 import { ReactComponent as SvgSuccess } from "../../../assets/SVG/Success.svg";
 import { ReactComponent as SvgFailure } from "../../../assets/SVG/Failure.svg";
 import { SUBSCRIBE_ENDPOINT } from "../../../config/api-config";
@@ -71,9 +71,9 @@ const HomepageContactForm = ({ currencyTheme }) => {
 
           <SpinnerWrapper>
             {respStatus && (
-              <Checkmark type={"block"}>
+              <StyledCheckmark type={"block"}>
                 {respStatus === 201 ? <SvgSuccess /> : <SvgFailure />}
-              </Checkmark>
+              </StyledCheckmark>
             )}
           </SpinnerWrapper>
 
@@ -99,13 +99,13 @@ const HomepageContactForm = ({ currencyTheme }) => {
             <div>
               {respStatus && (
                 <div className="desktop-svgWrapper">
-                  <Checkmark type={"inline"}>
+                  <StyledCheckmark type={"inline"}>
                     {respStatus && respStatus === 201 ? (
                       <SvgSuccess />
                     ) : (
                       <SvgFailure />
                     )}
-                  </Checkmark>
+                  </StyledCheckmark>
                 </div>
               )}
             </div>

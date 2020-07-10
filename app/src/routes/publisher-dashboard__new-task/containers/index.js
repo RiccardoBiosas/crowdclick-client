@@ -9,7 +9,7 @@ import { PublisherWizardFormCampaignPublisherBudget } from "../screen/PublisherW
 import { PublisherWizardFormCampaignQuiz } from "../screen/PublisherWizardFormCampaignQuiz";
 import { PublisherWizardFormCampaignPreview } from "../screen/PublisherWizardFormCampaignPreview";
 import { PublisherWizardFormCampaignPayment } from "../screen/PublisherWizardFormCampaignPayment";
-import StyledGlobalButton  from "../../../shared/styles/StyledGlobalButton";
+import StyledGeneralButton  from "../../../shared/styles/StyledGeneralButton";
 import  StyledCardNavbar  from "../../../shared/styles/StyledCardNavbar";
 import { useHandleKeydownEvent } from "../../../hooks/useHandleKeydownEvent";
 import { TASK_ENDPOINT, COINGECKO_API } from "../../../config/api-config";
@@ -383,7 +383,7 @@ export const PublisherWizardFormContainer = ({
 
                   {step < totalSteps - 1 ? (
                     <StyledGeneralColumnWrapper columnJustify="flex-end">
-                      <StyledGlobalButton
+                      <StyledGeneralButton
                         buttonColor={"blue"}
                         buttonTextColor={"#FFFFFF"}
                         buttonWidth={280}
@@ -464,7 +464,7 @@ export const PublisherWizardFormContainer = ({
                         }}
                       >
                         Next step
-                      </StyledGlobalButton>
+                      </StyledGeneralButton>
 
                       <p style={{ color: "#9ea0a5", fontSize: "16px" }}>
                         Step {step} of {totalSteps}

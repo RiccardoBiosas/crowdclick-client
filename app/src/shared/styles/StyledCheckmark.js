@@ -1,6 +1,6 @@
 import styled from "styled-components";
 
-export const Checkmark = styled.svg`
+const StyledCheckmark = styled.svg`
   width: 50px;
   display: inline;
   position: absolute;
@@ -39,3 +39,5 @@ export const Checkmark = styled.svg`
     }
   }
 `;
+
+export default StyledCheckmark

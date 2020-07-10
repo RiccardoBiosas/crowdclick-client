@@ -4,7 +4,7 @@ import Web3 from "web3";
 import Web3Utils from "web3-utils";
 import { useDispatch } from "react-redux";
 import axios from "axios";
-import StyledGlobalButton from "../shared/styles/StyledGlobalButton";
+import StyledGeneralButton from "../shared/styles/StyledGeneralButton";
 import { AUTH_ENDPOINT } from "../config/api-config";
 import { navAuthTrueAction } from "../redux/NavAuth/navAuthActions";
 import { NO_METAMASK_ROUTE } from "../config/routes-config";
@@ -71,14 +71,14 @@ const MetamaskButton = (props) => {
 
 
   return (
-    <StyledGlobalButton
+    <StyledGeneralButton
       buttonColor={btnColor}
       buttonTextColor={"#FFFFFF"}
       buttonWidth={btnWidth}
       onClick={checkMetamask}
     >
       {btnText}
-    </StyledGlobalButton>
+    </StyledGeneralButton>
   );
 };
 
