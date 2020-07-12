@@ -1,5 +1,5 @@
 import styled from "styled-components";
-import { BackgroundThemeButton } from "../../DesktopNavbar/styles/DesktopNavbarStyles";
+import { StyledBackgroundThemeButton } from "../../DesktopNavbar/styles/DesktopNavbarStyles";
 
 export const StyledMobileNavbarLayout = styled.header`
   display: flex;
@@ -108,7 +108,7 @@ ${({optionMargin}) => optionMargin && `margin: ${optionMargin}`}
 `;
 
 export const CustomizedMobileBackgroundThemeButton = styled(
-  BackgroundThemeButton
+  StyledBackgroundThemeButton
 )`
   &&& {
     position: static;

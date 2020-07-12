@@ -4,11 +4,11 @@ import default_landing_publisher_image from "../../../assets/homepage/img3.svg";
 import aeternity_become_publisher_img from "../../../assets/images/aeternity_become_publisher.svg";
 import  StyledGeneralButton  from "../../../shared/styles/StyledGeneralButton";
 import {
-  ImgWrapper,
-  CardMainHeading,
-  CardList,
-  CardLayout,
-  CenteredColumnWithMediaQueries
+  StyledImgWrapper,
+  StyledCardMainHeading,
+  StyledCardList,
+  StyledCardLayout,
+  StyledCenteredColumnWithMediaQueries
 } from "../styles/HomepageStyles";
 import { useSpring, animated } from "react-spring";
 import { Spring } from "react-spring/renderprops";
@@ -61,7 +61,7 @@ export const HomepageBecomeAPublisher = ({ currencyTheme }) => {
               display,
             }}
           >
-            <CardLayout>
+            <StyledCardLayout>
               <Spring
                 from={{
                   left: !isVisible ? "80%" : "0%",
@@ -78,16 +78,16 @@ export const HomepageBecomeAPublisher = ({ currencyTheme }) => {
               >
                 {/* <animated.div style={slideAnimationFromLeft}> */}
                 {(props) => (
-                  <CenteredColumnWithMediaQueries containerMargin="0 0 48px 0" style={props}>
-                    <CardMainHeading
+                  <StyledCenteredColumnWithMediaQueries containerMargin="0 0 48px 0" style={props}>
+                    <StyledCardMainHeading
                       type={"no-break-paragraph"}
                       mainHeadline={32}
                     >
                       Become a publisher
-                    </CardMainHeading>
+                    </StyledCardMainHeading>
 
                     <div>
-                      <CardList
+                      <StyledCardList
                         color={
                           currencyTheme === "ethereumStyle"
                             ? "#206DFF"
@@ -100,7 +100,7 @@ export const HomepageBecomeAPublisher = ({ currencyTheme }) => {
                         <li>Set reward per click</li>
                         <li>Set time duration to stay on your site</li>
                         <li>Place multiple choice question</li>
-                      </CardList>
+                      </StyledCardList>
                     </div>
 
                     <div>
@@ -118,13 +118,13 @@ export const HomepageBecomeAPublisher = ({ currencyTheme }) => {
                         Get answers
                       </StyledGeneralButton>
                     </div>
-                  </CenteredColumnWithMediaQueries>
+                  </StyledCenteredColumnWithMediaQueries>
                 )}
 
                 {/* </animated.div> */}
               </Spring>
 
-              <ImgWrapper side={"right"}>
+              <StyledImgWrapper side={"right"}>
                 <img
                   src={
                     currencyTheme === "ethereumStyle"
@@ -134,8 +134,8 @@ export const HomepageBecomeAPublisher = ({ currencyTheme }) => {
                   className="publisher-img"
                   alt="publisher_image"
                 />
-              </ImgWrapper>
-            </CardLayout>
+              </StyledImgWrapper>
+            </StyledCardLayout>
           </animated.div>
 
           <animated.div
@@ -145,14 +145,14 @@ export const HomepageBecomeAPublisher = ({ currencyTheme }) => {
               display: display.interpolate((d) => (d === "" ? "none" : "")),
             }}
           >
-            <CardLayout>
+            <StyledCardLayout>
               <div>
                 <h1>hello world</h1>
                 <button onClick={() => setFlipped(!flipped)}>
                   flip it back and start using crowdclick
                 </button>
               </div>
-            </CardLayout>
+            </StyledCardLayout>
           </animated.div>
         </div>
       )}

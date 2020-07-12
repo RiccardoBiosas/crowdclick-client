@@ -1,13 +1,12 @@
 import React from "react";
 import {useHistory} from 'react-router-dom'
 import Web3 from "web3";
-import Web3Utils from "web3-utils";
 import { useDispatch } from "react-redux";
 import axios from "axios";
-import StyledGeneralButton from "../shared/styles/StyledGeneralButton";
-import { AUTH_ENDPOINT } from "../config/api-config";
-import { navAuthTrueAction } from "../redux/NavAuth/navAuthActions";
-import { NO_METAMASK_ROUTE } from "../config/routes-config";
+import StyledGeneralButton from "../../styles/StyledGeneralButton";
+import { AUTH_ENDPOINT } from "../../../config/api-config";
+import { navAuthTrueAction } from "../../../redux/NavAuth/navAuthActions";
+import { NO_METAMASK_ROUTE } from "../../../config/routes-config";
 
 axios.defaults.withCredentials = true;
 

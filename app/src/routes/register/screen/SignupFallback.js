@@ -1,7 +1,7 @@
 import React, { useState } from "react";
 import { Redirect, useHistory, useLocation } from "react-router";
 import { ReactComponent as Placeholder } from "../../../assets/Iframe/ETH-Reward.svg";
-import MetamaskButton from "../../../metamask/MetamaskButton";
+import MetamaskButton from "../../../shared/components/metamask/MetamaskButton";
 import {
   USER_TASKS_LIST_ROUTE,
   PUBLISHER_WIZARD_ROUTE,

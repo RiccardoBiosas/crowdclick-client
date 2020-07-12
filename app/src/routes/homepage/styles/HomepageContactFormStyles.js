@@ -1,6 +1,6 @@
 import styled from "styled-components";
 
-export const ContactFormLayout = styled.div`
+export const StyledContactFormLayout = styled.div`
   width: 100vw;
   height: 20rem;
   display: flex;
@@ -14,7 +14,7 @@ export const ContactFormLayout = styled.div`
   }
 `;
 
-export const ContactFormWrapper = styled.div`
+export const StyledContactFormWrapper = styled.div`
   height: 100%;
   width: 60%;
   display: flex;
@@ -32,7 +32,7 @@ export const ContactFormWrapper = styled.div`
   }
 `;
 
-export const ContactHeading = styled.div`
+export const StyledContactHeading = styled.div`
   display: flex;
   flex-direction: column;
   align-self: flex-start;
@@ -59,7 +59,8 @@ export const ContactHeading = styled.div`
     align-self: center;
   }
 `;
-export const SpinnerWrapper = styled.div`
+
+export const StyledSpinnerWrapper = styled.div`
   display: none;
   @media screen and (max-width: 700px) {
     display: flex;
@@ -69,7 +70,7 @@ export const SpinnerWrapper = styled.div`
   }
 `;
 
-export const InputFormWrapper = styled.div`
+export const StyledInputFormWrapper = styled.div`
   display: flex;
 
   .desktop-svgWrapper {

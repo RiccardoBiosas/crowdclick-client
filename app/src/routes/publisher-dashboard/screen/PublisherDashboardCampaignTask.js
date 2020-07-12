@@ -2,9 +2,9 @@ import React, { useState } from "react";
 import { animated, useTransition } from "react-spring";
 import { useHistory } from "react-router-dom";
 import {
-  PublisherCampaignTaskSummaryLayout,
-  PublisherCampaignGeneralTaskLayout,
-  PercentageBarItem,
+  StyledPublisherCampaignTaskSummaryLayout,
+  StyledPublisherCampaignGeneralTaskLayout,
+  StyledPercentageBarItem,
 } from "../../publisher-dashboard__new-task/styles/CampaignStyles";
 import  StyledGeneralButton  from "../../../shared/styles/StyledGeneralButton";
 import { isWhatPercentage } from "../../../utils/isWhatPercentage";
@@ -28,8 +28,8 @@ export const PublisherDashboardCampaignTask = ({
   });
 
   return (
-    <PublisherCampaignGeneralTaskLayout>
-      <PublisherCampaignTaskSummaryLayout campaignToggle={campaignState}>
+    <StyledPublisherCampaignGeneralTaskLayout>
+      <StyledPublisherCampaignTaskSummaryLayout campaignToggle={campaignState}>
         <div className="campaignAvatar" />
         <div style={{ marginLeft: "34px" }}>
           <h2>{campaignID}</h2>
@@ -57,7 +57,7 @@ export const PublisherDashboardCampaignTask = ({
             </StyledGeneralButton>
           </div>
         </div>
-      </PublisherCampaignTaskSummaryLayout>
+      </StyledPublisherCampaignTaskSummaryLayout>
 
       {transitions.map(({ item, key, props }) => {
         return (
@@ -94,9 +94,9 @@ export const PublisherDashboardCampaignTask = ({
                           <p>{currentPercentage}%</p>
                         </div>
 
-                        <PercentageBarItem percentage={currentPercentage}>
+                        <StyledPercentageBarItem percentage={currentPercentage}>
                           <div className="itemPercentage" />
-                        </PercentageBarItem>
+                        </StyledPercentageBarItem>
                       </div>
                     );
                   })}
@@ -106,7 +106,7 @@ export const PublisherDashboardCampaignTask = ({
           )
         );
       })}
-    </PublisherCampaignGeneralTaskLayout>
+    </StyledPublisherCampaignGeneralTaskLayout>
   );
 };
 
@@ -141,8 +141,8 @@ export const Temporary__PublisherDashboardCampaignTask = ({
   });
 
   return (
-    <PublisherCampaignGeneralTaskLayout>
-      <PublisherCampaignTaskSummaryLayout
+    <StyledPublisherCampaignGeneralTaskLayout>
+      <StyledPublisherCampaignTaskSummaryLayout
         og_background={!isPlaceholderNeeded ? og_image : ""}
         campaignToggle={campaignState}
       >
@@ -179,7 +179,7 @@ export const Temporary__PublisherDashboardCampaignTask = ({
             </StyledGeneralButton>
           </div>
         </div>
-      </PublisherCampaignTaskSummaryLayout>
+      </StyledPublisherCampaignTaskSummaryLayout>
 
       {transitions.map(({ item, key, props }) => {
         return (
@@ -201,6 +201,6 @@ export const Temporary__PublisherDashboardCampaignTask = ({
           )
         );
       })}
-    </PublisherCampaignGeneralTaskLayout>
+    </StyledPublisherCampaignGeneralTaskLayout>
   );
 };

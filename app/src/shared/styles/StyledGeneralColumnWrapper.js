@@ -1,6 +1,6 @@
 import styled from "styled-components";
 
-const GeneralColumnWrapper = styled.div`
+const StyledGeneralColumnWrapper = styled.div`
   height: ${({ columnHeight }) => columnHeight || "inherit"};
   width: ${({ columnWidth }) => columnWidth || "inherit"};
   display: flex;
@@ -9,4 +9,4 @@ const GeneralColumnWrapper = styled.div`
   justify-content: ${({ columnJustify }) => columnJustify || "center"};
 `;
 
-export default GeneralColumnWrapper;
+export default StyledGeneralColumnWrapper;

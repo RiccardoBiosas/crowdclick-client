@@ -1,6 +1,6 @@
 import styled from "styled-components";
 
-export const CopyrightFooterLayout = styled.div`
+export const StyledCopyrightFooterLayout = styled.div`
 display: flex;
 flex-direction: column;
 align-items: center;

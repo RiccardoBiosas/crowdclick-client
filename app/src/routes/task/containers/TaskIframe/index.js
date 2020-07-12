@@ -9,11 +9,11 @@ import {
 } from '../../../../redux/Iframe/IframeActions'
 import { FeedbackModal } from '../FeedbackModal'
 import StyledTaskIframeLayout  from '../../styles/StyledTaskIframeLayout'
-import  StyledIframeProgressBar  from '../../styles/IframeProgressBar'
-import { ResumeTaskLayout } from '../../styles/ResumeTaskLayout'
+import  StyledIframeProgressBar  from '../../styles/StyledIframeProgressBar'
+import { StyledResumeTaskLayout } from '../../styles/StyledResumeTaskLayout'
 import { TASK_ENDPOINT } from '../../../../config/api-config'
 import { useFetch } from '../../../../hooks/useFetch'
-import { LoadingIcon } from '../../../../shared/LoadingIcon'
+import LoadingIcon  from '../../../../shared/components/loadingIcons/LoadingIcon'
 import { isWhatPercentage } from '../../../../utils/isWhatPercentage'
 
 const IFrameStyle = {
@@ -199,7 +199,7 @@ export const TaskIframe = ({ drizzle, drizzleState }) => {
         </StyledTaskIframeLayout>
 
         {isTaskStopped && (
-          <ResumeTaskLayout>
+          <StyledResumeTaskLayout>
             <h1>
               attempts: {taskInterruptions}, seconds: {currentSecond},
               taskStatus:{' '}
@@ -213,7 +213,7 @@ export const TaskIframe = ({ drizzle, drizzleState }) => {
             >
               resume
             </button>
-          </ResumeTaskLayout>
+          </StyledResumeTaskLayout>
         )}
         {questionOptionsObj && (
           <FeedbackModal

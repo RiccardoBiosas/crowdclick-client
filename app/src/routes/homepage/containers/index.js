@@ -4,8 +4,8 @@ import { HomepageFooter } from '../screen/HomepageFooter'
 import { HomepageCopyrightFooter } from '../screen/HomepageCopyrightFooter'
 import HomepageContactForm from '../screen/HomepageContactForm'
 import {
-  FlexWrapper,
-  HomepageWrapper
+  StyledFlexWrapper,
+  StyledHomepageWrapper
 } from '../styles/HomepageStyles'
 import { HomepageBecomeAUser } from '../screen/HomepageBecomeAUser'
 import { HomepageBecomeAPublisher } from '../screen/HomepageBecomeAPublisher'
@@ -17,18 +17,18 @@ export const Homepage = () => {
     .colorStyle
 
   return (
-    <HomepageWrapper>
-      <FlexWrapper currencyTheme={currencyTheme}>
+    <StyledHomepageWrapper>
+      <StyledFlexWrapper currencyTheme={currencyTheme}>
         <HomepageDoubleCard currencyTheme={currencyTheme} />      
 
         <HomepageBecomeAUser currencyTheme={currencyTheme} />
         <HomepageBecomeAPublisher currencyTheme={currencyTheme} />
-      </FlexWrapper>
+      </StyledFlexWrapper>
 
       <HomepageContactForm currencyTheme={currencyTheme} />
 
       <HomepageFooter />
       <HomepageCopyrightFooter />
-    </HomepageWrapper>
+    </StyledHomepageWrapper>
   )
 }

@@ -1,6 +1,6 @@
 import styled from 'styled-components'
 
-export const NavbarFlexWrapper = styled.header`
+export const StyledNavbarFlexWrapper = styled.header`
   width: 100%;
   display: flex;
   justify-content: center;
@@ -9,7 +9,7 @@ export const NavbarFlexWrapper = styled.header`
 `
 
 
-export const DesktopNavbarLayout = styled.div`
+export const StyledDesktopNavbarLayout = styled.div`
   width: 60%;
   display: flex;
   justify-content: space-between;
@@ -24,7 +24,7 @@ export const DesktopNavbarLayout = styled.div`
 `
 
 
-export const FirstDivGroup = styled.div`
+export const StyledFirstDivGroup = styled.div`
   flex: 4;
   display: flex;
   justify-content: center;  
@@ -37,7 +37,7 @@ export const FirstDivGroup = styled.div`
   }
 `
 
-export const AuthSecondDivGroup = styled.div`
+export const StyledAuthSecondDivGroup = styled.div`
   flex: 3;
   display: flex;
   justify-content: space-between;
@@ -54,7 +54,7 @@ export const AuthSecondDivGroup = styled.div`
 
 `
 
-export const BackgroundThemeButton = styled.button`
+export const StyledBackgroundThemeButton = styled.button`
   margin-top: 10px;
   background-color: #206DFF;
   border: 1px solid #206DFF;

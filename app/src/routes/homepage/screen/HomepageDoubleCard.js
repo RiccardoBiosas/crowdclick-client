@@ -3,13 +3,12 @@ import VizSensor from "react-visibility-sensor";
 import default_landing_double_image from "../../../assets/homepage/img1.svg";
 import aeternity_landing_img from "../../../assets/images/aeternity_landing-page.svg";
 import  StyledGeneralButton  from "../../../shared/styles/StyledGeneralButton";
-
 import {
-  ImgWrapper,
-  CardMainHeading,
-  CardLayout,
-  CardsParagraph,
-  CenteredColumnWithMediaQueries,
+  StyledImgWrapper,
+  StyledCardMainHeading,
+  StyledCardLayout,
+  StyledCardsParagraph,
+  StyledCenteredColumnWithMediaQueries,
   
 } from "../styles/HomepageStyles";
 import { Spring } from "react-spring/renderprops";
@@ -53,7 +52,7 @@ export const HomepageDoubleCard = ({ currencyTheme }) => {
   return (
     <VizSensor active={isVizSensorActive} partialVisibility={true} onChange={handleVisibility}>
       {({ isVisible  }) => (
-        <CardLayout>
+        <StyledCardLayout>
           <Spring
             from={{
               left: !isVisible ? "80%" : "0%",
@@ -70,16 +69,16 @@ export const HomepageDoubleCard = ({ currencyTheme }) => {
           >
             {(props) => (
               <div style={props}>
-                <CenteredColumnWithMediaQueries>
-                  <CardMainHeading type={"break-paragraph"} mainHeadline={40}>
+                <StyledCenteredColumnWithMediaQueries>
+                  <StyledCardMainHeading type={"break-paragraph"} mainHeadline={40}>
                     Click. Answer. Earn.
-                  </CardMainHeading>
-                  <CardsParagraph>
+                  </StyledCardMainHeading>
+                  <StyledCardsParagraph>
                     Go on interesting sites, click to answer
                     {currencyTheme === "ethereumStyle"
                       ? " & earn ETH"
                       : " & earn AE"}
-                  </CardsParagraph>
+                  </StyledCardsParagraph>
                   <div>
                     <StyledGeneralButton
                       onClick={() => handleRedirect("user")}
@@ -95,13 +94,13 @@ export const HomepageDoubleCard = ({ currencyTheme }) => {
                         : "Earn AE"}
                     </StyledGeneralButton>
                   </div>
-                </CenteredColumnWithMediaQueries>
-                <CenteredColumnWithMediaQueries containerMargin="0 0 48px 0">
-                  <CardMainHeading type={"break-paragraph"} mainHeadline={40}>
+                </StyledCenteredColumnWithMediaQueries>
+                <StyledCenteredColumnWithMediaQueries containerMargin="0 0 48px 0">
+                  <StyledCardMainHeading type={"break-paragraph"} mainHeadline={40}>
                     Traffic. Feedback. Grow.
-                  </CardMainHeading>
-                  <CardsParagraph>Publish your site, set a reward and ask a question.</CardsParagraph>
-                  <CardsParagraph>Get traffic and first impression feedback.</CardsParagraph>
+                  </StyledCardMainHeading>
+                  <StyledCardsParagraph>Publish your site, set a reward and ask a question.</StyledCardsParagraph>
+                  <StyledCardsParagraph>Get traffic and first impression feedback.</StyledCardsParagraph>
                   <div>
                     <StyledGeneralButton
                       onClick={() => handleRedirect("publisher")}
@@ -115,11 +114,11 @@ export const HomepageDoubleCard = ({ currencyTheme }) => {
                       Get answers
                     </StyledGeneralButton>
                   </div>
-                </CenteredColumnWithMediaQueries>
+                </StyledCenteredColumnWithMediaQueries>
               </div>
             )}
           </Spring>
-          <ImgWrapper type={"double-card"}>
+          <StyledImgWrapper type={"double-card"}>
             <img
               src={
                 currencyTheme === "ethereumStyle"
@@ -129,8 +128,8 @@ export const HomepageDoubleCard = ({ currencyTheme }) => {
               className="double-card-img"
               alt="landing_image"
             />
-          </ImgWrapper>
-        </CardLayout>
+          </StyledImgWrapper>
+        </StyledCardLayout>
       )}
     </VizSensor>
   );

@@ -1,6 +1,6 @@
 import React from 'react'
 import {useHistory} from 'react-router-dom'
-import { PublisherCampaignTaskSummaryLayout as UserTaskSummaryLayout } from  '../../publisher-dashboard__new-task/styles/CampaignStyles'
+import { StyledPublisherCampaignTaskSummaryLayout as StyledUserTaskSummaryLayout } from  '../../publisher-dashboard__new-task/styles/CampaignStyles'
 import  StyledGeneralButton  from '../../../shared/styles/StyledGeneralButton'
 import { USER_TASK_ROUTE_WITH_PARAM } from '../../../config/routes-config'
 
@@ -13,7 +13,7 @@ export const TasksConsoleList = ({ id, title, description, og_image, task_owner_
 
   return (
     <div style={{ display: 'flex', justifyContent: 'center', marginBottom: "20px" }}>
-      <UserTaskSummaryLayout og_background={!isPlaceholderNeeded ? og_image : ""}>
+      <StyledUserTaskSummaryLayout og_background={!isPlaceholderNeeded ? og_image : ""}>
         <div className='campaignAvatar' />
         {/* <div>
           <img src={og_image} />
@@ -34,7 +34,7 @@ export const TasksConsoleList = ({ id, title, description, og_image, task_owner_
             {/* {useRedirectWithProps(`/task/${id}`, 'blue', 'Start Task')} */}
           </div>
         </div>
-      </UserTaskSummaryLayout>
+      </StyledUserTaskSummaryLayout>
     </div>
   )
 }

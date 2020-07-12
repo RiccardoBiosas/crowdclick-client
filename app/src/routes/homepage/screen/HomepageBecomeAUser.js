@@ -3,13 +3,12 @@ import VizSensor from 'react-visibility-sensor'
 import default_landing_user_image from '../../../assets/homepage/img2.svg'
 import aeternity_become_user_img from '../../../assets/images/aeternity_become_user.svg'
 import StyledGeneralButton  from '../../../shared/styles/StyledGeneralButton'
-
 import {
-  ImgWrapper,
-  CardMainHeading,
-  CardList,
-  CardLayout,
-  CenteredColumnWithMediaQueries
+  StyledImgWrapper,
+  StyledCardMainHeading,
+  StyledCardList,
+  StyledCardLayout,
+  StyledCenteredColumnWithMediaQueries
 } from '../styles/HomepageStyles'
 import { useSpring, animated } from 'react-spring'
 import { Spring } from 'react-spring/renderprops'
@@ -66,8 +65,8 @@ export const HomepageBecomeAUser = ({currencyTheme}) => {
               display
             }}
           >
-            <CardLayout>
-              <ImgWrapper style={{width: '100%'}} type={'disappearing'}>
+            <StyledCardLayout>
+              <StyledImgWrapper style={{width: '100%'}} type={'disappearing'}>
                 <img
                   src={
                     currencyTheme === 'ethereumStyle'
@@ -77,7 +76,7 @@ export const HomepageBecomeAUser = ({currencyTheme}) => {
                   className='user-img'
                   alt='user_image'
                 />
-              </ImgWrapper>
+              </StyledImgWrapper>
 
               {/* <animated.div style={slideAnimationFromRight}> */}
               <Spring
@@ -91,16 +90,16 @@ export const HomepageBecomeAUser = ({currencyTheme}) => {
                 config={{ duration: 800 }}
               >
                 {props => (
-                  <CenteredColumnWithMediaQueries containerMargin="0 0 48px 0" style={props} side={'left'}>
-                    <CardMainHeading
+                  <StyledCenteredColumnWithMediaQueries containerMargin="0 0 48px 0" style={props} side={'left'}>
+                    <StyledCardMainHeading
                       type={'no-break-paragraph'}
                       mainHeadline={32}
                     >
                       Become a user
-                    </CardMainHeading>
+                    </StyledCardMainHeading>
 
                     <div>
-                      <CardList
+                      <StyledCardList
                         color={
                           currencyTheme === 'ethereumStyle'
                             ? '#00E15D'
@@ -116,7 +115,7 @@ export const HomepageBecomeAUser = ({currencyTheme}) => {
                             : 'Receive AE'}{' '}
                           as the reward
                         </li>
-                      </CardList>
+                      </StyledCardList>
                     </div>
 
                     <div>
@@ -134,13 +133,13 @@ export const HomepageBecomeAUser = ({currencyTheme}) => {
                           : 'Earn AE'}
                       </StyledGeneralButton>
                     </div>
-                  </CenteredColumnWithMediaQueries>
+                  </StyledCenteredColumnWithMediaQueries>
                 )}
               </Spring>
 
               {/* </animated.div> */}
 
-              <ImgWrapper type={'appearing'}>
+              <StyledImgWrapper type={'appearing'}>
                 <img
                   src={
                     currencyTheme === 'ethereumStyle'
@@ -149,8 +148,8 @@ export const HomepageBecomeAUser = ({currencyTheme}) => {
                   }
                   alt='publisher_image'
                 />
-              </ImgWrapper>
-            </CardLayout>
+              </StyledImgWrapper>
+            </StyledCardLayout>
           </animated.div>
           <animated.div
             style={{
@@ -159,7 +158,7 @@ export const HomepageBecomeAUser = ({currencyTheme}) => {
               display: display.interpolate(d => (d === '' ? 'none' : ''))
             }}
           >
-            <CardLayout>
+            <StyledCardLayout>
               {/* <div>
                 <h1>hello world</h1>
                 <button onClick={() => setFlipped(!flipped)}>
@@ -167,7 +166,7 @@ export const HomepageBecomeAUser = ({currencyTheme}) => {
                 </button>
               </div> */}
               <HomepageBecomeAUserFlipped setFlipped={setFlipped} flipped={flipped}/>
-            </CardLayout>
+            </StyledCardLayout>
           </animated.div>
         </div>
       )}

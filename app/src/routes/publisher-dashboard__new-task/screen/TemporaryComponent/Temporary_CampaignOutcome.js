@@ -1,7 +1,7 @@
 import React, { Fragment } from 'react'
 import { ReactComponent as SvgSuccess } from '../../../../assets/SVG/Success.svg'
 import { ReactComponent as SvgFailure } from '../../../../assets/SVG/Failure.svg'
-import { LoadingIcon } from '../../../../shared/LoadingIcon'
+import  LoadingIcon  from '../../../../shared/components/loadingIcons/LoadingIcon'
 import { StyledGeneralHeadingTwo } from '../../../../shared/styles/StyledGeneralHeadings'
 
 export const Temporary_CampaignOutcome = ({ step, respStatus }) => {

@@ -1,8 +1,7 @@
 import React from 'react'
 import { RingLoader } from 'react-spinners'
 
-
-export const LoadingIcon = () => {
+const LoadingIcon = () => {
   return (
     <div
       style={{
@@ -16,4 +15,5 @@ export const LoadingIcon = () => {
     </div>
   )
 }
-  
+
+export default LoadingIcon;

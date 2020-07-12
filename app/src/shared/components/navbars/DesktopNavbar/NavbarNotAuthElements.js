@@ -1,6 +1,6 @@
 import React from 'react'
 import { FaTelegramPlane } from 'react-icons/fa'
-import { FirstDivGroup } from './styles/DesktopNavbarStyles'
+import { StyledFirstDivGroup } from './styles/DesktopNavbarStyles'
 import StyledGeneralButton  from '../../../styles/StyledGeneralButton'
 
 export const NavbarNotAuthElements = () => {
@@ -8,7 +8,7 @@ export const NavbarNotAuthElements = () => {
     window.scrollBy({ top: [x], behavior: 'smooth' })
   }
   return (
-    <FirstDivGroup>
+    <StyledFirstDivGroup>
       <div>
         <p
           onClick={() => scrollToCoordinate(800)}
@@ -32,6 +32,6 @@ export const NavbarNotAuthElements = () => {
           Launch on <FaTelegramPlane size={24} />
         </StyledGeneralButton>
       </div>
-    </FirstDivGroup>
+    </StyledFirstDivGroup>
   )
 }

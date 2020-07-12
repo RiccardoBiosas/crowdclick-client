@@ -1,6 +1,6 @@
 import styled from "styled-components";
 
-export const FooterLayout = styled.footer`
+export const StyledFooterLayout = styled.footer`
   width: 60%;
   margin-top: 4vh;
   display: flex;
@@ -33,9 +33,7 @@ export const FooterLayout = styled.footer`
         }
        }
       }
-  }
-
-  
+  } 
   
 
   @media screen and (max-width: 1080px) {

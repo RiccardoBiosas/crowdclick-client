@@ -4,11 +4,10 @@ import { ReactComponent as Sun } from "../../../../assets/navbar/sun.svg";
 import { ReactComponent as Moon } from "../../../../assets/navbar/moon.svg";
 import Logo from "../../../../assets/images/Logo.svg";
 import {
-  NavbarFlexWrapper,
-  DesktopNavbarLayout,
-  AuthSecondDivGroup,
-  BackgroundThemeButton,
-  
+  StyledNavbarFlexWrapper,
+  StyledDesktopNavbarLayout,
+  StyledAuthSecondDivGroup,
+  StyledBackgroundThemeButton,  
 } from "./styles/DesktopNavbarStyles";
 import { useSpring, useChain, animated } from "react-spring";
 import { useSelector, useDispatch } from "react-redux";
@@ -19,7 +18,6 @@ import {
 import aeternity_currency_menu_logo from "../../../../assets/images/aeternity_currency_menu_logo.png";
 import { FaEthereum } from "react-icons/fa";
 import { MdKeyboardArrowDown } from "react-icons/md";
-
 import {
   darkModeAction,
   lightModeAction,
@@ -27,7 +25,7 @@ import {
 import { NavbarNotAuthElements } from "./NavbarNotAuthElements";
 import { AccountDropdown } from "./AccountDropdown";
 import { NavbarAuthElements } from "./NavbarAuthElements";
-import MetamaskButton from "../../../../metamask/MetamaskButton";
+import MetamaskButton from "../../metamask/MetamaskButton";
 import {
   StyledArrowLayout,
   StyledDropdownLayout,
@@ -104,8 +102,8 @@ export const DesktopNavbar = () => {
 
   return (
     <animated.div style={{ ...setNavbarOpacity, ...setNavbarPosition }}>
-      <NavbarFlexWrapper>
-        <DesktopNavbarLayout>
+      <StyledNavbarFlexWrapper>
+        <StyledDesktopNavbarLayout>
           <div className="logo-container">
             <NavLink exact to={HOME_ROUTE}>
               <img src={Logo} alt="crowdclick-logo" />
@@ -114,8 +112,8 @@ export const DesktopNavbar = () => {
 
           {isAuthenticated ? <NavbarAuthElements /> : <NavbarNotAuthElements />}
 
-          <AuthSecondDivGroup>
-            <BackgroundThemeButton
+          <StyledAuthSecondDivGroup>
+            <StyledBackgroundThemeButton
               onClick={toggleBackground}
               bgtheme={currentScreenTheme}
             >
@@ -125,7 +123,7 @@ export const DesktopNavbar = () => {
               <div className="moonContainer">
                 <Moon className="moon" />
               </div>
-            </BackgroundThemeButton>
+            </StyledBackgroundThemeButton>
 
             <div>
               {isAuthenticated ? (
@@ -179,9 +177,9 @@ export const DesktopNavbar = () => {
                 </StyledDropdownLayout>
               </div>
             </>
-          </AuthSecondDivGroup>
-        </DesktopNavbarLayout>
-      </NavbarFlexWrapper>
+          </StyledAuthSecondDivGroup>
+        </StyledDesktopNavbarLayout>
+      </StyledNavbarFlexWrapper>
     </animated.div>
   );
 };

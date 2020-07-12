@@ -2,7 +2,7 @@ import React from 'react'
 import { useParams } from 'react-router-dom'
 import { TASK_ENDPOINT } from '../../config/api-config'
 import { useFetch } from '../../hooks/useFetch'
-import { LoadingIcon } from '../../shared/LoadingIcon'
+import  LoadingIcon  from '../../shared/components/loadingIcons/LoadingIcon'
 import { PublisherWizardFormContainer } from '../publisher-dashboard__new-task/containers'
 
 

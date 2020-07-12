@@ -2,11 +2,11 @@ import React, { forwardRef } from "react";
 import { FaMedium, FaGithub, FaTelegram } from "react-icons/fa";
 import Logo from "../../../assets/images/Logo.svg";
 // import GithubIssue from "../../../assets/images/github-issue.png";
-import { FooterLayout } from "../styles/HomepageFooterStyles";
+import { StyledFooterLayout } from "../styles/HomepageFooterStyles";
 
 export const HomepageFooter = forwardRef((props, ref) => {
   return (
-    <FooterLayout ref={ref}>
+    <StyledFooterLayout ref={ref}>
       <div className="logo-container">
         <img src={Logo}  alt="crowdclick-logo" />
       </div>
@@ -31,6 +31,6 @@ export const HomepageFooter = forwardRef((props, ref) => {
           <FaGithub className="footerIcon" />
         </a>
       </div>
-    </FooterLayout>
+    </StyledFooterLayout>
   );
 });

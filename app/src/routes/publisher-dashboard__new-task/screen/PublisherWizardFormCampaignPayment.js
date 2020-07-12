@@ -5,7 +5,7 @@ import { StyledGeneralHeadingTwo } from "../../../shared/styles/StyledGeneralHea
 import metamaskLogo from "../../../assets/wallet-logos/metamask-logo.svg";
 import  StyledGeneralButton  from "../../../shared/styles/StyledGeneralButton";
 import Copy from "../../../assets/images/copy.svg";
-import CopyToClipboard from "../../../shared/copyToClipboard/CopyToClipboard";
+// import CopyToClipboard from "../../../shared/copyToClipboard/CopyToClipboard";
 import StyledGeneralParagraph from "../../../shared/styles/StyledGeneralParagraph";
 
 export const PublisherWizardFormCampaignPayment = ({

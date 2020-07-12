@@ -2,7 +2,7 @@ import React, { useEffect, useState, useCallback } from 'react'
 import { useHistory } from 'react-router'
 import { useWeb3 } from '@openzeppelin/network/react'
 import StyledGeneralButton  from '../../../styles/StyledGeneralButton'
-import { FirstDivGroup } from './styles/DesktopNavbarStyles'
+import { StyledFirstDivGroup } from './styles/DesktopNavbarStyles'
 import { USER_WITHDRAW_ROUTE } from '../../../../config/routes-config'
 
 export const GetBalanceComponent = ({ web3Context }) => {
@@ -29,7 +29,7 @@ export const NavbarAuthElements = () => {
   const history = useHistory()
 
   return (
-    <FirstDivGroup>
+    <StyledFirstDivGroup>
       <div>
         <GetBalanceComponent web3Context={web3Context} />
       </div>
@@ -43,6 +43,6 @@ export const NavbarAuthElements = () => {
           Withdraw
         </StyledGeneralButton>
       </div>
-    </FirstDivGroup>
+    </StyledFirstDivGroup>
   )
 }

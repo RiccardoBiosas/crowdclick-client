@@ -1,12 +1,12 @@
 import styled from "styled-components";
 
-export const CenteredColumn = styled.div`
+export const StyledCenteredColumn = styled.div`
   display: flex;
   flex-direction: column;
   align-items: center;
 `;
 
-export const CenteredColumnWithMediaQueries = styled.div`
+export const StyledCenteredColumnWithMediaQueries = styled.div`
   @media screen and (max-width: 1060px) {
     display: flex;
     flex-direction: column;
@@ -15,7 +15,7 @@ export const CenteredColumnWithMediaQueries = styled.div`
   }
 `;
 
-export const HomepageWrapper = styled.main`
+export const StyledHomepageWrapper = styled.main`
   background-color: ${(props) => props.theme.homepage.background};
   display: flex;
   flex-direction: column;
@@ -24,7 +24,7 @@ export const HomepageWrapper = styled.main`
   overflow-x: hidden;
 `;
 
-export const FlexWrapper = styled.div`
+export const StyledFlexWrapper = styled.div`
   display: flex;
   flex-direction: column;
   width: 60%;
@@ -33,7 +33,7 @@ export const FlexWrapper = styled.div`
   }
 `;
 
-export const CardLayout = styled.div`
+export const StyledCardLayout = styled.div`
   display: flex;
   justify-content: space-between;
 
@@ -46,7 +46,7 @@ export const CardLayout = styled.div`
   }
 `;
 
-export const CardsParagraph = styled.p`
+export const StyledCardsParagraph = styled.p`
   color: ${(props) => props.theme.homepage.cardsParagraph};
   font-size: 18px;
   line-height: 0.7;
@@ -63,7 +63,7 @@ export const CardsParagraph = styled.p`
   }
 `;
 
-export const CardMainHeading = styled.h1`
+export const StyledCardMainHeading = styled.h1`
   font-weight: 900;
   ${({ mainHeadline }) => mainHeadline && ` font-size: ${mainHeadline}px`};
   color: ${(props) => props.theme.homepage.cardsHeading};
@@ -80,7 +80,7 @@ export const CardMainHeading = styled.h1`
   }
 `;
 
-export const CardList = styled.ul`
+export const StyledCardList = styled.ul`
 list-style: none; 
 &>li {
     text-align: left;
@@ -118,7 +118,7 @@ list-style: none;
     }
 `;
 
-export const ImgWrapper = styled.div`
+export const StyledImgWrapper = styled.div`
   ${(props) => (props.type === "appearing" ? "display: none" : "")};
   ${(props) =>
     props.type === "double-card" ? "display: flex; align-items: center" : ""}

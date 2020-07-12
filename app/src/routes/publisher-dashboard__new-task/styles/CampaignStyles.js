@@ -2,7 +2,7 @@ import styled from "styled-components";
 import crowdclick_logo from "../../../assets/images/miniLogo.png";
 import crowdclick_campaign_placeholder from "../../../assets/userTasksConsole/SocialMediaPlaceholder.png";
 
-export const PublisherCampaignTaskSummaryLayout = styled.div`
+export const StyledPublisherCampaignTaskSummaryLayout = styled.div`
   width: 60vw;
   background: #ffffff 0% 0% no-repeat padding-box;
   box-shadow: 0px 3px 6px #00000029;
@@ -33,7 +33,7 @@ export const PublisherCampaignTaskSummaryLayout = styled.div`
   }
 `;
 
-export const PublisherCampaignGeneralTaskLayout = styled.div`
+export const StyledPublisherCampaignGeneralTaskLayout = styled.div`
   margin-bottom: 20px;
 
   .taskAnalyticsContainer {
@@ -56,7 +56,7 @@ export const PublisherCampaignGeneralTaskLayout = styled.div`
   }
 `;
 
-export const PercentageBarItem = styled.div`
+export const StyledPercentageBarItem = styled.div`
   width: 60%;
   border-radius: 8px;
   background-color: grey;

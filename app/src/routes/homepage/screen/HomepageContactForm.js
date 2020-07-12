@@ -1,11 +1,11 @@
 import React, { useState, useEffect } from "react";
 import axios from "axios";
 import {
-  ContactFormLayout,
-  ContactHeading,
-  InputFormWrapper,
-  SpinnerWrapper,
-  ContactFormWrapper,
+  StyledContactFormLayout,
+  StyledContactHeading,
+  StyledInputFormWrapper,
+  StyledSpinnerWrapper,
+  StyledContactFormWrapper,
 } from "../styles/HomepageContactFormStyles";
 import Stay_in_the_loop from "../../../assets/homepage/img4.svg";
 import aeternity_stay_in_the_loop from "../../../assets/images/aeternity_stay_in_the_loop.svg";
@@ -13,7 +13,7 @@ import  StyledCheckmark  from "../../../shared/styles/StyledCheckmark";
 import { ReactComponent as SvgSuccess } from "../../../assets/SVG/Success.svg";
 import { ReactComponent as SvgFailure } from "../../../assets/SVG/Failure.svg";
 import { SUBSCRIBE_ENDPOINT } from "../../../config/api-config";
-import { CenteredColumn } from "../styles/HomepageStyles";
+import { StyledCenteredColumn } from "../styles/HomepageStyles";
 
 const HomepageContactForm = ({ currencyTheme }) => {
   const [userInput, setUserInput] = useState("");
@@ -51,8 +51,8 @@ const HomepageContactForm = ({ currencyTheme }) => {
   }, [respStatus]);
 
   return (
-    <ContactFormLayout currencyTheme={currencyTheme}>
-      <ContactFormWrapper>
+    <StyledContactFormLayout currencyTheme={currencyTheme}>
+      <StyledContactFormWrapper>
         <div className="logo-wrapper">
           <img
             src={
@@ -64,20 +64,20 @@ const HomepageContactForm = ({ currencyTheme }) => {
           />
         </div>
 
-        <CenteredColumn>
-          <ContactHeading>
+        <StyledCenteredColumn>
+          <StyledContactHeading>
             <h3>Launch Coming Soon…</h3>
-          </ContactHeading>
+          </StyledContactHeading>
 
-          <SpinnerWrapper>
+          <StyledSpinnerWrapper>
             {respStatus && (
               <StyledCheckmark type={"block"}>
                 {respStatus === 201 ? <SvgSuccess /> : <SvgFailure />}
               </StyledCheckmark>
             )}
-          </SpinnerWrapper>
+          </StyledSpinnerWrapper>
 
-          <InputFormWrapper currencyTheme={currencyTheme} svgAnimation={respStatus ? "fadeIn" : null}>
+          <StyledInputFormWrapper currencyTheme={currencyTheme} svgAnimation={respStatus ? "fadeIn" : null}>
             <form onSubmit={handleSubmit}>
               <label htmlFor="subscribeForm">
                 Get notified about the launch & updates
@@ -109,10 +109,10 @@ const HomepageContactForm = ({ currencyTheme }) => {
                 </div>
               )}
             </div>
-          </InputFormWrapper>
-        </CenteredColumn>
-      </ContactFormWrapper>
-    </ContactFormLayout>
+          </StyledInputFormWrapper>
+        </StyledCenteredColumn>
+      </StyledContactFormWrapper>
+    </StyledContactFormLayout>
   );
 };
 

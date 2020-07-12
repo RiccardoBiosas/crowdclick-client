@@ -1,9 +1,9 @@
 import React from 'react'
-import { CopyrightFooterLayout } from '../styles/HomepageCopyrightFooterStyles'
+import { StyledCopyrightFooterLayout } from '../styles/HomepageCopyrightFooterStyles'
 
 export const HomepageCopyrightFooter = () => {
   return (
-    <CopyrightFooterLayout>
+    <StyledCopyrightFooterLayout>
       <div>
         <p>
           Made with <span style={{ color: '#206DFF' }}>&#9829;</span>
@@ -12,6 +12,6 @@ export const HomepageCopyrightFooter = () => {
       <div>
         <p>&copy; All rights reserved</p>
       </div>
-    </CopyrightFooterLayout>
+    </StyledCopyrightFooterLayout>
   )
 }

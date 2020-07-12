@@ -1,7 +1,7 @@
 import React, { Fragment } from "react";
 import { StyledWizardPreviewLayout } from "../styles/WizardFormStyles";
 import { useFetch } from "../../../hooks/useFetch";
-import { LoadingIcon } from "../../../shared/LoadingIcon";
+import  LoadingIcon  from "../../../shared/components/loadingIcons/LoadingIcon";
 import { COINGECKO_API } from "../../../config/api-config";
 import { StyledGeneralHeadingTwo } from "../../../shared/styles/StyledGeneralHeadings";
 

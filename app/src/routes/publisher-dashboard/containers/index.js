@@ -3,7 +3,7 @@ import { TASK_ENDPOINT, DASHBOARD_ENDPOINT } from "../../../config/api-config";
 import { Temporary__PublisherDashboardCampaignTask } from "../screen/PublisherDashboardCampaignTask";
 import { PublisherDashboardNextCampaign } from "../screen/PublisherDashboardNextCampaign";
 import { useFetch } from "../../../hooks/useFetch";
-import { LoadingIcon } from "../../../shared/LoadingIcon";
+import  LoadingIcon  from "../../../shared/components/loadingIcons/LoadingIcon";
 import { PublisherDashboardCampaignTaskBoilerplate } from "../screen/PublisherDashboardCampaignTaskBoilerplate";
 import StyledGeneralCardLayout from "../../../shared/styles/StyledGeneralCardLayout";
 
