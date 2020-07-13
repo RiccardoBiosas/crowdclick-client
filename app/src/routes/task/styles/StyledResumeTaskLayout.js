@@ -1,6 +1,6 @@
 import styled from "styled-components";
 
-export const StyledResumeTaskLayout = styled.div`
+const StyledResumeTaskLayout = styled.div`
   position: absolute;
   top: calc(50vh - 200px);
   left: calc(50vw - 400px);
@@ -11,3 +11,5 @@ export const StyledResumeTaskLayout = styled.div`
   width: 800px;
   height: 400px;
 `;
+
+export default StyledResumeTaskLayout

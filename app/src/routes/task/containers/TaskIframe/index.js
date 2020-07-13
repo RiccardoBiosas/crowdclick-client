@@ -10,7 +10,7 @@ import {
 import { FeedbackModal } from '../FeedbackModal'
 import StyledTaskIframeLayout  from '../../styles/StyledTaskIframeLayout'
 import  StyledIframeProgressBar  from '../../styles/StyledIframeProgressBar'
-import { StyledResumeTaskLayout } from '../../styles/StyledResumeTaskLayout'
+import  StyledResumeTaskLayout  from '../../styles/StyledResumeTaskLayout'
 import { TASK_ENDPOINT } from '../../../../config/api-config'
 import { useFetch } from '../../../../hooks/useFetch'
 import LoadingIcon  from '../../../../shared/components/loadingIcons/LoadingIcon'

@@ -1,11 +1,7 @@
 import React from 'react'
 import StyledCardNavbar from '../../../shared/styles/StyledCardNavbar'
 import { useTransition, animated } from 'react-spring'
-import { StyledItemLayout } from '../styles/MultichoiceItemStyles'
-import {
-  StyledListLayout,  
-  StyledQuestionLayout
-} from '../styles/MultichoiceItemStyles'
+import {StyledListLayout, StyledItemLayout} from '../styles/StyledList'
 import { StyledGeneralHeadingTwo } from '../../../shared/styles/StyledGeneralHeadings'
 
 const MultichoiceQuestionQuiz = ({
@@ -75,7 +71,6 @@ const MultichoiceQuestionQuiz = ({
                   {question}
                 </StyledGeneralHeadingTwo>
                 {/* <StyledQuestionLayout animation={currentIndx === questionIndx && !selectedAnswer[questionId] ? "fadeIn" : "fadeOut"}>{question}</StyledQuestionLayout> */}
-
 
                 <StyledListLayout>
                   {options.map((x) => (
