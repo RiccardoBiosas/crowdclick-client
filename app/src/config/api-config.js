@@ -7,7 +7,6 @@ export const ROPSTEN_ETHERSCAN_TX = "https://ropsten.etherscan.io/tx/";
 let host_env;
 
 const hostname = window && window.location.hostname;
-console.log("API CONFIG HOSTNAME:", hostname);
 const domainExpr = RegExp("crowdclick.me");
 
 if (domainExpr.test(hostname)) {

@@ -9,7 +9,6 @@ const CopyToClipboard = ({
   failureTxt,
 }) => {
     const copyToClipboard = () => {
-        console.log('CONTENT TO COPY', contentToCopy);
     
         if (condition) {
           const temporaryInput = document.createElement('input');

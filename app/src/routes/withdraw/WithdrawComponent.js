@@ -37,11 +37,9 @@ const WithdrawBalance = ({ drizzle, drizzleState }) => {
       { withCredentials: false }
     );
     const currentEthPrice = resp.data.ethereum.usd;
-    console.log("current eth price", currentEthPrice);
-    console.log("current user input", userInput);
+
     const withdrawalToEth = userInput / currentEthPrice;
     const withdrawalToWei = web3.utils.toWei(withdrawalToEth.toString());
-    console.log("current account", drizzleState.accounts[0]);
 
     const dataKey = await contract.methods["withdrawUserBalance"].cacheSend(
       withdrawalToWei,
@@ -50,7 +48,6 @@ const WithdrawBalance = ({ drizzle, drizzleState }) => {
         gas: 500000,
       }
     );
-    console.log(dataKey);
   };
 
   return (
