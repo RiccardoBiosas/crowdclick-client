@@ -52,7 +52,11 @@ export const StyledPublisherCampaignGeneralTaskLayout = styled.div`
     grid-template-columns: 1fr 1fr;
   }
   .viewsContainer {
-    margin-left: 14px;
+    // margin-left: 14px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+   
   }
 `;
 

@@ -67,6 +67,7 @@ export const PublisherWizardFormContainer = ({
   const [dataKey, setDataKey] = useState(null);
   const [campaignData, setCampaignData] = useState();
   const [transactionID, setTransactionID] = useState();
+  const [transactionCompleted, setTransactionCompleted] = useState(false);
   const totalSteps = 6; //move to constant
   const contract = drizzle.contracts.CrowdclickEscrow;
   const address = drizzle.contracts.CrowdclickEscrow.address;
@@ -111,7 +112,6 @@ export const PublisherWizardFormContainer = ({
       ],
     });
 
-    console.log("successful payment, response after post request", res);
 
     let respStatus = res.status;
     setRespStatus(respStatus);
@@ -132,7 +132,6 @@ export const PublisherWizardFormContainer = ({
       fetchEthPrice();
     }
     if (step === 5 && dataKey !== null) {
-      // console.log(drizzleState);
       setTransactionID(drizzleState.transactionStack[dataKey]);
     }
     if (
@@ -141,7 +140,8 @@ export const PublisherWizardFormContainer = ({
       drizzleState.transactions[transactionID] &&
       !respStatus
     ) {
-      if (drizzleState.transactions[transactionID].status === "success" && !respStatus) {
+      if (drizzleState.transactions[transactionID].status === "success" && !transactionCompleted) {
+        setTransactionCompleted(true);
         postCampaign();
       }
       if (drizzleState.transactions[transactionID].status === "error") {
@@ -159,18 +159,7 @@ export const PublisherWizardFormContainer = ({
     return () => {
       window.removeEventListener("keydown", keyEventHandler);
     };
-  }, [
-    step,
-    edit,
-    keyEventHandler,
-    ethPrice,
-    dataKey,
-    contract,
-    drizzleState,
-    transactionID,
-    postCampaign,
-    respStatus,
-  ]);
+  }, [step, edit, keyEventHandler, ethPrice, dataKey, contract, drizzleState, transactionID, postCampaign, respStatus, transactionCompleted]);
 
   useHandleKeydownEvent(
     "ArrowRight",
@@ -250,7 +239,6 @@ export const PublisherWizardFormContainer = ({
               try {
                 if (!edit) {
                   const currentEthPrice = ethPrice.data.ethereum.usd;
-                  // console.log("MY ACCOUNT: ######### ", drizzleState.accounts[0])
 
                   const budgetToEth = values.campaignBudget / currentEthPrice;
                   const rewardToEth = values.pricePerClick / currentEthPrice;
@@ -267,7 +255,7 @@ export const PublisherWizardFormContainer = ({
                     }
                   );
                   setDataKey(dataKey);
-                  console.log("datakey ID METAMASK PAYMENT", dataKey);
+
                   if (dataKey !== null) {
                     setCampaignData(values);
                   }

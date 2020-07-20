@@ -6,7 +6,7 @@ import { TASK_ENDPOINT } from  '../../../config/api-config'
 
 export const TasksConsoleContainer = () => {
   const res = useFetch(TASK_ENDPOINT)
-
+  
   if (!res.response) {
     return (
       <div

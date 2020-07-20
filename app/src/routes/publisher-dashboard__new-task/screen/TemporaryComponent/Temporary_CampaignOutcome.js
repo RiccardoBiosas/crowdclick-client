@@ -9,7 +9,6 @@ export const Temporary_CampaignOutcome = ({ step, respStatus }) => {
   if (step !== 6) {
     return null
   } else {
-    console.log("temporary component resp status", respStatus)
 
     if (!respStatus) {
       return <LoadingIcon />

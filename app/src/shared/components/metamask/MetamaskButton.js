@@ -38,7 +38,7 @@ const MetamaskButton = (props) => {
     if (!nonce) {
       const isAlreadyAuth = resp.data.is_authenticated;
       if (isAlreadyAuth) {
-        window.localStorage.setItem("userPubKey", `"${coinbase}"`);
+        window.localStorage.setItem("userPubKey", `${coinbase}`);
         dispatch(navAuthTrueAction);
       } else {
         window.localStorage.removeItem("userPubKey");

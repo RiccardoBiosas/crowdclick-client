@@ -68,11 +68,11 @@ export const PublisherDashboardCampaignTask = ({
               key={key}
             >
               <div className="viewsContainer">
-                <h2>Weekly results</h2>
-                <h4>Views: {weeklyViews}</h4>
+                <h2>Total count</h2>
+                <h3>{weeklyViews}</h3>
               </div>
               <div>
-                <h2>Survey results</h2>
+                <h2>Survey results:</h2>
                 <div className="answersContainer">
                   {Object.keys(surveyData).map((x) => {
                     let currentPercentage = isWhatPercentage(
@@ -124,9 +124,14 @@ export const Temporary__PublisherDashboardCampaignTask = ({
   title,
   campaignDescription,
   og_image,
+  dashboardData
 }) => {
   const history = useHistory();
   const [campaignState, setCampaignState] = useState(false);
+  const answersCount = dashboardData.find(x => x.id === taskID).answers_result_count
+  const answers = dashboardData.find(x => x.id === taskID).answers
+
+
   const isPlaceholderNeeded =
     RegExp("foo", "g").test(og_image) ||
     RegExp("placeholder", "g").test(og_image);
@@ -185,19 +190,48 @@ export const Temporary__PublisherDashboardCampaignTask = ({
         return (
           item && (
             <animated.div
-              style={{ ...props, ...temporary__TaskAnalyticsStyle }}
-              key={key}
-            >
-              <div
-                style={{
-                  display: "flex",
-                  justifyContent: "center",
-                  width: "100%",
-                }}
-              >
-                <h2>Data Analytics Coming Soon</h2>
+            style={{ ...props }}
+            className="taskAnalyticsContainer"
+            key={key}
+          >
+            { answers.length > 0 ? 
+            (<>
+            <div className="viewsContainer">
+              <h2>Total Count:</h2>
+              <h3>{answersCount}</h3>
+            </div>
+            <div>
+              <h2>Survey results:</h2>
+              <div className="answersContainer">
+                {answers.map((x) => {
+                  let currentPercentage = isWhatPercentage(
+                    x.selected_options[0].answer_count,
+                    answersCount
+                  );
+                  return (
+                    <div>
+                      <div
+                        style={{
+                          display: "flex",
+                          justifyContent: "space-between",
+                          width: "60%",
+                        }}
+                      >
+                        <p>
+                          {x.selected_options[0].title}
+                        </p>
+                        <p>{currentPercentage}%</p>
+                      </div>
+
+                      <StyledPercentageBarItem percentage={currentPercentage}>
+                        <div className="itemPercentage" />
+                      </StyledPercentageBarItem>
+                    </div>
+                  );
+                })}
               </div>
-            </animated.div>
+            </div> </>) : <>no data</>}
+          </animated.div>
           )
         );
       })}
