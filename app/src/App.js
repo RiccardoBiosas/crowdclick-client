@@ -12,7 +12,7 @@ import { TasksConsoleContainer } from "./routes/user-tasks/containers/index";
 import { PublisherDashboardContainer } from "./routes/publisher-dashboard/containers/index";
 import { PublisherWizardFormContainer } from "./routes/publisher-dashboard__new-task/containers";
 import { EditPublisherWizardFormContainer } from "./routes/publisher-dashboard__edit-task/EditPublisherWizardFormCampaignContainer";
-import { WithDrizzleInitializer } from "./hoc/withDrizzleInitializer";
+import  withDrizzleInitializer  from "./hoc/withDrizzleInitializer";
 import options from "./drizzleOptions";
 import { SignupFallback } from "./routes/register/screen/SignupFallback";
 import {
@@ -50,7 +50,7 @@ const App = () => {
 
           <Route
             path={`${USER_TASK_ROUTE_WITH_PARAM}:id`}
-            component={() => WithDrizzleInitializer(TaskIframe)}
+            component={() => withDrizzleInitializer(TaskIframe)}
           />
 
           <Route path={NO_METAMASK_ROUTE} component={InstallMetamaskWarning} />
@@ -59,7 +59,7 @@ const App = () => {
             exact
             path={PUBLISHER_WIZARD_ROUTE}
             component={() =>
-              WithDrizzleInitializer(PublisherWizardFormContainer)
+              withDrizzleInitializer(PublisherWizardFormContainer)
             }
           />
 
@@ -67,7 +67,7 @@ const App = () => {
             exact
             path={`${PUBLISHER_WIZARD_EDIT_ROUTE_WITH_PARAM}:id`}
             component={() =>
-              WithDrizzleInitializer(EditPublisherWizardFormContainer)
+              withDrizzleInitializer(EditPublisherWizardFormContainer)
             }
           />
 
@@ -80,7 +80,7 @@ const App = () => {
           <ProtectedRoute
             exact
             path={USER_WITHDRAW_ROUTE}
-            component={() => WithDrizzleInitializer(WithdrawBalance)}
+            component={() => withDrizzleInitializer(WithdrawBalance)}
           />
 
           <Route path="*" component={NotFound} />

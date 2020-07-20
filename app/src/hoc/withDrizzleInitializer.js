@@ -1,24 +1,70 @@
-import React from "react";
-import { DrizzleContext } from "@drizzle/react-plugin";
-// import { Drizzle } from "@drizzle/store";
-// import drizzleOptions from "../drizzleOptions";
+import React from 'react'
+import { useHistory } from 'react-router-dom'
+import StyledGeneralCardLayout from '../shared/styles/StyledGeneralCardLayout'
+import StyledGeneralCardWrapper from '../shared/styles/StyledGeneralCardWrapper'
+import StyledGlobalButton from '../shared/styles/StyledGeneralButton'
+import StyledGeneralParagraph from '../shared/styles/StyledGeneralParagraph'
+import { HOME_ROUTE } from '../config/routes-config'
 
-
-export const WithDrizzleInitializer = (ComposedComponent) => {
-    return(
-            <DrizzleContext.Consumer>
-                {drizzleContext => {
-                    const {drizzle, drizzleState, initialized} = drizzleContext
-
-
-                    if(!initialized) {
-                        return 'Loading FROM HOC...'
-                    }
-
-                    return <ComposedComponent drizzle={drizzle} drizzleState={drizzleState} />
-                    
-                }}
-            </DrizzleContext.Consumer>
-    )
-
+const InstallMetamaskWarning = () => {
+  const history = useHistory()
+  return (
+    <StyledGeneralCardLayout>
+      <div style={{ display: 'flex', alignItems: 'center' }}>
+        <h1 style={{ marginLeft: '18px' }}>Something went wrong!</h1>
+      </div>
+      <StyledGeneralCardWrapper cardJustify="space-around">
+          <StyledGeneralParagraph
+            paragraphColor="#000000"
+            paragraphFontSize="20px"
+          >
+            Please check your {' '}
+            <a
+              style={{ color: '#F1853B' }}
+              href="https://metamask.io/"
+              target="_blank"
+              rel="noopener noreferrer"
+            >
+              MetaMask
+            </a>{' '}
+            configuration
+          </StyledGeneralParagraph>
+          <StyledGeneralParagraph
+            paragraphColor="#000000"
+            paragraphFontSize="20px"
+          >
+            Perhaps your MetaMask is on the Ethereum{' '}
+            <a
+              style={{ color: '#F1853B' }}
+              href="https://metamask.io/"
+              target="_blank"
+              rel="noopener noreferrer"
+            >
+              Mainnet
+            </a>
+            ? <br />
+          </StyledGeneralParagraph>
+          <StyledGeneralParagraph
+            paragraphColor="#000000"
+            paragraphFontSize="20px"
+          >
+            Our contract is currently deployed on Ropsten, <br />
+            so make sure that your MetaMask is too!
+          </StyledGeneralParagraph>
+        <div>
+          <StyledGlobalButton
+            type="button"
+            buttonColor="blue"
+            buttonTextColor="white"
+            buttonWidth="180"
+            onClick={() => history.push(HOME_ROUTE)}
+          >
+            Close
+          </StyledGlobalButton>
+        </div>
+      </StyledGeneralCardWrapper>
+    </StyledGeneralCardLayout>
+  )
 }
+
+export default InstallMetamaskWarning

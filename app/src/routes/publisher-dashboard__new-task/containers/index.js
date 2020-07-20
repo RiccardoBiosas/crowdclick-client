@@ -141,7 +141,7 @@ export const PublisherWizardFormContainer = ({
       drizzleState.transactions[transactionID] &&
       !respStatus
     ) {
-      if (drizzleState.transactions[transactionID].status === "success") {
+      if (drizzleState.transactions[transactionID].status === "success" && !respStatus) {
         postCampaign();
       }
       if (drizzleState.transactions[transactionID].status === "error") {
@@ -259,6 +259,7 @@ export const PublisherWizardFormContainer = ({
                   const dataKey = await contract.methods["openTask"].cacheSend(
                     budgetToWei,
                     rewardToWei,
+                    projectURL,
                     {
                       from: drizzleState.accounts[0],
                       value: budgetToWei,
