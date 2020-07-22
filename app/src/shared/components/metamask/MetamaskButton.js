@@ -11,8 +11,7 @@ import { NO_METAMASK_ROUTE } from "../../../config/routes-config";
 axios.defaults.withCredentials = true;
 
 
-const MetamaskButton = (props) => {
-  const { btnColor, btnWidth, btnText } = props;
+const MetamaskButton = ({btnColor, btnWidth, btnText, cb_login}) => {
   const history = useHistory()
   const dispatch = useDispatch();
 
@@ -59,8 +58,8 @@ const MetamaskButton = (props) => {
       if (response.data.is_authenticated === true) {
         dispatch(navAuthTrueAction);
         window.localStorage.setItem("userPubKey", `"${coinbase}"`);
-        if (props.cb_login) {
-          props.cb_login();
+        if (cb_login) {
+          cb_login();
         }
       } else {
         window.localStorage.removeItem("userPubKey");

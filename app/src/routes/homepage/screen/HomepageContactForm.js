@@ -26,7 +26,7 @@ const HomepageContactForm = ({ currencyTheme }) => {
   };
 
   const forwardEmail = async (email) => {
-    try {
+    try {      
       const response = await axios.post(SUBSCRIBE_ENDPOINT, {
         email,
       });

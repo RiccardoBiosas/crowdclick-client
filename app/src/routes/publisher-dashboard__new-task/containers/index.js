@@ -73,11 +73,14 @@ export const PublisherWizardFormContainer = ({
   const address = drizzle.contracts.CrowdclickEscrow.address;
 
   const fetchEthPrice = async () => {
-    const resp = await axios.get(
-      `${COINGECKO_API}simple/price?ids=ethereum&vs_currencies=usd&include_market_cap=false&include_24hr_vol=false&include_24hr_change=false&include_last_updated_at=false`,
-      { withCredentials: false }
-    );
-    setEthPrice(resp);
+    if(!ethPrice) {
+      const resp = await axios.get(
+        `${COINGECKO_API}simple/price?ids=ethereum&vs_currencies=usd&include_market_cap=false&include_24hr_vol=false&include_24hr_change=false&include_last_updated_at=false`,
+        { withCredentials: false }
+      );
+      setEthPrice(resp);
+    }
+
   };
 
   const postCampaign = async () => {
@@ -159,7 +162,7 @@ export const PublisherWizardFormContainer = ({
     return () => {
       window.removeEventListener("keydown", keyEventHandler);
     };
-  }, [step, edit, keyEventHandler, ethPrice, dataKey, contract, drizzleState, transactionID, postCampaign, respStatus, transactionCompleted]);
+  }, [step, edit, keyEventHandler, ethPrice, dataKey, contract, drizzleState, transactionID, postCampaign, respStatus, transactionCompleted, fetchEthPrice]);
 
   useHandleKeydownEvent(
     "ArrowRight",

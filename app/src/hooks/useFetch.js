@@ -7,16 +7,19 @@ export const useFetch = (url, options) => {
 
     useEffect(() => {
         const fetchData = async () => {
-            try {
+            try {                
                 const res = await axios.get(url, options)
                 setResponse(res)                
             } catch(error) {
                 setError(error)
             }
         }
+
+        if(!response) {
+            fetchData()
+        }
         
-        fetchData()
-    }, [])
+    }, [options, url, response])
     return {response, error}
 }
 

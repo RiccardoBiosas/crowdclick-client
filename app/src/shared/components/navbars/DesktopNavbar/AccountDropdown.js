@@ -10,7 +10,6 @@ import { MdKeyboardArrowDown } from "react-icons/md";
 import { useHandleEventOutsideRef } from "../../../../hooks/useHandleEventOutsideRef";
 import axios from "axios";
 import { AUTH_LOGOUT_ENDPOINT } from "../../../../config/api-config";
-
 import { navAuthFalseAction } from "../../../../redux/NavAuth/navAuthActions";
 import {
   USER_TASKS_LIST_ROUTE,
