@@ -37,12 +37,8 @@ contract CrowdclickEscrow is Ownable {
         return _campaign_owner_account_balance[msg.sender];
     }
     
-    function lookUpTasksLength(address _account_address) public returns(uint){
-       require(taskCollection[_account_address][0].taskBudget != 0);
-        return taskCollection[_account_address].length;
-    }
-    
-    function lookUpTask(address _account_address, uint256 index) public returns(uint256, uint256)  {
+
+    function lookUpTask(address _account_address, uint256 index) public view returns(uint256, uint256)  {
         require(taskCollection[_account_address][index].taskBudget != 0);
         return (taskCollection[_account_address][index].taskBudget, taskCollection[_account_address][index].taskReward);
     }
@@ -64,7 +60,7 @@ contract CrowdclickEscrow is Ownable {
     }
     
     function withdrawFromCampaign(string memory _url) payable public returns(uint256) {
-        (uint256 campaign_indx, bool found) = helper_selectTask(msg.sender, _url);
+        (uint256 campaign_indx, ) = helper_selectTask(msg.sender, _url);
         require(taskCollection[msg.sender][campaign_indx].currentBudget > 0 && _campaign_owner_account_balance[msg.sender] >= taskCollection[msg.sender][campaign_indx].currentBudget); 
         taskCollection[msg.sender][campaign_indx].isActive = false; //move it inside helper_selecttask
         _campaign_owner_account_balance[msg.sender] = _campaign_owner_account_balance[msg.sender].sub(taskCollection[msg.sender][campaign_indx].currentBudget);
@@ -74,9 +70,8 @@ contract CrowdclickEscrow is Ownable {
     }
     
     
-    //careful: i removed the is owner modifier for testing purposes    
-    
-    function helper_selectTask(address _address, string memory _url) public view returns(uint256, bool) {
+
+    function helper_selectTask(address _address, string memory _url) internal view returns(uint256, bool) {
         uint indx = 0;
         bool found = false;
         for(uint256 i=0; i<taskCollection[_address].length; i++) {
@@ -90,7 +85,7 @@ contract CrowdclickEscrow is Ownable {
     }
 
     function forwardRewards(address _userAddr, address _publisherAddr, string memory _url) public payable onlyOwner() returns(uint256, uint256)  {
-        (uint256 campaign_indx, bool found) = helper_selectTask(_publisherAddr, _url);
+        (uint256 campaign_indx, ) = helper_selectTask(_publisherAddr, _url);
         require(taskCollection[_publisherAddr][campaign_indx].isActive && _campaign_owner_account_balance[_publisherAddr] > taskCollection[_publisherAddr][campaign_indx].taskReward && taskCollection[_publisherAddr][campaign_indx].taskReward <= taskCollection[_publisherAddr][campaign_indx].currentBudget, "not enough balance");
         taskCollection[_publisherAddr][campaign_indx].currentBudget = taskCollection[_publisherAddr][campaign_indx].currentBudget.sub(taskCollection[_publisherAddr][campaign_indx].taskReward);
         _campaign_owner_account_balance[_publisherAddr] = _campaign_owner_account_balance[_publisherAddr].sub(taskCollection[_publisherAddr][campaign_indx].taskReward);
@@ -98,11 +93,9 @@ contract CrowdclickEscrow is Ownable {
         
         if(_campaign_owner_account_balance[_publisherAddr] <= taskCollection[_publisherAddr][campaign_indx].taskReward) {
           taskCollection[_publisherAddr][campaign_indx].isActive = false;
-        }
-        
+        }        
         return (_campaign_owner_account_balance[_publisherAddr], _user_account_balance[_userAddr]);
         
     }
-    // //only the owner of the contract should be able to call taskCompleted
-    
+
 }
