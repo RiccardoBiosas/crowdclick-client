@@ -58,7 +58,7 @@ const reducer = (state, action) => {
   }
 }
 
-const TaskIframe = ({ drizzle, drizzleState }) => {
+const TaskIframeContainer = ({ drizzle, drizzleState }) => {
   const time = 2
   const [state, dispatch] = useReducer(reducer, initialState)
   const reduxDispatch = useDispatch()
@@ -84,7 +84,7 @@ const TaskIframe = ({ drizzle, drizzleState }) => {
     }
   })
 
-  const res = useFetch(`${TASK_ENDPOINT}`, null)
+  const res = useFetch(TASK_ENDPOINT, null)
 
   useLayoutEffect(() => {
     reduxDispatch(iframeFullScreenAction())
@@ -148,7 +148,6 @@ const TaskIframe = ({ drizzle, drizzleState }) => {
     const selected_task = res.response.data.results.filter(
       x => x.id === parseInt(id, 10)
     )
-    console.log('selected task', selected_task)
     const taskID = selected_task[0].id ? selected_task[0].id : null
     // const questionID = selected_task[0].questions[0].id
     //   ? selected_task[0].questions[0].id
@@ -231,4 +230,4 @@ const TaskIframe = ({ drizzle, drizzleState }) => {
   }
 }
 
-export default TaskIframe
+export default TaskIframeContainer

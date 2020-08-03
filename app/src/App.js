@@ -1,15 +1,13 @@
+//theirs
 import React, { Suspense, lazy } from 'react'
 import { HashRouter, Route, Switch } from 'react-router-dom'
 import { createBrowserHistory } from 'history'
 import { Drizzle } from '@drizzle/store'
 import { DrizzleContext } from '@drizzle/react-plugin'
-import { ProtectedRoute } from './hoc/ProtectedRoute'
 
-import Homepage  from './routes/homepage/containers/index'
-import  NavbarWrapper from './shared/components/navbars/NavbarWrapper'
+//mine
 import withDrizzleInitializer from './hoc/withDrizzleInitializer'
 import options from './drizzleOptions'
-import { SignupFallback } from './routes/register/screen/SignupFallback'
 import {
   REGISTER_FALLBACK_ROUTE,
   PUBLISHER_DASHBOARD_ROUTE,
@@ -20,19 +18,18 @@ import {
   USER_WITHDRAW_ROUTE,
   NO_METAMASK_ROUTE,
 } from './config/routes-config'
-import WithdrawBalance from './routes/withdraw/WithdrawComponent'
-import InstallMetamaskWarning from './routes/no-metamask/screen/InstallMetamaskWarning'
+
+import Homepage  from './routes/homepage/containers/index'
+import NavbarWrapper from './shared/components/navbars/NavbarWrapper'
 import EthereumListener from './shared/components/ethereumListener/EthereumListener'
 import LoadingIcon from './shared/components/loadingIcons/LoadingIcon'
-
-// const Homepage = lazy(() => {
-//   return new Promise(resolve => {
-//     setTimeout(() => resolve(import('./routes/homepage/containers/index')), 3000);
-//   });
-// });
-const  TaskIframe  = lazy(() => import('./routes/task/containers/TaskIframe/index'))
+import ProtectedRoute from './hoc/ProtectedRoute'
+const TaskIframeContainer  = lazy(() => import('./routes/task/containers/TaskIframe/index'))
+const SignupFallback  = lazy(() => import('./routes/register/screen/SignupFallback'))
 const NotFound = lazy(() => import('./routes/404/NotFound'))
-const TasksConsoleDashboard = lazy(() => import('./routes/user-tasks/containers/index')) 
+const WithdrawBalance = lazy(() => import('./routes/withdraw/WithdrawComponent'))
+const InstallMetamaskWarning = lazy(() => import('./routes/no-metamask/screen/InstallMetamaskWarning'))
+const TasksConsoleDashboardContainer = lazy(() => import('./routes/user-tasks/containers/index')) 
 const PublisherDashboardContainer = lazy(() => import('./routes/publisher-dashboard/containers/index'))
 const PublisherWizardFormContainer = lazy(() => import('./routes/publisher-dashboard__new-task/containers'))
 const EditPublisherWizardFormCampaignContainer = lazy(() => import('./routes/publisher-dashboard__edit-task/EditPublisherWizardFormCampaignContainer'))
@@ -57,12 +54,12 @@ const App = () => {
             <ProtectedRoute
               exact
               path={USER_TASKS_LIST_ROUTE}
-              component={TasksConsoleDashboard}
+              component={TasksConsoleDashboardContainer}
             />
 
             <Route
               path={`${USER_TASK_ROUTE_WITH_PARAM}:id`}
-              component={() => withDrizzleInitializer(TaskIframe)}
+              component={() => withDrizzleInitializer(TaskIframeContainer)}
             />
 
             <Route

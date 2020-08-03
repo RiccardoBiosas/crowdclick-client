@@ -4,7 +4,7 @@ import { useFetch } from '../../../hooks/useFetch'
 import { TASK_ENDPOINT } from '../../../config/api-config'
 import TasksConsoleItem from '../screen/TasksConsoleItem'
 
-const TasksConsoleDashboard = () => {
+const TasksConsoleDashboardContainer = () => {
   const res = useFetch(TASK_ENDPOINT)
 
   if (!res.response) {
@@ -38,4 +38,4 @@ const TasksConsoleDashboard = () => {
   }
 }
 
-export default TasksConsoleDashboard
+export default TasksConsoleDashboardContainer

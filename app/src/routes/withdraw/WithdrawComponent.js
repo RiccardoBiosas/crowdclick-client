@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from "react";
+import React, { useState, useEffect, useCallback } from "react";
 import { COINGECKO_API } from "../../config/api-config";
 import web3 from "web3";
 import axios from "axios";
@@ -15,18 +15,18 @@ const WithdrawBalance = ({ drizzle, drizzleState }) => {
   const address = drizzle.contracts.CrowdclickEscrow.address;
 
 
-  const fetchBalance = async() => {
+  const fetchBalance = useCallback(async() => {
     const balance = await contract.methods.balancesOfUser(drizzleState.accounts[0]).call({from: drizzleState.accounts[0]})
-    console.log('datakey fetchbalance', dataKey)
+    // console.log('datakey fetchbalance', dataKey)
     setUserBalance(balance)
-}
+  })
 
   useEffect(() => {
       if(!userBalance) {
           fetchBalance()
       }
     if (dataKey) {
-      console.log(drizzleState.transactionStack[dataKey]);
+      // console.log(drizzleState.transactionStack[dataKey]);
     }
   }, [dataKey, drizzleState.transactionStack, fetchBalance, userBalance]);
 

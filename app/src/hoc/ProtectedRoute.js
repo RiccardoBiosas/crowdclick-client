@@ -4,7 +4,7 @@ import { RingLoader } from 'react-spinners'
 import { useFetch } from '../hooks/useFetch'
 import { AUTH_ENDPOINT } from '../config/api-config'
 
-export const ProtectedRoute = ({ ComposedComponent, ...rest }) => {
+const ProtectedRoute = ({ ComposedComponent, ...rest }) => {
   const res = useFetch(AUTH_ENDPOINT)
 
   if(!res.response) {
@@ -36,3 +36,5 @@ export const ProtectedRoute = ({ ComposedComponent, ...rest }) => {
     }
   }
 }
+
+export default ProtectedRoute
