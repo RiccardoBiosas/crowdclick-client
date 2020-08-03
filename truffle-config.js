@@ -13,13 +13,21 @@ module.exports = {
       port: 8545,
       network_id: "*"
     },
-
     ropsten: {
       provider: function() {
         return new HDWalletProvider(process.env.MNEMONIC, process.env.INFURA_ROPSTEN)
       },
       network_id: 3
-    }
+    },
+    maticMumbai: {
+      provider: () => new HDWalletProvider(process.env.MNEMONIC, `https://rpc-mumbai.matic.today`),
+      network_id: 80001,
+      confirmations: 2,
+      timeoutBlocks: 200,
+      skyDryRun: true
+    },
+  },
+  mocha: {
 
   },
   compilers: {
