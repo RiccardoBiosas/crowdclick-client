@@ -2,7 +2,7 @@ import React from "react";
 import {Link} from "react-router-dom"
 import {ReactComponent as SVG404mainPic} from "../../assets/404/404-img.svg"
 
-export const NotFound = () => {
+const NotFound = () => {
 
     return(
         <div style={{height: "70vh", display: "flex", flexDirection: "column", alignItems: "center", justifyContent: "center"}}>
@@ -13,3 +13,5 @@ export const NotFound = () => {
         </div>
     )
 }
+
+export default NotFound

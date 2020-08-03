@@ -1,12 +1,12 @@
 import React from 'react'
 import { RingLoader } from 'react-spinners'
-import { useFetch } from'../../../hooks/useFetch'
-import { TasksConsoleList } from '../screen/TasksConsoleList'
-import { TASK_ENDPOINT } from  '../../../config/api-config'
+import { useFetch } from '../../../hooks/useFetch'
+import { TASK_ENDPOINT } from '../../../config/api-config'
+import TasksConsoleItem from '../screen/TasksConsoleItem'
 
-export const TasksConsoleContainer = () => {
+const TasksConsoleDashboard = () => {
   const res = useFetch(TASK_ENDPOINT)
-  
+
   if (!res.response) {
     return (
       <div
@@ -14,7 +14,7 @@ export const TasksConsoleContainer = () => {
           display: 'flex',
           justifyContent: 'center',
           alignItems: 'center',
-          height: '80vh'
+          height: '80vh',
         }}
       >
         <RingLoader size={140} />
@@ -24,7 +24,7 @@ export const TasksConsoleContainer = () => {
     return (
       <div style={{ marginTop: '80px' }}>
         {res.response.data.results.map((x, i) => (
-          <TasksConsoleList
+          <TasksConsoleItem
             key={`UserTask${i}`}
             id={x.id}
             title={x.title}
@@ -37,3 +37,5 @@ export const TasksConsoleContainer = () => {
     )
   }
 }
+
+export default TasksConsoleDashboard

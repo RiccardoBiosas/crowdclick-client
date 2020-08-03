@@ -58,7 +58,7 @@ const reducer = (state, action) => {
   }
 }
 
-export const TaskIframe = ({ drizzle, drizzleState }) => {
+const TaskIframe = ({ drizzle, drizzleState }) => {
   const time = 2
   const [state, dispatch] = useReducer(reducer, initialState)
   const reduxDispatch = useDispatch()
@@ -230,3 +230,5 @@ export const TaskIframe = ({ drizzle, drizzleState }) => {
     )
   }
 }
+
+export default TaskIframe

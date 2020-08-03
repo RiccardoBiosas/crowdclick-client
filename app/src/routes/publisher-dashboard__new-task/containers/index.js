@@ -1,4 +1,4 @@
-import React, { Fragment, useState, useReducer, useEffect } from "react";
+import React, { Fragment, useState, useReducer, useEffect, useCallback } from "react";
 import { Formik, Form } from "formik";
 import axios from "axios";
 import web3 from "web3";
@@ -51,7 +51,7 @@ const reducer = (state, action) => {
   }
 };
 
-export const PublisherWizardFormContainer = ({
+const PublisherWizardFormCampaignContainer = ({
   initial_values,
   edit,
   id,
@@ -72,7 +72,7 @@ export const PublisherWizardFormContainer = ({
   const contract = drizzle.contracts.CrowdclickEscrow;
   const address = drizzle.contracts.CrowdclickEscrow.address;
 
-  const fetchEthPrice = async () => {
+  const fetchEthPrice = useCallback(async() => {
     if(!ethPrice) {
       const resp = await axios.get(
         `${COINGECKO_API}simple/price?ids=ethereum&vs_currencies=usd&include_market_cap=false&include_24hr_vol=false&include_24hr_change=false&include_last_updated_at=false`,
@@ -80,10 +80,10 @@ export const PublisherWizardFormContainer = ({
       );
       setEthPrice(resp);
     }
+  }, [ethPrice]) 
 
-  };
 
-  const postCampaign = async () => {
+  const postCampaign = useCallback(async() => {
     const {
       projectName,
       projectDescription,
@@ -118,9 +118,9 @@ export const PublisherWizardFormContainer = ({
 
     let respStatus = res.status;
     setRespStatus(respStatus);
-  };
+  }, [campaignData])
 
-  const keyEventHandler = (e) => {
+  const keyEventHandler = useCallback((e) => {
     if (e.key === "ArrowRight") {
       if (step < 3) {
         setStep(step + 1);
@@ -128,7 +128,7 @@ export const PublisherWizardFormContainer = ({
         return;
       }
     }
-  };
+  }, [step])
 
   useEffect(() => {
     if (step === 5 && !ethPrice) {
@@ -222,22 +222,16 @@ export const PublisherWizardFormContainer = ({
               initial_values ? initial_values : empty_initial_values
             }
             validationSchema={PublisherWizardFormValidationSchema}
-            onSubmit={async (values, { setSubmitting, resetForm }) => {
-              // alert(JSON.stringify(values, null, 2))
-
+            onSubmit={async (values) => {
               const {
                 projectName,
                 projectDescription,
                 projectURL,
                 pricePerClick,
-                campaignBudget,
-                projectQuestion,
-                projectOptions,
+                campaignBudget,      
               } = values;
 
-              // const filteredProjectOptionsWithoutEmptyStrings = projectOptions.filter(
-              //   (x) => x.option !== ""
-              // );
+     
 
               try {
                 if (!edit) {
@@ -262,33 +256,7 @@ export const PublisherWizardFormContainer = ({
                   if (dataKey !== null) {
                     setCampaignData(values);
                   }
-
-                  // if (txId) {
-                  //   const res = await axios.post(TASK_ENDPOINT, {
-                  //     title: projectName,
-                  //     description: projectDescription,
-                  //     website_link: projectURL,
-                  //     reward_per_click: pricePerClick,
-                  //     time_duration: "00:00:30",
-                  //     spend_daily: campaignBudget,
-                  //     questions: [
-                  //       {
-                  //         title: projectQuestion,
-                  //         options: filteredProjectOptionsWithoutEmptyStrings.map(
-                  //           (x) => {
-                  //             return { title: x.option };
-                  //           }
-                  //         ),
-                  //       },
-                  //     ],
-                  //   });
-
-                  //   console.log('successful payment, response after post request', res)
-
-                  //   let respStatus = res ? res.status : "failed";
-                  //   setRespStatus(respStatus);
-                  //   setStep(step + 1);
-                  //}
+  
                 } else {
                   const res = await axios.patch(`${TASK_ENDPOINT}${id}/`, {
                     title: projectName,
@@ -296,15 +264,7 @@ export const PublisherWizardFormContainer = ({
                     website_link: projectURL,
                     reward_per_click: pricePerClick,
                     time_duration: "00:00:30",
-                    spend_daily: campaignBudget,
-                    // questions: [
-                    //   {
-                    //     title: projectQuestion,
-                    //     options: projectOptions.map(x => {
-                    //       return { title: x.option }
-                    //     })
-                    //   }
-                    // ]
+                    spend_daily: campaignBudget,       
                   });
                   let respStatus = res ? res.status : "failed";
                   setRespStatus(respStatus);
@@ -473,3 +433,5 @@ export const PublisherWizardFormContainer = ({
     </Fragment>
   );
 };
+
+export default PublisherWizardFormCampaignContainer

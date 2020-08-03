@@ -4,7 +4,7 @@ import { StyledPublisherCampaignTaskSummaryLayout as StyledUserTaskSummaryLayout
 import  StyledGeneralButton  from '../../../shared/styles/StyledGeneralButton'
 import { USER_TASK_ROUTE_WITH_PARAM } from '../../../config/routes-config'
 
-export const TasksConsoleList = ({ id, title, description, og_image, task_owner_address }) => {
+const TasksConsoleItem = ({ id, title, description, og_image, task_owner_address }) => {
   const history = useHistory()
 
   const isPlaceholderNeeded = RegExp("foo", "g").test(og_image) || RegExp("placeholder", "g").test(og_image)
@@ -38,3 +38,5 @@ export const TasksConsoleList = ({ id, title, description, og_image, task_owner_
     </div>
   )
 }
+
+export default TasksConsoleItem

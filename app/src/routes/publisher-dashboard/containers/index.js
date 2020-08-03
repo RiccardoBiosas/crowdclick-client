@@ -7,7 +7,7 @@ import LoadingIcon from '../../../shared/components/loadingIcons/LoadingIcon'
 import { PublisherDashboardCampaignTaskBoilerplate } from '../screen/PublisherDashboardCampaignTaskBoilerplate'
 import StyledGeneralCardLayout from '../../../shared/styles/StyledGeneralCardLayout'
 
-export const PublisherDashboardContainer = () => {
+const PublisherDashboardContainer = () => {
   const {response, error} = useFetch(TASK_ENDPOINT)
   const dashboardRes = useFetch(DASHBOARD_ENDPOINT)
   const answersDashboardData = dashboardRes.response && dashboardRes.response.data.filter(x => x.user.username ===  JSON.parse(window.localStorage.getItem('userPubKey')))
@@ -51,3 +51,5 @@ export const PublisherDashboardContainer = () => {
     }
   }
 }
+
+export default PublisherDashboardContainer

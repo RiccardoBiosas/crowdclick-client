@@ -3,9 +3,8 @@ import { DesktopNavbar } from './DesktopNavbar/DesktopNavbar'
 import { MobileNavbar } from './MobileNavbar/MobileNavbar'
 import { useWindowSize } from '../../../hooks/useWindowSize'
 
-export const NavbarWrapper = () => {
+const NavbarWrapper = () => {
   const screenDimensions = useWindowSize()
-
 
   return (
     <Fragment>
@@ -15,3 +14,5 @@ export const NavbarWrapper = () => {
     </Fragment>
   )
 }
+
+export default NavbarWrapper

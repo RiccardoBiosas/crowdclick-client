@@ -3,10 +3,10 @@ import { useParams } from 'react-router-dom'
 import { TASK_ENDPOINT } from '../../config/api-config'
 import { useFetch } from '../../hooks/useFetch'
 import  LoadingIcon  from '../../shared/components/loadingIcons/LoadingIcon'
-import { PublisherWizardFormContainer } from '../publisher-dashboard__new-task/containers'
+import  PublisherWizardFormCampaignContainer  from '../publisher-dashboard__new-task/containers'
 
 
-export const EditPublisherWizardFormContainer = ({drizzle, drizzleState}) => {
+const EditPublisherWizardFormCampaignContainer = ({drizzle, drizzleState}) => {
   const { id } = useParams()
   const resp = useFetch(`${TASK_ENDPOINT}${id}/`)
 
@@ -24,6 +24,8 @@ export const EditPublisherWizardFormContainer = ({drizzle, drizzleState}) => {
       projectOptions: optionsArr
     //   projectOptions: resp.response.data.questions[0].options
     }
-    return <PublisherWizardFormContainer initial_values={initial_values} edit={true} id={id} drizzle={drizzle} drizzleState={drizzleState} />
+    return <PublisherWizardFormCampaignContainer initial_values={initial_values} edit={true} id={id} drizzle={drizzle} drizzleState={drizzleState} />
   }
 }
+
+export default EditPublisherWizardFormCampaignContainer

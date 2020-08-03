@@ -12,7 +12,7 @@ import { HomepageBecomeAPublisher } from '../screen/HomepageBecomeAPublisher'
 import { HomepageDoubleCard } from '../screen/HomepageDoubleCard'
 
 
-export const Homepage = () => {
+const Homepage = () => {
   const currencyTheme = useSelector(state => state.currencyStyleReducer)
     .colorStyle
 
@@ -32,3 +32,5 @@ export const Homepage = () => {
     </StyledHomepageWrapper>
   )
 }
+
+export default Homepage
