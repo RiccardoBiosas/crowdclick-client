@@ -10,7 +10,7 @@ import {
 import StyledGeneralCardLayout from "../../../shared/styles/StyledGeneralCardLayout";
 import StyledGeneralCardWrapper from "../../../shared/styles/StyledGeneralCardWrapper";
 
-export const SignupFallback = () => {
+const SignupFallback = () => {
   const [redirect, setRedirect] = useState(false);
   const history = useHistory();
   const location = useLocation();
@@ -92,3 +92,5 @@ export const SignupFallback = () => {
     </>
   );
 };
+
+export default SignupFallback

@@ -38,10 +38,9 @@ const EditPublisherWizardFormCampaignContainer = lazy(() => import('./routes/pub
 export const drizzle = new Drizzle(options)
 
 const App = () => {
-  const history = createBrowserHistory()
 
   return (
-    <HashRouter path={window.location.hostname} history={history}>
+    <HashRouter>
       <DrizzleContext.Provider drizzle={drizzle}>
         <Route path="/" component={NavbarWrapper} />
         <Route path="/" component={EthereumListener} />
