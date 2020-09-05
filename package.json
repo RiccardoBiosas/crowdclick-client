@@ -23,7 +23,8 @@
   "dependencies": {
     "@openzeppelin/contracts": "^2.5.1",
     "@truffle/hdwallet-provider": "^1.0.34",
-    "dotenv": "^8.2.0"
+    "dotenv": "^8.2.0",
+    "eth-json-rpc-filters": "^4.1.1"
   },
   "devDependencies": {
     "redux-devtools-extension": "^2.13.8"
