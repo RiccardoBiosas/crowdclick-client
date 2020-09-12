@@ -4,7 +4,7 @@ import { Helmet } from 'react-helmet'
 //Styled
 import StyledGeneralButton from '../../styles/StyledGeneralButton'
 
-const MaticWidget = () => {
+const MaticWidgetDeposit = () => {
   return (
     <div>
       <Helmet>
@@ -28,4 +28,4 @@ const MaticWidget = () => {
   )
 }
 
-export default MaticWidget
+export default MaticWidgetDeposit
