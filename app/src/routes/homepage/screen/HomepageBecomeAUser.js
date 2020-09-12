@@ -1,7 +1,15 @@
-import React, { useState, div } from 'react'
+import React, { useState } from 'react'
 import VizSensor from 'react-visibility-sensor'
-import default_landing_user_image from '../../../assets/homepage/img2.svg'
-import aeternity_become_user_img from '../../../assets/images/aeternity_become_user.svg'
+import { useSpring, animated } from 'react-spring'
+import { Spring } from 'react-spring/renderprops'
+
+//Components
+import HomepageCardSwipe from '../containers/HomepageCardSwipe'
+
+//Constants
+import {becomeUserSteps} from '../constants'
+
+//Styled
 import StyledGeneralButton  from '../../../shared/styles/StyledGeneralButton'
 import {
   StyledImgWrapper,
@@ -10,9 +18,10 @@ import {
   StyledCardLayout,
   StyledCenteredColumnWithMediaQueries
 } from '../styles/HomepageStyles'
-import { useSpring, animated } from 'react-spring'
-import { Spring } from 'react-spring/renderprops'
-import { HomepageBecomeAUserFlipped } from './HomepageBecomeAUserFlipped'
+
+//Assets
+import default_landing_user_image from '../../../assets/homepage/img2.svg'
+import aeternity_become_user_img from '../../../assets/images/aeternity_become_user.svg'
 
 export const HomepageBecomeAUser = ({currencyTheme}) => {
   const [flipped, setFlipped] = useState(false)
@@ -158,14 +167,9 @@ export const HomepageBecomeAUser = ({currencyTheme}) => {
               display: display.interpolate(d => (d === '' ? 'none' : ''))
             }}
           >
-            <StyledCardLayout>
-              {/* <div>
-                <h1>hello world</h1>
-                <button onClick={() => setFlipped(!flipped)}>
-                  flip it back
-                </button>
-              </div> */}
-              <HomepageBecomeAUserFlipped setFlipped={setFlipped} flipped={flipped}/>
+            <StyledCardLayout>              
+              {/* <HomepageBecomeAUserFlipped setFlipped={setFlipped} flipped={flipped}/> */}
+            <HomepageCardSwipe setFlipped={setFlipped} flipped={flipped} cardsSteps={becomeUserSteps}  />
             </StyledCardLayout>
           </animated.div>
         </div>

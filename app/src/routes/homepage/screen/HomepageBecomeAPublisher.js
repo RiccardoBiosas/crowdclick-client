@@ -12,6 +12,8 @@ import {
 } from "../styles/HomepageStyles";
 import { useSpring, animated } from "react-spring";
 import { Spring } from "react-spring/renderprops";
+import {becomePublisherSteps} from '../constants'
+import HomepageCardSwipe from "../containers/HomepageCardSwipe";
 
 export const HomepageBecomeAPublisher = ({ currencyTheme }) => {
   const [flipped, setFlipped] = useState(false);
@@ -145,13 +147,8 @@ export const HomepageBecomeAPublisher = ({ currencyTheme }) => {
               display: display.interpolate((d) => (d === "" ? "none" : "")),
             }}
           >
-            <StyledCardLayout>
-              <div>
-                <h1>hello world</h1>
-                <button onClick={() => setFlipped(!flipped)}>
-                  flip it back and start using crowdclick
-                </button>
-              </div>
+            <StyledCardLayout>           
+                <HomepageCardSwipe setFlipped={setFlipped} flipped={flipped} cardsSteps={becomePublisherSteps} />
             </StyledCardLayout>
           </animated.div>
         </div>
