@@ -3,7 +3,6 @@ const HDWalletProvider = require('@truffle/hdwallet-provider')
 require('dotenv').config()
 
 
-
 module.exports = {
 
   contracts_build_directory: path.join(__dirname, "app/src/contracts"),
@@ -18,6 +17,10 @@ module.exports = {
         return new HDWalletProvider(process.env.MNEMONIC, process.env.INFURA_ROPSTEN)
       },
       network_id: 3
+    },
+    goerli: {
+      provider: () => new HDWalletProvider(process.env.MNEMONIC, process.env.INFURA_GOERLI),
+      network_id: 5
     },
     maticMumbai: {
       provider: () => new HDWalletProvider(process.env.MNEMONIC, `https://rpc-mumbai.matic.today`),
