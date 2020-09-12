@@ -1,4 +1,4 @@
-import CrowdclickEscrow from './contracts/goerli/CrowdclickEscrow.json' //TODO: use a config file to import the contract ABI from the correct network
+import CrowdclickEscrow from './contracts/maticMumbai/CrowdclickEscrow' //TODO: use a config file to import the contract ABI from the correct network
 
 const options = {
   web3: {

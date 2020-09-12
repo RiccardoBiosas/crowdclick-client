@@ -5,6 +5,7 @@ import StyledGeneralButton  from '../../../styles/StyledGeneralButton'
 import { StyledFirstDivGroup } from './styles/DesktopNavbarStyles'
 import { USER_WITHDRAW_ROUTE } from '../../../../config/routes-config'
 import MaticWidgetWithdraw from '../../MaticWidget/withdraw'
+import MaticWidgetAll from '../../MaticWidget/all'
 
 export const GetBalanceComponent = ({ web3Context }) => {
   const [balance, setBalance] = useState(0)
@@ -35,7 +36,7 @@ export const NavbarAuthElements = () => {
         <GetBalanceComponent web3Context={web3Context} />
       </div>
       <div>
-        <MaticWidgetWithdraw />      
+        <MaticWidgetAll />      
       </div>
     </StyledFirstDivGroup>
   )

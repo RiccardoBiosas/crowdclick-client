@@ -14,7 +14,7 @@ const MaticWidgetAll = () => {
         ></script>
       </Helmet>
       <StyledGeneralButton
-        buttonWidth='100'
+        buttonWidth='140'
         buttonColor='blue'
         buttonTextColor='white'
         type='button'
@@ -22,7 +22,7 @@ const MaticWidgetAll = () => {
         data-default-page='home'
         data-wapp-id={process.env.REACT_APP_MATIC_WIDGET_ID}
       >
-        Send
+        Balance
       </StyledGeneralButton>
     </div>
   )
