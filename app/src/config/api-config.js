@@ -23,4 +23,5 @@ export const AUTH_LOGOUT_ENDPOINT = `${host_env}/api/auth/logout/`
 export const ANSWERS_COLLECTION_ENDPOINT = `${host_env}/api/task/id/answer`
 export const DASHBOARD_ENDPOINT = `${host_env}/api/task/dashboard/`
 export const SUBSCRIBE_ENDPOINT = `${host_env}/api/subscribe/`
+export const REWARD_ENDPOINT = `${host_env}/api/reward/`
 export default host_env

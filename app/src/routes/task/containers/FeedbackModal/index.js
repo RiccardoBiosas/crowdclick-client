@@ -5,7 +5,10 @@ import { iframeNormalScreenAction } from '../../../../redux/Iframe/IframeActions
 import  StyledFeedbackModalLayout  from '../../styles/StyledFeedbackModalLayout'
 import  MultichoiceQuestion  from '../MultichoiceQuestion/index'
 import { TaskCompletionPopup } from '../../screen/TaskCompletionPopup'
-import { TASK_ENDPOINT } from '../../../../config/api-config'
+import { TASK_ENDPOINT, REWARD_ENDPOINT } from '../../../../config/api-config'
+
+axios.defaults.withCredentials = true;
+
 
 export const FeedbackModal = ({
   slide,
@@ -41,6 +44,7 @@ export const FeedbackModal = ({
       await axios.post(`${TASK_ENDPOINT}${taskID}/answer/`, {
         questions: answersBatch,
       })
+      await axios.post(`${REWARD_ENDPOINT}${taskID}/`)
     }
     if (indx === taskQuestions.length) {
       dispatch(iframeNormalScreenAction)

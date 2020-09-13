@@ -73,7 +73,7 @@ const MultichoiceQuestionQuiz = ({
                 {/* <StyledQuestionLayout animation={currentIndx === questionIndx && !selectedAnswer[questionId] ? "fadeIn" : "fadeOut"}>{question}</StyledQuestionLayout> */}
 
                 <StyledListLayout>
-                  {options.map((x) => (
+                  {options.map((x, idx) => (
                     <StyledItemLayout>
                       <input
                         type="radio"
@@ -81,6 +81,7 @@ const MultichoiceQuestionQuiz = ({
                         checked={selectedAnswer[questionId] === x.id}
                         id={x.id}
                         value={x.id}
+                        key={`questionOptions${questionId}${x.id}`}
                         onChange={() =>
                           setSelectedAnswer({
                             ...selectedAnswer,
