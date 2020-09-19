@@ -1,6 +1,14 @@
 {
-  "name": "crowdclick",
+  "name": "crowdclick-client",
   "version": "0.1.0",
+  "description": "Crowdclick client",
+  "author": "Riccardo Biosas",
+  "contributors": [
+    {
+      "name": "Riccardo Biosas",
+      "email": "rbios@protonmail.com"
+    }
+  ],
   "private": true,
   "dependencies": {
     "@babel/runtime": "^7.7.2",
@@ -46,11 +54,7 @@
     "extends": "react-app"
   },
   "browserslist": {
-    "production": [
-      ">0.2%",
-      "not dead",
-      "not op_mini all"
-    ],
+    "production": [">0.2%", "not dead", "not op_mini all"],
     "development": [
       "last 1 chrome version",
       "last 1 firefox version",
@@ -66,9 +70,7 @@
     "react-test-renderer": "^16.13.1"
   },
   "jest": {
-    "transformIgnorePatterns": [
-      "/node_modules/(?!@babel).+\\.js$"
-    ],
+    "transformIgnorePatterns": ["/node_modules/(?!@babel).+\\.js$"],
     "transform": {
       "^.+\\.js?$": "babel-jest"
     }

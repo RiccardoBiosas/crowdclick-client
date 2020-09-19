@@ -1,31 +1,45 @@
+// theirs
 import React from 'react'
 import { useParams } from 'react-router-dom'
-import { TASK_ENDPOINT } from '../../config/api-config'
-import { useFetch } from '../../hooks/useFetch'
-import  LoadingIcon  from '../../shared/components/loadingIcons/LoadingIcon'
-import  PublisherWizardFormCampaignContainer  from '../publisher-dashboard__new-task/containers'
+// components
+import DataFetcher from '../../shared/components/DataFetcher'
+import PublisherWizardFormCampaignContainer from '../publisher-dashboard__new-task/containers'
+// utils
+import crowdclickClient from '../../utils/api/crowdclick'
 
-
-const EditPublisherWizardFormCampaignContainer = ({drizzle, drizzleState}) => {
+const EditPublisherWizardFormCampaignContainer = ({
+  drizzle,
+  drizzleState
+}) => {
   const { id } = useParams()
-  const resp = useFetch(`${TASK_ENDPOINT}${id}/`)
 
-  if (!resp.response) {
-    return <LoadingIcon />
-  } else {
-    const optionsArr = resp.response.data.questions[0].options.map(x => {return {option: x.title}})
-    const initial_values = {
-      projectName: resp.response.data.title,
-      projectDescription: resp.response.data.description,
-      projectURL: resp.response.data.website_link,
-      pricePerClick: resp.response.data.reward_per_click,
-      campaignBudget: resp.response.data.spend_daily,
-      projectQuestion: resp.response.data.questions[0].title,
-      projectOptions: optionsArr
-    //   projectOptions: resp.response.data.questions[0].options
-    }
-    return <PublisherWizardFormCampaignContainer initial_values={initial_values} edit={true} id={id} drizzle={drizzle} drizzleState={drizzleState} />
-  }
+  return (
+    <DataFetcher action={() => crowdclickClient.getTask(id)}>
+      {data => {
+        const optionsList = data.questions[0].options.map(x => {
+          return { option: x.title }
+        })
+        const initial_values = {
+          projectName: data.title,
+          projectDescription: data.description,
+          projectURL: data.website_link,
+          pricePerClick: data.reward_per_click,
+          campaignBudget: data.spend_daily,
+          projectQuestion: data.questions[0].title,
+          projectOptions: optionsList
+        }
+        return (
+          <PublisherWizardFormCampaignContainer
+            initial_values={initial_values}
+            edit={true}
+            id={id}
+            drizzle={drizzle}
+            drizzleState={drizzleState}
+          />
+        )
+      }}
+    </DataFetcher>
+  )
 }
 
 export default EditPublisherWizardFormCampaignContainer

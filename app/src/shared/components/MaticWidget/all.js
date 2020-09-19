@@ -22,7 +22,7 @@ const MaticWidgetAll = () => {
         data-default-page='home'
         data-wapp-id={process.env.REACT_APP_MATIC_WIDGET_ID}
       >
-        Balance
+        Wallet
       </StyledGeneralButton>
     </div>
   )

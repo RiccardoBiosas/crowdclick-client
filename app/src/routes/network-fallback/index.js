@@ -1,9 +1,12 @@
+// theirs
 import React from "react";
 import {useHistory} from 'react-router-dom'
+// styles
 import StyledGeneralCardLayout from "../../shared/styles/StyledGeneralCardLayout";
 import StyledGeneralCardWrapper from "../../shared/styles/StyledGeneralCardWrapper";
 import StyledGlobalButton from "../../shared/styles/StyledGeneralButton";
 import StyledGeneralParagraph from "../../shared/styles/StyledGeneralParagraph";
+// constants
 import { HOME_ROUTE } from "../../config/routes-config";
 
 

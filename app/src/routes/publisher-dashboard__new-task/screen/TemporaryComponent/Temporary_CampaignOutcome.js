@@ -1,24 +1,27 @@
-import React, { Fragment } from 'react'
-import { ReactComponent as SvgSuccess } from '../../../../assets/SVG/Success.svg'
-import { ReactComponent as SvgFailure } from '../../../../assets/SVG/Failure.svg'
-import  LoadingIcon  from '../../../../shared/components/loadingIcons/LoadingIcon'
+// theirs
+import React from 'react'
+// components
+import LoadingIcon from '../../../../shared/components/loadingIcons/LoadingIcon'
+// styles
 import { StyledGeneralHeadingTwo } from '../../../../shared/styles/StyledGeneralHeadings'
+// assets
+import { ReactComponent as SvgSuccess } from '../../../../assets/SVG/Success.svg'
+import { kittenWarning } from '../../../../assets'
 
 export const Temporary_CampaignOutcome = ({ step, respStatus }) => {
- 
   if (step !== 6) {
     return null
   } else {
-
     if (!respStatus) {
       return <LoadingIcon />
     } else {
-
       if (respStatus === 201) {
         return (
-          <Fragment>
+          <>
             <div>
-              <StyledGeneralHeadingTwo headingFontSize="24px">Campaign Successfully Created!</StyledGeneralHeadingTwo>
+              <StyledGeneralHeadingTwo headingFontSize='24px'>
+                Campaign Successfully Created!
+              </StyledGeneralHeadingTwo>
             </div>
             <div
               style={{
@@ -29,32 +32,15 @@ export const Temporary_CampaignOutcome = ({ step, respStatus }) => {
             >
               <SvgSuccess style={{ width: '80px' }} />
             </div>
-          </Fragment>
+          </>
         )
-      } else if(respStatus === 200) {
+      } else if (respStatus === 200) {
         return (
-            <Fragment>
-              <div>
-                <StyledGeneralHeadingTwo headingFontSize="24px">Campaign Successfully Edited!</StyledGeneralHeadingTwo>
-              </div>
-              <div
-                style={{
-                  display: 'flex',
-                  alignItems: 'center',
-                  justifyContent: 'center'
-                }}
-              >
-                <SvgSuccess style={{ width: '80px' }} />
-              </div>
-            </Fragment>
-          )
-
-      } else {
-        return (
-          <Fragment>
+          <>
             <div>
-              <StyledGeneralHeadingTwo headingFontSize="24px">Campaign Not Successfully Complete</StyledGeneralHeadingTwo>
-              <p>Try to go back and review the submitted data</p>
+              <StyledGeneralHeadingTwo headingFontSize='24px'>
+                Campaign Successfully Edited!
+              </StyledGeneralHeadingTwo>
             </div>
             <div
               style={{
@@ -63,9 +49,29 @@ export const Temporary_CampaignOutcome = ({ step, respStatus }) => {
                 justifyContent: 'center'
               }}
             >
-              <SvgFailure style={{ width: '80px' }} />
+              <SvgSuccess style={{ width: '80px' }} />
             </div>
-          </Fragment>
+          </>
+        )
+      } else {
+        return (
+          <>
+            <div>
+              <StyledGeneralHeadingTwo headingFontSize='24px'>
+                Campaign not successfully completed
+              </StyledGeneralHeadingTwo>
+              <p>Go back and review the submitted campaign for errors</p>
+            </div>
+            <div
+              style={{
+                display: 'flex',
+                alignItems: 'center',
+                justifyContent: 'center'
+              }}
+            >
+              <img alt='campign-unsuccessful-icon' src={kittenWarning} />
+            </div>
+          </>
         )
       }
     }

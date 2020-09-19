@@ -1,6 +1,5 @@
 import styled, { keyframes, css } from 'styled-components'
 
-
 const fadeIn = keyframes`
     0% {
       opacity: 0;
@@ -32,12 +31,11 @@ const fadeOut = keyframes`
   }  
 `
 
-
 const StyledQuestionLayout = styled.div`
   display: flex;
   flex-direction: column;
   justify-content: center;
-  animation: ${(props) =>
+  animation: ${props =>
       props.animation === 'fadeIn'
         ? css`
             ${fadeIn} 1s ease-in;

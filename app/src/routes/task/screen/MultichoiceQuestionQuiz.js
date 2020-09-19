@@ -1,7 +1,9 @@
+// theirs
 import React from 'react'
-import StyledCardNavbar from '../../../shared/styles/StyledCardNavbar'
 import { useTransition, animated } from 'react-spring'
-import {StyledListLayout, StyledItemLayout} from '../styles/StyledList'
+// styles
+import StyledCardNavbar from '../../../shared/styles/StyledCardNavbar'
+import { StyledListLayout, StyledItemLayout } from '../styles/StyledList'
 import { StyledGeneralHeadingTwo } from '../../../shared/styles/StyledGeneralHeadings'
 
 const MultichoiceQuestionQuiz = ({
@@ -12,7 +14,7 @@ const MultichoiceQuestionQuiz = ({
   questionId,
   quizProperties,
   openQuiz,
-  setOpenQuiz,
+  setOpenQuiz
   // currentIndx,
   // questionIndx
 }) => {
@@ -27,81 +29,69 @@ const MultichoiceQuestionQuiz = ({
       top: `${modalCoordY}px`,
       position: 'absolute',
       width: openerWidth,
-      height: openerHeight,
+      height: openerHeight
     },
     enter: {
       transform: 'scale(1.1)',
       zIndex: '200000',
-      top: `${Math.floor(window.innerHeight / 2) - 300}px`,
-      right: `${Math.floor(window.innerWidth / 2) - 400}px`,
+      top: `${Math.floor(window.innerHeight / 2) - 200}px`,
+      right: `${Math.floor(window.innerWidth / 2) - 380}px`
     },
     leave: {
       transform: 'scale(0)',
       right: `${modalCoordX}px`,
-      top: `${modalCoordY}px`,
+      top: `${modalCoordY}px`
     },
     config: {
-      duration: 400,
-    },
+      duration: 400
+    }
   })
 
-  return (
-    <>
-      {transition.map(({ item, key, props }) => {
-        return (
-          <>
-            {item && (
-              <animated.div
-                style={{
-                  ...props,
-                  width: '400px',
-                  height: '300px',
-                  backgroundColor: 'white',
-                }}
-              >
-                <StyledCardNavbar>
-                  {/* <div className="stepBack">back</div> */}
-                  <div />
-                  <div className="closeCard" onClick={() => setOpenQuiz(false)}>
-                    x
-                  </div>
-                </StyledCardNavbar>
-
-                <StyledGeneralHeadingTwo headingFontSize="24px">
-                  {question}
-                </StyledGeneralHeadingTwo>
-                {/* <StyledQuestionLayout animation={currentIndx === questionIndx && !selectedAnswer[questionId] ? "fadeIn" : "fadeOut"}>{question}</StyledQuestionLayout> */}
-
-                <StyledListLayout>
-                  {options.map((x, idx) => (
-                    <StyledItemLayout>
-                      <input
-                        type="radio"
-                        name="radioFeedbackGroup"
-                        checked={selectedAnswer[questionId] === x.id}
-                        id={x.id}
-                        value={x.id}
-                        key={`questionOptions${questionId}${x.id}`}
-                        onChange={() =>
-                          setSelectedAnswer({
-                            ...selectedAnswer,
-                            [questionId]: x.id,
-                          })
-                        }
-                      />
-
-                      <label htmlFor={x.id}>{x.title}</label>
-
-                      <div className="check" />
-                    </StyledItemLayout>
-                  ))}
-                </StyledListLayout>
-              </animated.div>
-            )}
-          </>
-        )
-      })}
-    </>
+  return transition.map(
+    ({ item, key, props }) =>
+      item && (
+        <animated.div
+          key={`quiz${questionId}${key}`}
+          style={{
+            ...props,
+            width: '580px',
+            height: '340px',
+            borderRadius: '8px',
+            backgroundColor: 'white'
+          }}
+        >
+          <StyledCardNavbar>
+            <div />
+            <div className='closeCard' onClick={() => setOpenQuiz(false)}>
+              x
+            </div>
+          </StyledCardNavbar>
+          <StyledGeneralHeadingTwo headingFontSize='24px'>
+            {question}
+          </StyledGeneralHeadingTwo>
+          <StyledListLayout>
+            {options.map((x, i) => (
+              <StyledItemLayout key={`options${x.title}${i}`}>
+                <input
+                  type='radio'
+                  name='radioFeedbackGroup'
+                  checked={selectedAnswer[questionId] === x.id}
+                  id={x.id}
+                  value={x.id}
+                  onChange={() =>
+                    setSelectedAnswer({
+                      ...selectedAnswer,
+                      [questionId]: x.id
+                    })
+                  }
+                />
+                <label htmlFor={x.id}>{x.title}</label>
+                <div className='check' />
+              </StyledItemLayout>
+            ))}
+          </StyledListLayout>
+        </animated.div>
+      )
   )
 }
 

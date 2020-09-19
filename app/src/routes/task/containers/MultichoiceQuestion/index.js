@@ -1,9 +1,12 @@
+// theirs
 import React, { useEffect, useState, useRef } from 'react'
 import { createPortal } from 'react-dom'
-import StyledPulsatingDot from '../../styles/StyledPulsatingDot'
-import { StyledGeneralHeadingTwo } from '../../../../shared/styles/StyledGeneralHeadings'
+// components
 import MultichoiceQuestionQuiz from '../../screen/MultichoiceQuestionQuiz'
+// styles
+import StyledPulsatingDot from '../../styles/StyledPulsatingDot'
 import StyledGeneralRowWrapper from '../../../../shared/styles/StyledGeneralRowWrapper'
+import { StyledHeadingTwo } from '../../styles/StyledHeading'
 
 const modalRoot = document.getElementById('portal-root')
 
@@ -15,7 +18,7 @@ const MultichoiceQuestion = ({
   questionIndx,
   currentIndx,
   setIndx,
-  questionId,
+  questionId
 }) => {
   const [quizProperties, setQuizProperties] = useState()
   const [openQuiz, setOpenQuiz] = useState(false)
@@ -28,7 +31,7 @@ const MultichoiceQuestion = ({
         coordX: btnRef.right,
         coordY: btnRef.top,
         openerWidth: btnRef.width,
-        openerHeight: btnRef.height,
+        openerHeight: btnRef.height
       })
     }
     if (currentIndx === questionIndx) {
@@ -42,17 +45,17 @@ const MultichoiceQuestion = ({
     currentIndx,
     questionIndx,
     questionId,
-    quizProperties,
+    quizProperties
   ])
 
   return (
     <>
-      <div>
-        <h2 style={{position: "absolute", top: "16%", left: "40%"}}>{question}</h2>
-      </div>
+      <StyledGeneralRowWrapper rowPosition='absolute'>
+        <StyledHeadingTwo>{question}</StyledHeadingTwo>
+      </StyledGeneralRowWrapper>
       <StyledPulsatingDot ref={ref}>
         <div />
-        <button type="button" onClick={() => setOpenQuiz(true)} />
+        <button type='button' onClick={() => setOpenQuiz(true)} />
       </StyledPulsatingDot>
 
       {quizProperties &&
@@ -66,10 +69,8 @@ const MultichoiceQuestion = ({
             quizProperties={quizProperties}
             openQuiz={openQuiz}
             setOpenQuiz={setOpenQuiz}
-            // currentIndx={currentIndx}
-            // questionIndx={questionIndx}
           />,
-          modalRoot,
+          modalRoot
         )}
     </>
   )

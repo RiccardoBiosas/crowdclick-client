@@ -8,16 +8,14 @@ import {
 } from "../../../styles/StyledDropdownLayout";
 import { MdKeyboardArrowDown } from "react-icons/md";
 import { useHandleEventOutsideRef } from "../../../../hooks/useHandleEventOutsideRef";
-import axios from "axios";
-import { AUTH_LOGOUT_ENDPOINT } from "../../../../config/api-config";
 import { navAuthFalseAction } from "../../../../redux/NavAuth/navAuthActions";
 import {
   USER_TASKS_LIST_ROUTE,
   PUBLISHER_DASHBOARD_ROUTE,
   HOME_ROUTE,
+  TUTORIAL_ROUTE,
 } from "../../../../config/routes-config";
-
-axios.defaults.withCredentials = true;
+import crowdclickClient from "../../../../utils/api/crowdclick";
 
 export const AccountDropdown = () => {
   const [dropdownStatus, setDropdownStatus] = useState(false);
@@ -30,11 +28,8 @@ export const AccountDropdown = () => {
     setDropdownStatus(false)
   );
 
-  const handleClick = () => {
-    const logout = async () => {
-      await axios.get(AUTH_LOGOUT_ENDPOINT);
-    };
-    logout();
+  const handleClick = async() => {
+    await crowdclickClient.logout()
     window.localStorage.removeItem("userPubKey");
     dispatch(navAuthFalseAction);
     history.push(HOME_ROUTE);
@@ -58,6 +53,15 @@ export const AccountDropdown = () => {
         active={dropdownStatus}
         itemPadding="12px 0 8px 32px"
       >
+        <li>
+          <NavLink
+            className="dropdown-item"
+            to={TUTORIAL_ROUTE}
+            activeStyle={{ color: "#206DFF", fontWeight: "900" }}
+          >
+            Tutorial
+          </NavLink>
+        </li>
         <li>
           <NavLink
             className="dropdown-item"

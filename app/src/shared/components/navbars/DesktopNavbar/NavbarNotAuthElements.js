@@ -1,5 +1,8 @@
+// theirs
 import React from 'react'
+// assets
 import { FaTelegramPlane } from 'react-icons/fa'
+// styles
 import { StyledFirstDivGroup } from './styles/DesktopNavbarStyles'
 import StyledGeneralButton  from '../../../styles/StyledGeneralButton'
 

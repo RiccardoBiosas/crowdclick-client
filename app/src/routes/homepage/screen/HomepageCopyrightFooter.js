@@ -1,4 +1,6 @@
+// theirs
 import React from 'react'
+// styles
 import { StyledCopyrightFooterLayout } from '../styles/HomepageCopyrightFooterStyles'
 
 export const HomepageCopyrightFooter = () => {

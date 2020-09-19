@@ -1,6 +1,10 @@
+// theirs
 import React from "react";
+// styles
 import { StyledPublisherCampaignTaskSummaryLayout } from "../../publisher-dashboard__new-task/styles/CampaignStyles";
+// components
 import  useRedirectWithProps  from "../../../hooks/useRedirectWithProps";
+// constants
 import { PUBLISHER_WIZARD_ROUTE } from "../../../config/routes-config";
 
 export const PublisherDashboardNextCampaign = () => {

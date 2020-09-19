@@ -1,20 +1,22 @@
+// theirs
 import React, { Fragment } from "react";
 import PackmanLoader from "react-spinners/PacmanLoader";
-import { ROPSTEN_ETHERSCAN_TX } from "../../../config/api-config";
-import { StyledGeneralHeadingTwo } from "../../../shared/styles/StyledGeneralHeadings";
+// constants
+import { MATIC_MUMBAI_EXPLORER_TX, ROPSTEN_ETHERSCAN_TX } from "../../../config/api-config";
+// assets
 import metamaskLogo from "../../../assets/wallet-logos/metamask-logo.svg";
-import  StyledGeneralButton  from "../../../shared/styles/StyledGeneralButton";
 import Copy from "../../../assets/images/copy.svg";
-// import CopyToClipboard from "../../../shared/copyToClipboard/CopyToClipboard";
+// styles
+import { StyledGeneralHeadingTwo } from "../../../shared/styles/StyledGeneralHeadings";
+import StyledGeneralSubmitButton  from "../../../shared/styles/StyledGeneralSubmitButton";
 import StyledGeneralParagraph from "../../../shared/styles/StyledGeneralParagraph";
+// import CopyToClipboard from "../../../shared/copyToClipboard/CopyToClipboard";
 
 export const PublisherWizardFormCampaignPayment = ({
   step,
   address,
   transactionID,
 }) => {
-  // console.log("TRANSACTION ID CAMPAIGN PAYMENT", transactionID);
-
   if (step !== 5) {
     return null;
   } else {
@@ -89,7 +91,7 @@ export const PublisherWizardFormCampaignPayment = ({
                   />
                 </div>
                 <div>
-                  <StyledGeneralButton
+                  <StyledGeneralSubmitButton
                     type="submit"
                     buttonColor={"orange"}
                     buttonMargin={"34px 0px 0px 0px"}
@@ -98,7 +100,7 @@ export const PublisherWizardFormCampaignPayment = ({
                     // onClick={openTask}
                   >
                     Pay with Metamask
-                  </StyledGeneralButton>
+                  </StyledGeneralSubmitButton>
                 </div>
               </>
             ) : (
@@ -113,7 +115,20 @@ export const PublisherWizardFormCampaignPayment = ({
                     alignItems: "center",
                   }}
                 >
-                  <p style={{ fontWeight: 900, color: "#9ea0a5" }}>
+                <p style={{ fontWeight: 900, color: "#9ea0a5" }}>
+                    Check your transaction on matic mumbai explorer:
+                  </p>
+                  <div>
+                    <a
+                      href={`${MATIC_MUMBAI_EXPLORER_TX}${transactionID}`}
+                      style={{ color: "#9ea0a5" }}
+                      target="_blank"
+                      rel="noopener noreferrer"
+                    >
+                      {transactionID}
+                    </a>
+                  </div>
+                  {/* <p style={{ fontWeight: 900, color: "#9ea0a5" }}>
                     Check your transaction on etherscan:
                   </p>
                   <div>
@@ -125,7 +140,7 @@ export const PublisherWizardFormCampaignPayment = ({
                     >
                       {transactionID}
                     </a>
-                  </div>
+                  </div> */}
                 </div>
               </>
             )}

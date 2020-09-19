@@ -143,3 +143,16 @@ export const StyledImgWrapper = styled.div`
     }
   }
 `;
+
+export const StyledHomepageCardSwipeWrapper = styled.div`
+  @media screen and (max-width: 700px) {
+    display: flex;
+    justify-content: center;
+    .homepage__flippableCards {
+      display: none;
+    }
+    .homepage__flippableCards-descriptions {
+      position: initial !important;
+    }
+  }
+`
