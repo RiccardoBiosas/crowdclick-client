@@ -1,16 +1,15 @@
+// theirs
 import React, { useState } from 'react'
 import VizSensor from 'react-visibility-sensor'
 import { useSpring, animated } from 'react-spring'
 import { Spring } from 'react-spring/renderprops'
-
-//Components
+// components
 import HomepageCardSwipe from '../containers/HomepageCardSwipe'
-
-//Constants
-import {becomeUserSteps} from '../constants'
-
-//Styled
-import StyledGeneralButton  from '../../../shared/styles/StyledGeneralButton'
+// constants
+import { becomeUserSteps } from '../constants'
+// styles
+import StyledGeneralButton from '../../../shared/styles/StyledGeneralButton'
+import StyledSection from '../../../shared/styles/StyledSection'
 import {
   StyledImgWrapper,
   StyledCardMainHeading,
@@ -18,39 +17,23 @@ import {
   StyledCardLayout,
   StyledCenteredColumnWithMediaQueries
 } from '../styles/HomepageStyles'
-
-//Assets
+// assets
 import default_landing_user_image from '../../../assets/homepage/img2.svg'
 import aeternity_become_user_img from '../../../assets/images/aeternity_become_user.svg'
 
-export const HomepageBecomeAUser = ({currencyTheme}) => {
+export const HomepageBecomeAUser = ({ currencyTheme }) => {
   const [flipped, setFlipped] = useState(false)
   const [isVizSensorActive, setIsVizSensorActive] = useState(true)
   const [visibilityCount, setVisibilityCount] = useState(0)
 
-
-  const handleVisibility = (isVisible) => {
-    if(isVisible < 1) {
-      setVisibilityCount(visibilityCount+1)
+  const handleVisibility = isVisible => {
+    if (isVisible < 1) {
+      setVisibilityCount(visibilityCount + 1)
     }
-    if(visibilityCount >= 1) {
+    if (visibilityCount >= 1) {
       setIsVizSensorActive(false)
-      
     }
   }
-
-
-  // const slideAnimationFromRight = useSpring({
-  //   from: { right: '80%', opacity: 0, position: 'relative', width: '100%' },
-  //   to: { width: '0%', right: '0%', height: '0%', opacity: 1 },
-  //   config: { duration: 800 }
-  // })
-  // const slideAnimationFromLeft = useSpring({
-  //   from: { left: '80%', opacity: 0, position: 'relative', width: '100%' },
-  //   to: { width: '0%', left: '0%', height: '0%', opacity: 1 },
-  //   config: { duration: 800 }
-  // })
-
 
   const { transform, opacity, display } = useSpring({
     opacity: flipped ? 1 : 0,
@@ -59,14 +42,14 @@ export const HomepageBecomeAUser = ({currencyTheme}) => {
     config: { mass: 5, tension: 500, friction: 80 }
   })
   return (
-    <VizSensor 
-    partialVisibility={true}
-    minTopValue={120}
-    active={isVizSensorActive}   
-    onChange={handleVisibility}    
+    <VizSensor
+      partialVisibility={true}
+      minTopValue={120}
+      active={isVizSensorActive}
+      onChange={handleVisibility}
     >
-      {({isVisible}) => (
-        <div>
+      {({ isVisible }) => (
+        <StyledSection styledHeight={flipped ? '30rem' : ''}>
           <animated.div
             style={{
               opacity: opacity.interpolate(value => 1 - value),
@@ -75,7 +58,7 @@ export const HomepageBecomeAUser = ({currencyTheme}) => {
             }}
           >
             <StyledCardLayout>
-              <StyledImgWrapper style={{width: '100%'}} type={'disappearing'}>
+              <StyledImgWrapper style={{ width: '100%' }} type={'disappearing'}>
                 <img
                   src={
                     currencyTheme === 'ethereumStyle'
@@ -83,23 +66,29 @@ export const HomepageBecomeAUser = ({currencyTheme}) => {
                       : aeternity_become_user_img
                   }
                   className='user-img'
-                  alt='user_image'
+                  alt='user-icon'
                 />
               </StyledImgWrapper>
 
-              {/* <animated.div style={slideAnimationFromRight}> */}
               <Spring
                 from={{
                   right: !isVisible ? '80%' : '0%',
                   opacity: !isVisible ? 0 : 1,
-                  position: 'relative',
-                  
+                  position: 'relative'
                 }}
-                to={{right: isVisible ? '0%' : '80%', height: '0%', opacity: isVisible ? 1 : 0 }}
+                to={{
+                  right: isVisible ? '0%' : '80%',
+                  height: '0%',
+                  opacity: isVisible ? 1 : 0
+                }}
                 config={{ duration: 800 }}
               >
                 {props => (
-                  <StyledCenteredColumnWithMediaQueries containerMargin="0 0 48px 0" style={props} side={'left'}>
+                  <StyledCenteredColumnWithMediaQueries
+                    containerMargin='0 0 48px 0'
+                    style={props}
+                    side={'left'}
+                  >
                     <StyledCardMainHeading
                       type={'no-break-paragraph'}
                       mainHeadline={32}
@@ -137,16 +126,15 @@ export const HomepageBecomeAUser = ({currencyTheme}) => {
                         }
                         buttonTextColor={'#FFFFFF'}
                       >
-                        {currencyTheme === 'ethereumStyle'
+                        {/* {currencyTheme === 'ethereumStyle'
                           ? 'Earn ETH'
-                          : 'Earn AE'}
+                          : 'Earn AE'} */}
+                          Learn more
                       </StyledGeneralButton>
                     </div>
                   </StyledCenteredColumnWithMediaQueries>
                 )}
               </Spring>
-
-              {/* </animated.div> */}
 
               <StyledImgWrapper type={'appearing'}>
                 <img
@@ -155,7 +143,7 @@ export const HomepageBecomeAUser = ({currencyTheme}) => {
                       ? default_landing_user_image
                       : aeternity_become_user_img
                   }
-                  alt='publisher_image'
+                  alt='user-icon'
                 />
               </StyledImgWrapper>
             </StyledCardLayout>
@@ -167,12 +155,13 @@ export const HomepageBecomeAUser = ({currencyTheme}) => {
               display: display.interpolate(d => (d === '' ? 'none' : ''))
             }}
           >
-            <StyledCardLayout>              
-              {/* <HomepageBecomeAUserFlipped setFlipped={setFlipped} flipped={flipped}/> */}
-            <HomepageCardSwipe setFlipped={setFlipped} flipped={flipped} cardsSteps={becomeUserSteps}  />
-            </StyledCardLayout>
+              <HomepageCardSwipe
+                setFlipped={setFlipped}
+                flipped={flipped}
+                cardsSteps={becomeUserSteps}
+              />
           </animated.div>
-        </div>
+        </StyledSection>
       )}
     </VizSensor>
   )

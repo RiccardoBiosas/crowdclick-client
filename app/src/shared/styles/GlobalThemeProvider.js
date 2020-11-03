@@ -11,12 +11,14 @@ const theme = {
       cardsParagraph: '#272833CC',
       cardsList: '#272833CC',
       copyrightFooterParagraph: '#272833CC',
+      swipeCardsHeadingTwo: '#333333',
+      swipeCardsParagraph: '#8E8E8E'
     },
     desktopNavbar: {},
     publisherForm: {},
     global: {
-      background: '#F3F6FE',
-    },
+      background: '#F3F6FE'
+    }
   },
   dark: {
     homepage: {
@@ -25,21 +27,23 @@ const theme = {
       cardsParagraph: 'white',
       cardsList: 'white',
       copyrightFooterParagraph: 'white',
+      swipeCardsHeadingTwo: 'white',
+      swipeCardsParagraph: 'white'
     },
     desktopNavbar: {
-      balanceParagraph: 'white',
+      balanceParagraph: 'white'
     },
     publisherForm: {
-      mainHeading: 'white',
+      mainHeading: 'white'
     },
     global: {
-      background: '#001628',
-    },
-  },
+      background: '#001628'
+    }
+  }
 }
 
 const Theme = ({ children }) => {
-  const currentTheme = useSelector((state) => state.themeModeReducer)
+  const currentTheme = useSelector(({ themeModeReducer }) => themeModeReducer)
     .screenTheme
   return (
     <Fragment>

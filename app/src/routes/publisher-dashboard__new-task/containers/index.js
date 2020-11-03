@@ -19,8 +19,8 @@ import { PUBLISHER_DASHBOARD_ROUTE } from "../../../config/routes-config";
 import StyledGeneralCardLayout from "../../../shared/styles/StyledGeneralCardLayout";
 import StyledGeneralCardWrapper from "../../../shared/styles/StyledGeneralCardWrapper";
 import StyledGeneralColumnWrapper from "../../../shared/styles/StyledGeneralColumnWrapper";
-
-axios.defaults.withCredentials = true;
+import crowdclickClient from "../../../utils/api/crowdclick";
+import { coingeckoClient } from "../../../utils/api/coingecko";
 
 const empty_initial_values = {
   projectName: "",
@@ -72,52 +72,61 @@ const PublisherWizardFormCampaignContainer = ({
   const contract = drizzle.contracts.CrowdclickEscrow;
   const address = drizzle.contracts.CrowdclickEscrow.address;
 
-  const fetchEthPrice = useCallback(async() => {
-    if(!ethPrice) {
-      const resp = await axios.get(
-        `${COINGECKO_API}simple/price?ids=ethereum&vs_currencies=usd&include_market_cap=false&include_24hr_vol=false&include_24hr_change=false&include_last_updated_at=false`,
-        { withCredentials: false }
-      );
-      setEthPrice(resp);
-    }
-  }, [ethPrice]) 
+  // const fetchEthPrice = useCallback(async() => {
+  //   console.log('inside fetch eth price function ')
+  //   if(!ethPrice) {
+  //     try {
+  //       const ethereumPrice = await coingeckoClient.getEthToUSD()
+  //       console.log('ethereum price is ', ethereumPrice)
+  //       setEthPrice(ethereumPrice);
+
+  //     } catch(err) {
+  //       console.log('ethereum price error is ', err)
+  //     }
+  //   }
+  // }, [ethPrice]) 
 
 
   const postCampaign = useCallback(async() => {
-    const {
-      projectName,
-      projectDescription,
-      projectURL,
-      pricePerClick,
-      campaignBudget,
-      projectQuestion,
-      projectOptions,
-    } = campaignData;
-
-    const filteredProjectOptionsWithoutEmptyStrings = projectOptions.filter(
-      (x) => x.option !== ""
-    );
-
-    const res = await axios.post(TASK_ENDPOINT, {
-      title: projectName,
-      description: projectDescription,
-      website_link: projectURL,
-      reward_per_click: pricePerClick,
-      time_duration: "00:00:30",
-      spend_daily: campaignBudget,
-      questions: [
-        {
-          title: projectQuestion,
-          options: filteredProjectOptionsWithoutEmptyStrings.map((x) => {
-            return { title: x.option };
-          }),
-        },
-      ],
-    });
-
-
-    let respStatus = res.status;
-    setRespStatus(respStatus);
+    try {
+      const {
+        projectName,
+        projectDescription,
+        projectURL,
+        pricePerClick,
+        campaignBudget,
+        projectQuestion,
+        projectOptions,
+      } = campaignData;
+  
+      const filteredProjectOptionsWithoutEmptyStrings = projectOptions.filter(
+        (x) => x.option !== ""
+      );
+  
+      const res = await crowdclickClient.postTask({
+        title: projectName,
+        description: projectDescription,
+        website_link: projectURL,
+        reward_per_click: pricePerClick,
+        time_duration: "00:00:30",
+        spend_daily: campaignBudget,
+        questions: [
+          {
+            title: projectQuestion,
+            options: filteredProjectOptionsWithoutEmptyStrings.map((x) => {
+              return { title: x.option };
+            }),
+          },
+        ],
+      });
+  
+  
+      let respStatus = res.status;
+      setRespStatus(respStatus);
+    } catch(err) {
+      console.error(err)
+    }
+   
   }, [campaignData])
 
   const keyEventHandler = useCallback((e) => {
@@ -131,9 +140,9 @@ const PublisherWizardFormCampaignContainer = ({
   }, [step])
 
   useEffect(() => {
-    if (step === 5 && !ethPrice) {
-      fetchEthPrice();
-    }
+    // if (step === 5 && !ethPrice) {
+    //   fetchEthPrice();
+    // }
     if (step === 5 && dataKey !== null) {
       setTransactionID(drizzleState.transactionStack[dataKey]);
     }
@@ -162,7 +171,7 @@ const PublisherWizardFormCampaignContainer = ({
     return () => {
       window.removeEventListener("keydown", keyEventHandler);
     };
-  }, [step, edit, keyEventHandler, ethPrice, dataKey, contract, drizzleState, transactionID, postCampaign, respStatus, transactionCompleted, fetchEthPrice]);
+  }, [dataKey, drizzleState.transactionStack, drizzleState.transactions, edit, keyEventHandler, postCampaign, respStatus, step, transactionCompleted, transactionID]);
 
   useHandleKeydownEvent(
     "ArrowRight",
@@ -231,16 +240,22 @@ const PublisherWizardFormCampaignContainer = ({
                 campaignBudget,      
               } = values;
 
-     
+              console.log('BEFORE CONSOLE LOGGING THE CONTRACT ARGUMENTS')
 
+              console.log('what is the current step ', step)
               try {
                 if (!edit) {
+                  console.log('inside no edit ')
+                  console.log('budget is ',  values.campaignBudget , 'reward is ',  values.pricePerClick, 'url is ', projectURL )
+                  const ethPrice = await coingeckoClient.getEthToUSD()
                   const currentEthPrice = ethPrice.data.ethereum.usd;
-
+                  console.log('current eth price is ', ethPrice.data.ethereum.usd)
                   const budgetToEth = values.campaignBudget / currentEthPrice;
                   const rewardToEth = values.pricePerClick / currentEthPrice;
-                  const budgetToWei = web3.utils.toWei(budgetToEth.toString());
-                  const rewardToWei = web3.utils.toWei(rewardToEth.toString());
+                  const budgetToWei = web3.utils.toWei(budgetToEth.toFixed(6).toString());
+                  const rewardToWei = web3.utils.toWei(rewardToEth.toFixed(6).toString());
+                  console.log('BEFORE CONSOLE LOGGING THE CONTRACT ARGUMENTS')
+                  console.log('budget to wei is ', budgetToWei, ' reward to wei is ', rewardToWei, ' project url is ', projectURL)
                   const dataKey = await contract.methods["openTask"].cacheSend(
                     budgetToWei,
                     rewardToWei,
@@ -258,7 +273,7 @@ const PublisherWizardFormCampaignContainer = ({
                   }
   
                 } else {
-                  const res = await axios.patch(`${TASK_ENDPOINT}${id}/`, {
+                  const res = await crowdclickClient.patchTask({
                     title: projectName,
                     description: projectDescription,
                     website_link: projectURL,
@@ -271,6 +286,7 @@ const PublisherWizardFormCampaignContainer = ({
                   setStep(step + 1);
                 }
               } catch (err) {
+                console.log('ERROR IS ', err)
                 let errorResponse = err.response.status;
                 setRespStatus(errorResponse);
                 setStep(step + 1);
@@ -367,8 +383,6 @@ const PublisherWizardFormCampaignContainer = ({
                                 ) {
                                   setStep(step + 1);
                                   setIsError(false);
-
-                                  // }
                                 } else {
                                   setIsError(true);
                                 }

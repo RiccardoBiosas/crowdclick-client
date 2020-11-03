@@ -1,7 +1,10 @@
 import styled from "styled-components";
 
-const StyledGlobalButton = styled.button`
+const StyledGlobalButton = styled.button.attrs({
+  type: 'button'
+})`
     ${({ buttonWidth }) =>  buttonWidth && `width: ${buttonWidth}px`};
+    ${({ buttonHeight }) =>  buttonHeight && `height: ${buttonHeight}`};
     ${({ buttonTextColor }) => buttonTextColor && `color: ${buttonTextColor}`};
     ${({buttonMargin}) => buttonMargin && `margin: ${buttonMargin}`};
     height: 48px;

@@ -1,26 +1,43 @@
-import React from "react";
-import { DrizzleContext } from "@drizzle/react-plugin";
-import NetworkFallback from "../routes/network-fallback";
-// import { Drizzle } from "@drizzle/store";
-// import drizzleOptions from "../drizzleOptions";
+// theirs
+import React, { useState, useEffect } from 'react'
+import { DrizzleContext } from '@drizzle/react-plugin'
+// components
+import NetworkFallback from '../routes/network-fallback'
+import LoadingIcon from '../shared/components/loadingIcons/LoadingIcon'
 
-const withDrizzleInitializer = (ComposedComponent) => {
+const WaitForDrizzleOrFail = () => {
+  const [waitingTimeExpired, setWaitingTimeExpired] = useState(false)
+  useEffect(() => {
+    const timer = setTimeout(() => {
+      setWaitingTimeExpired(true)
+    }, 3000)
 
-    return(
-            <DrizzleContext.Consumer>
-                {drizzleContext => {
-                    const {drizzle, drizzleState, initialized} = drizzleContext 
+    return () => clearTimeout(timer)
+  }, [waitingTimeExpired])
 
-                    if(!initialized) {
-                        return <NetworkFallback />
-                    }
+  if (waitingTimeExpired) {
+    return <NetworkFallback />
+  }
+  return <LoadingIcon />
+}
 
-                    return <ComposedComponent drizzle={drizzle} drizzleState={drizzleState} />
-                    
-                }}
-            </DrizzleContext.Consumer>
-    )
+const withDrizzleInitializer = ComposedComponent => {
+  return (
+    <DrizzleContext.Consumer>
+      {drizzleContext => {
+        console.log('DRIZZLE CONTEXT IS ', drizzleContext)
+        const { drizzle, drizzleState, initialized } = drizzleContext
 
+        if (!initialized) {
+          return <WaitForDrizzleOrFail />
+        }
+
+        return (
+          <ComposedComponent drizzle={drizzle} drizzleState={drizzleState} />
+        )
+      }}
+    </DrizzleContext.Consumer>
+  )
 }
 
 export default withDrizzleInitializer

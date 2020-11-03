@@ -1,7 +1,9 @@
+// theirs
 import React, {useState} from "react";
 import VizSensor from "react-visibility-sensor";
-import default_landing_double_image from "../../../assets/homepage/img1.svg";
-import aeternity_landing_img from "../../../assets/images/aeternity_landing-page.svg";
+import { Spring } from "react-spring/renderprops";
+import { useHistory } from "react-router-dom";
+// styles
 import  StyledGeneralButton  from "../../../shared/styles/StyledGeneralButton";
 import {
   StyledImgWrapper,
@@ -11,8 +13,10 @@ import {
   StyledCenteredColumnWithMediaQueries,
   
 } from "../styles/HomepageStyles";
-import { Spring } from "react-spring/renderprops";
-import { useHistory } from "react-router-dom";
+// assets
+import default_landing_double_image from "../../../assets/homepage/img1.svg";
+import aeternity_landing_img from "../../../assets/images/aeternity_landing-page.svg";
+// constants
 import {
   REGISTER_FALLBACK_ROUTE,
   PUBLISHER_WIZARD_ROUTE,

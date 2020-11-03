@@ -1,11 +1,11 @@
 import React, { useState, useEffect } from 'react'
 import { useDispatch } from 'react-redux'
-import axios from 'axios'
 import { iframeNormalScreenAction } from '../../../../redux/Iframe/IframeActions'
 import  StyledFeedbackModalLayout  from '../../styles/StyledFeedbackModalLayout'
 import  MultichoiceQuestion  from '../MultichoiceQuestion/index'
 import { TaskCompletionPopup } from '../../screen/TaskCompletionPopup'
-import { TASK_ENDPOINT } from '../../../../config/api-config'
+import crowdclickClient from '../../../../utils/api/crowdclick'
+
 
 export const FeedbackModal = ({
   slide,
@@ -15,15 +15,15 @@ export const FeedbackModal = ({
   taskQuestions,
   drizzle,
   drizzleState,
-  task_owner_address,
+  taskOwnerAddress,
 }) => {
+  const dispatch = useDispatch()
   const [indx, setIndx] = useState(0)
   const [selectedAnswer, setSelectedAnswer] = useState(
     ...Object.keys(taskQuestions).map((x) => {
       return { [taskQuestions[x].id]: '' }
     }),
   )
-  const dispatch = useDispatch()
 
   useEffect(() => {
     const postAnswers = async () => {
@@ -38,9 +38,8 @@ export const FeedbackModal = ({
         }
       })
 
-      await axios.post(`${TASK_ENDPOINT}${taskID}/answer/`, {
-        questions: answersBatch,
-      })
+      await crowdclickClient.postAnswer(taskID, {questions: answersBatch})
+      await crowdclickClient.getReward(taskID)   
     }
     if (indx === taskQuestions.length) {
       dispatch(iframeNormalScreenAction)
@@ -57,6 +56,7 @@ export const FeedbackModal = ({
       <StyledFeedbackModalLayout slide={slide}>
         {taskQuestions.map((x, i) => (
           <MultichoiceQuestion
+            key={`question${x.title}${i}`}
             selectedAnswer={selectedAnswer}
             setSelectedAnswer={setSelectedAnswer}
             options={x.options}

@@ -1,10 +1,10 @@
+// theirs
 import React from 'react'
-import {
-  PublisherDashboardCampaignTask,
-} from './PublisherDashboardCampaignTask'
+// components
+import { PublisherDashboardCampaignTask } from './PublisherDashboardCampaignTask'
 import { PublisherDashboardNextCampaign } from './PublisherDashboardNextCampaign'
+// styles
 import StyledGeneralCardLayout from '../../../shared/styles/StyledGeneralCardLayout'
-
 
 export const PublisherDashboardCampaignTaskBoilerplate = () => {
   return (

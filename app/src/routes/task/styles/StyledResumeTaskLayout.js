@@ -1,15 +1,14 @@
-import styled from "styled-components";
+import styled from 'styled-components'
+import StyledGeneralCardLayout from '../../../shared/styles/StyledGeneralCardLayout'
 
-const StyledResumeTaskLayout = styled.div`
+const StyledResumeTaskLayout = styled(StyledGeneralCardLayout)`
   position: absolute;
   top: calc(50vh - 200px);
   left: calc(50vw - 400px);
   z-index: 999999999999999999999;
-  background: #ffffff 0% 0% no-repeat padding-box;
-  box-shadow: 0px 3px 6px #00000029;
-  border-radius: 21px;
+  filter: drop-shadow(0 0 30px #333);
   width: 800px;
-  height: 400px;
-`;
+  // height: 400px;
+`
 
 export default StyledResumeTaskLayout

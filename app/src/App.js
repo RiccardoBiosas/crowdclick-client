@@ -1,12 +1,11 @@
-//theirs
+// theirs
 import React, { Suspense, lazy } from 'react'
 import { HashRouter, Route, Switch } from 'react-router-dom'
-import { createBrowserHistory } from 'history'
 import { Drizzle } from '@drizzle/store'
 import { DrizzleContext } from '@drizzle/react-plugin'
-
-//mine
+// HOC
 import withDrizzleInitializer from './hoc/withDrizzleInitializer'
+// constants
 import options from './drizzleOptions'
 import {
   REGISTER_FALLBACK_ROUTE,
@@ -17,13 +16,15 @@ import {
   USER_TASK_ROUTE_WITH_PARAM,
   USER_WITHDRAW_ROUTE,
   NO_METAMASK_ROUTE,
+  TUTORIAL_ROUTE,
 } from './config/routes-config'
-
+// components
 import Homepage  from './routes/homepage/containers/index'
 import NavbarWrapper from './shared/components/navbars/NavbarWrapper'
 import EthereumListener from './shared/components/ethereumListener/EthereumListener'
 import LoadingIcon from './shared/components/loadingIcons/LoadingIcon'
 import ProtectedRoute from './hoc/ProtectedRoute'
+import Tutorial from './shared/components/tutorial/screen'
 const TaskIframeContainer  = lazy(() => import('./routes/task/containers/TaskIframe/index'))
 const SignupFallback  = lazy(() => import('./routes/register/screen/SignupFallback'))
 const NotFound = lazy(() => import('./routes/404/NotFound'))
@@ -43,12 +44,17 @@ const App = () => {
     <HashRouter>
       <DrizzleContext.Provider drizzle={drizzle}>
         <Route path="/" component={NavbarWrapper} />
-        <Route path="/" component={EthereumListener} />
+        {/* <Route path="/" component={EthereumListener} /> */}
 
-        <Suspense fallback={LoadingIcon()}>
+        <Suspense fallback={<LoadingIcon />}>
           <Switch>
             <Route exact path="/" component={Homepage} />
             <Route path={REGISTER_FALLBACK_ROUTE} component={SignupFallback} />
+            <Route
+              path={NO_METAMASK_ROUTE}
+              component={InstallMetamaskWarning}
+            />
+            <Route exact path={TUTORIAL_ROUTE} component={Tutorial} />
 
             <ProtectedRoute
               exact
@@ -56,21 +62,15 @@ const App = () => {
               component={TasksConsoleDashboardContainer}
             />
 
-            <Route
+            <ProtectedRoute
               path={`${USER_TASK_ROUTE_WITH_PARAM}:id`}
               component={() => withDrizzleInitializer(TaskIframeContainer)}
-            />
-
-            <Route
-              path={NO_METAMASK_ROUTE}
-              component={InstallMetamaskWarning}
             />
 
             <ProtectedRoute
               exact
               path={PUBLISHER_WIZARD_ROUTE}
-              component={() =>
-                withDrizzleInitializer(PublisherWizardFormContainer)
+              component={() => withDrizzleInitializer(PublisherWizardFormContainer)
               }
             />
 
@@ -85,7 +85,7 @@ const App = () => {
             <ProtectedRoute
               exact
               path={PUBLISHER_DASHBOARD_ROUTE}
-              component={PublisherDashboardContainer}
+              component={() => withDrizzleInitializer(PublisherDashboardContainer)}
             />
 
             <ProtectedRoute

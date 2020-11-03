@@ -1,4 +1,6 @@
-import React, { Fragment, useEffect } from "react";
+// theirs
+import React, { useEffect } from "react";
+// styles
 import {
   StyledWizardInputForms,
   StyledCustomTextareaField,
@@ -32,7 +34,7 @@ export const PublisherWizardFormCampaignDescription = ({
     return null;
   } else {
     return (
-      <Fragment>
+      <>
         <div>
           <StyledGeneralHeadingTwo headingFontSize="24px">
             Tell us about your project!
@@ -106,7 +108,7 @@ export const PublisherWizardFormCampaignDescription = ({
             </div>
           </div>
         </StyledWizardInputForms>
-      </Fragment>
+      </>
     );
   }
 };

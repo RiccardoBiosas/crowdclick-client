@@ -1,8 +1,11 @@
-import React, { Fragment, useEffect } from "react";
+// theirs
+import React, { useEffect } from "react";
+// styles
 import { StyledGeneralHeadingTwo } from "../../../shared/styles/StyledGeneralHeadings";
 import { StyledWizardInputForms, StyledCustomInputField } from "../styles/WizardFormStyles";
-import { whatIsXPercentOfY } from "../../../utils/isWhatPercentage";
 import StyledGeneralParagraph from "../../../shared/styles/StyledGeneralParagraph";
+// utils
+import { whatIsXPercentOfY } from "../../../utils/isWhatPercentage";
 
 const errorMessageStyle = {
   position: "absolute",
@@ -54,7 +57,7 @@ export const PublisherWizardFormCampaignPublisherBudget = ({
     return null;
   } else {
     return (
-      <Fragment>
+      <>
         <div>
           <StyledGeneralHeadingTwo headingFontSize="24px">
             Plan your budget!
@@ -138,7 +141,7 @@ export const PublisherWizardFormCampaignPublisherBudget = ({
             <div style={fixedTimeStyle}>30 seconds</div>
           </div>
         </StyledWizardInputForms>
-      </Fragment>
+      </>
     );
   }
 };

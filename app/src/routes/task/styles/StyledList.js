@@ -21,6 +21,7 @@ export const StyledItemLayout = styled.li`
   display: block;
   position: relative;
   float: left;
+  margin-bottom: 0.4rem;
 
   label {
     display: block;

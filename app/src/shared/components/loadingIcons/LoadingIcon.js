@@ -1,14 +1,15 @@
 import React from 'react'
 import { RingLoader } from 'react-spinners'
 
-const LoadingIcon = () => {
+const LoadingIcon = ({loadingIconCustomStyles}) => {
   return (
     <div
       style={{
         display: 'flex',
         justifyContent: 'center',
         alignItems: 'center',
-        height: '80vh'
+        height: '80vh',
+        ...loadingIconCustomStyles
       }}
     >
       <RingLoader size={140} />
@@ -16,4 +17,4 @@ const LoadingIcon = () => {
   )
 }
 
-export default LoadingIcon;
+export default LoadingIcon

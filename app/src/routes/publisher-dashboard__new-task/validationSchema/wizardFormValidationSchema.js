@@ -9,9 +9,12 @@ export const PublisherWizardFormValidationSchema = Yup.object().shape({
     .min(8, 'too short!')
     .max(100, 'too long!')
     .required('required'),
-    projectURL: Yup.string()
-  .matches(/[-a-zA-Z0-9@:%._\+~#=]{1,256}\.[a-zA-Z0-9()]{1,6}\b([-a-zA-Z0-9()@:%_\+.~#?&//=]*)?/gi, 'not a URL!')
-  .required('required!'),
+  projectURL: Yup.string()
+    .matches(
+      /((([A-Za-z]{3,9}:(?:\/\/)?)(?:[-;:&=\+\$,\w]+@)?[A-Za-z0-9.-]+|(?:www.|[-;:&=\+\$,\w]+@)[A-Za-z0-9.-]+)((?:\/[\+~%\/.\w-_]*)?\??(?:[-\+=&;%@.\w_]*)#?(?:[\w]*))?)/,
+      'not a URL!'
+    )
+    .required('required!'),
   pricePerClick: Yup.number()
     .typeError('it must be a number!')
     .positive('positive number required!')
@@ -24,6 +27,5 @@ export const PublisherWizardFormValidationSchema = Yup.object().shape({
     .min(4, 'too short!')
     .max(40, 'too long!')
     .required('required'),
-  projectOptions: Yup.array()
-    .min(2, 'minimum of 2 answers!')
+  projectOptions: Yup.array().min(2, 'minimum of 2 answers!')
 })
