@@ -16,6 +16,7 @@
     "@drizzle/react-plugin": "^1.5.1",
     "@drizzle/store": "^1.5.1",
     "@openzeppelin/network": "^0.4.2",
+    "@portis/web3": "^2.0.0-beta.59",
     "@testing-library/jest-dom": "^4.2.4",
     "@testing-library/react": "^9.5.0",
     "@testing-library/user-event": "^7.2.1",
@@ -41,7 +42,7 @@
     "redux": "^4.0.4",
     "styled-components": "^4.4.0",
     "styled-normalize": "^8.0.6",
-    "web3": "^1.2.6",
+    "web3": "^1.3.0",
     "yup": "^0.28.5"
   },
   "scripts": {
