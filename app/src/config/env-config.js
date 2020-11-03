@@ -1,24 +1,33 @@
-export const config = {
+import {
+  CrowdclickGoerliContract,
+  CrowdclickMaticMumbaiContract
+} from '../contracts'
+
+const config = {
   blockchain: {
-    ethereum: {
-      goerli: process.env.REACT_APP_INFURA_GOERLI,
-      ropsten: process.env.REACT_APP_INFURA_ROPSTEN
+    2: {
+      chainName: 'ropsten',
+      contracts: [],
+      node: process.env.REACT_APP_INFURA_ROPSTEN,
+      chainExplorer: 'https://ropsten.etherscan.io/',
+      chainExplorerTransactions: 'https://ropsten.etherscan.io/tx/'
     },
-    matic: {
-      maticWidgetID: process.env.REACT_APP_MATIC_WIDGET_ID,
-      mumbai: '',
-      mumbaiVirgilNode: ''
+    5: {
+      chainName: 'goerli',
+      contracts: [CrowdclickGoerliContract],
+      node: process.env.REACT_APP_INFURA_GOERLI,
+      chainExplorer: 'https://goerli.etherscan.io/',
+      chainExplorerTransactions: 'https://goerli.etherscan.io/tx/'
     },
-    blockchainExplorer: {
-      etherscan: {
-        ROPSTEN_ETHERSCAN: 'https://ropsten.etherscan.io/',
-        ROPSTEN_ETHERSCAN_TX: 'https://ropsten.etherscan.io/tx/',
-        GOERLI_ETHERSCAN: 'https://goerli.etherscan.io/',
-        GOERLI_ETHERSCAN_TX: 'https://goerli.etherscan.io/tx/'
-      },
-      maticExplorer: {
-        mumbaiExplorer: 'https://mumbai-explorer.matic.today/'
-      }
+    80001: {
+      chainName: 'mumbai',
+      contracts: [CrowdclickMaticMumbaiContract],
+      node: process.env.REACT_APP_INFURA_GOERLI,
+      chainExplorer: 'https://mumbai-explorer.matic.today/',
+      chainExplorerTransactions: 'https://mumbai-explorer.matic.today/tx/',
+      widgetId: process.env.REACT_APP_MATIC_WIDGET_ID
     }
   }
 }
+
+export default config
