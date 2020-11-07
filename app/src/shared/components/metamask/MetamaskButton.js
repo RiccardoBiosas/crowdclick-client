@@ -7,9 +7,13 @@ import StyledGeneralButton from '../../styles/StyledGeneralButton'
 
 const MetamaskButton = () => {
   const initializeWeb3AndLogin = async () => {
-    await Promise.all([ethereumHandler.initWeb3(), ethereumHandler.login()])
-      .then(response => response)
-      .catch(err => console.error(err))
+    // Promise.all([ethereumHandler.initWeb3(), ethereumHandler.login()])
+    //   .then(response => console.log(response))
+    //   .catch(err => console.error(err))
+    // await ethereumHandler.login()
+
+    await ethereumHandler.initWeb3AndLogin()
+    // await ethereumHandler.initPortisAndLogin()
   }
 
   return (

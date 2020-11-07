@@ -4,7 +4,17 @@ import {
 } from '../contracts'
 
 const config = {
+  providers: {
+    portis: process.env.REACT_APP_PORTIS_ID
+  },
   blockchain: {
+    1: {
+      chainName: 'mainnet',
+      contracts: [],
+      node: '',
+      chainExplorer: 'https://etherscan.io/',
+      chainExplorerTransactions: 'https://etherscan.io/tx/'
+    },
     2: {
       chainName: 'ropsten',
       contracts: [],

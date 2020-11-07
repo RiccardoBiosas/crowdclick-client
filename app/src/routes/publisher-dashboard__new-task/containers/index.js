@@ -69,8 +69,8 @@ const PublisherWizardFormCampaignContainer = ({
   const [transactionID, setTransactionID] = useState();
   const [transactionCompleted, setTransactionCompleted] = useState(false);
   const totalSteps = 6; //move to constant
-  const contract = drizzle.contracts.CrowdclickEscrow;
-  const address = drizzle.contracts.CrowdclickEscrow.address;
+  const contract = drizzleState.contracts.CrowdclickEscrow;
+  const address =drizzleState.contracts.CrowdclickEscrow.address;
 
   // const fetchEthPrice = useCallback(async() => {
   //   console.log('inside fetch eth price function ')

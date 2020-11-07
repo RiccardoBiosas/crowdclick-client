@@ -8,7 +8,6 @@ const client = new AxiosClient({
   },
   withCredentials: true
 })
-console.log('client is ', client)
 
 export const crowdclickClient = {
   login: {

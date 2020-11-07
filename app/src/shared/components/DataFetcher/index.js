@@ -8,10 +8,6 @@ import { useFetch } from '../../../hooks/useFetch'
 
 const DataFetcher = ({ action, children, loadingIconCustomStyles }) => {
   const { data, loading, error } = useFetch(action)
-  console.log('INSIDE DATA FETCHER')
-  console.log('data ', data)
-  console.log('loading ', loading)
-  console.log('error ', error)
 
   if (error) {
     return <SomethingWentWrong />

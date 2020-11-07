@@ -107,7 +107,7 @@ export const DesktopNavbar = () => {
       document.removeEventListener('mousedown', listener)
     }
   }, [currencyThemeContainerRef, currencyMenuStatus])
-  console.log('NAVBAR FULL SCREEN? ', navbarState)
+
   return (
     <animated.div style={{ ...setNavbarOpacity, ...setNavbarPosition }}>
       <StyledNavbarFlexWrapper>

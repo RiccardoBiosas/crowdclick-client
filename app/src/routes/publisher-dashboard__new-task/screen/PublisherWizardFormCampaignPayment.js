@@ -21,7 +21,6 @@ export const PublisherWizardFormCampaignPayment = ({
     return null;
   } else {
     const copyToClickboard = (txt) => {
-      // console.log("COPY CLIPBPARD FUNCTION");
       const temporaryInput = document.createElement("input");
       document.body.appendChild(temporaryInput);
       temporaryInput.setAttribute("value", txt);

@@ -25,7 +25,7 @@ const withDrizzleInitializer = ComposedComponent => {
   return (
     <DrizzleContext.Consumer>
       {drizzleContext => {
-        console.log('DRIZZLE CONTEXT IS ', drizzleContext)
+        console.log('DRIZZLE CONTEXT IS ############### ', drizzleContext)
         const { drizzle, drizzleState, initialized } = drizzleContext
 
         if (!initialized) {

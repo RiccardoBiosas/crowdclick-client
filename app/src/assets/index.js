@@ -7,6 +7,7 @@ export { default as metamaskIcon } from './walletIcons/metamaskIcon.svg'
 export { default as somethingWentWrongIcon } from './somethingWentWrong/somethingWentWrongIcon.svg'
 export { default as kittenWarning } from './shared/kittenWarning.svg'
 export { default as kittenSuccess } from './shared/kittenSuccess.png'
+export { default as portisLogo } from './walletIcons/portis-logo.svg'
 
 // videos
 export { default as getEtherFromMaticFaucet } from './tutorial/getEtherFromMaticMumbaiFaucet.mp4'
