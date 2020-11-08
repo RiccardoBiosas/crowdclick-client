@@ -15,7 +15,7 @@ import StyledGeneralParagraph from "../../../shared/styles/StyledGeneralParagrap
 export const PublisherWizardFormCampaignPayment = ({
   step,
   address,
-  transactionID,
+  txHash,
 }) => {
   if (step !== 5) {
     return null;
@@ -29,7 +29,7 @@ export const PublisherWizardFormCampaignPayment = ({
       document.body.removeChild(temporaryInput);
     };
 
-    // if (!transactionID) {
+    // if (!txHash) {
     return (
       <Fragment>
         <div>
@@ -79,7 +79,7 @@ export const PublisherWizardFormCampaignPayment = ({
               marginTop: "1rem",
             }}
           >
-            {!transactionID ? (
+            {!txHash ? (
               <>
                 {" "}
                 <div>
@@ -119,12 +119,12 @@ export const PublisherWizardFormCampaignPayment = ({
                   </p>
                   <div>
                     <a
-                      href={`${MATIC_MUMBAI_EXPLORER_TX}${transactionID}`}
+                      href={`${MATIC_MUMBAI_EXPLORER_TX}${txHash}`}
                       style={{ color: "#9ea0a5" }}
                       target="_blank"
                       rel="noopener noreferrer"
                     >
-                      {transactionID}
+                      {txHash}
                     </a>
                   </div>
                   {/* <p style={{ fontWeight: 900, color: "#9ea0a5" }}>
@@ -132,12 +132,12 @@ export const PublisherWizardFormCampaignPayment = ({
                   </p>
                   <div>
                     <a
-                      href={`${ROPSTEN_ETHERSCAN_TX}${transactionID}`}
+                      href={`${ROPSTEN_ETHERSCAN_TX}${txHash}`}
                       style={{ color: "#9ea0a5" }}
                       target="_blank"
                       rel="noopener noreferrer"
                     >
-                      {transactionID}
+                      {txHash}
                     </a>
                   </div> */}
                 </div>

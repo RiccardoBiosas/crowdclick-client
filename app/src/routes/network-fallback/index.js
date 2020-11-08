@@ -8,9 +8,10 @@ import StyledGlobalButton from "../../shared/styles/StyledGeneralButton";
 import StyledGeneralParagraph from "../../shared/styles/StyledGeneralParagraph";
 // constants
 import { HOME_ROUTE } from "../../config/routes-config";
+import config from "../../config/env-config";
 
 
-const NetworkFallback = () => {
+const NetworkFallback = ({currentNetwork}) => {
   const history = useHistory()
   return (
     <StyledGeneralCardLayout>
@@ -37,22 +38,22 @@ const NetworkFallback = () => {
             paragraphColor="#000000"
             paragraphFontSize="20px"
           >
-            Perhaps your MetaMask is on the Ethereum{' '}
+            It seems that your metamask is currently on the <br /> Ethereum{' '}
             <a
               style={{ color: '#F1853B' }}
               href="https://metamask.io/"
               target="_blank"
               rel="noopener noreferrer"
             >
-              Mainnet
+              {config.blockchain[currentNetwork].chainName} chain
             </a>
-            ? <br />
+            <br />
           </StyledGeneralParagraph>
           <StyledGeneralParagraph
             paragraphColor="#000000"
             paragraphFontSize="20px"
           >
-            Our contract is currently deployed on Ropsten, <br />
+            Our contract is currently deployed on Matic Mumbai and Goerli, <br />
             so make sure that your MetaMask is too!
           </StyledGeneralParagraph>
         <div>

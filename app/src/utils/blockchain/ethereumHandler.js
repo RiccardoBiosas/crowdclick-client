@@ -30,7 +30,6 @@ const WALLETS = {
   METAMASK: 'METAMASK'
 }
 
-const portis = new Portis(config.providers.portis, 'goerli')
 class EthereumHandler {
   constructor () {
     this.portis = null
@@ -47,10 +46,9 @@ class EthereumHandler {
           method: 'eth_requestAccounts'
         })
         this.web3 = new Web3(window.ethereum)
-        console.log('THIS WEB3 IS --- INIT WEB3 ', this.web3)
-        await this._setCurrentNetwork()
         await this._updateAccounts(accounts)
         this.currentWallet = WALLETS.METAMASK
+        await this._setCurrentNetwork()
         window.ethereum.autoRefreshOnNetworkChange = false
         window.ethereum.on('accountsChanged', async () => {
           await this._logoutOnAccountChange()
@@ -72,38 +70,28 @@ class EthereumHandler {
   }
 
   async initPortisAndLogin (network = 'goerli') {
-    console.log('PORTIS INIT PORTIS HERE and the network is -- ', network)
     const portis = new Portis(config.providers.portis, network)
     this.web3 = new Web3(portis.provider)
-    this._updateAccounts()
     this.currentWallet = WALLETS.PORTIS
-    console.log('portis updated account is 0--', this.account)
+    this._setCurrentNetwork()
+    this._updateAccounts()
+    await this._dispatchWeb3Data()
     const wasLoginSuccessful = await this._login()
-    return wasLoginSuccessful
+    return { portis, wasLoginSuccessful }
   }
 
   async initWeb3AndLogin () {
-    if (this.web3 && this.account && this.currentWallet === WALLETS.METAMASK) {
-      // console.log(
-      //   'what is the current wallet? -- if block-- ',
-      //   this.currentWallet
-      // )
-      // console.log(
-      //   'both web3 and this.account -- means that this.web3 has already been defined and is '
-      // )
-      // console.log('window.ethereum --> ', window.ethereum)
-      // console.log('this.web3 --> ', this.web3)
+    if (
+      (this.web3 &&
+        this.currentWallet === WALLETS.METAMASK &&
+        this.currentNetwork === 5) ||
+      this.currentNetwork === 80001
+    ) {
+      await this._dispatchWeb3Data()
       await this._login()
     } else {
-      // console.log('ELSE BLOCK')
-      // console.log('window.ethereum else block: ', window.ethereum)
-      // console.log(this.web3)
-      // console.log(
-      //   'what is the current wallet? -- else block-- ',
-      //   this.currentWallet
-      // )
-
       await this._initMetamask()
+      await this._dispatchWeb3Data()
       await this._login()
     }
   }
@@ -147,22 +135,21 @@ class EthereumHandler {
     }
   }
 
-  async getCurrentNetwork () {
-    if (this.web3) {
-      const currentNetwork =
-        this.currentNetwork || (await this.web3.eth.getChainId())
-      return currentNetwork
-    }
-    return
+  async _getCurrentNetwork () {
+    const currentNetwork = (await this.web3.eth.getChainId()) || false
+    return currentNetwork
   }
 
-  _dispatchContractNetwork (chainId) {
-    const actionType = networkNameToContractAction[chainId]
-    console.log('WHAT IS CHAIN ID ---? __dispatchcontractnetwork', chainId)
-    window.localStorage.setItem('chainId', chainId)
+  async _dispatchWeb3Data () {
+    const currentNetwork = await this._getCurrentNetwork()
+    console.log(
+      'current network about to be dispatched to redux ',
+      currentNetwork
+    )
+    const actionType = networkNameToContractAction[currentNetwork]
+    console.log('action type about to be forwarded', actionType)
+    window.localStorage.setItem('chainId', currentNetwork)
     store.dispatch({ type: actionType })
-    // const payload = { type: actionType }
-    // console.log('--- dispatch contract network payload', payload)
   }
 
   async _updateAccounts (accounts) {
@@ -172,8 +159,6 @@ class EthereumHandler {
 
   async _setCurrentNetwork () {
     this.currentNetwork = await this.web3.eth.getChainId()
-    window.localStorage.setItem('chainId', this.currentNetwork)
-    this._dispatchContractNetwork(this.currentNetwork)
   }
 
   _performLoginSideEffects () {
@@ -186,16 +171,12 @@ class EthereumHandler {
     window.localStorage.removeItem('userPubKey')
     window.localStorage.removeItem('chainId')
     window.location.href = `#${HOME_ROUTE}`
-    window.location.reload()
   }
 
   async _logoutOnAccountChange () {
-    const responses = Promise.all([
-      this._updateAccounts(),
-      crowdclickClient.logout()
-    ]).then(response => console.log(response))
+    const response = await crowdclickClient.logout()
     this._performLogoutSideEffects()
-    return responses
+    return response
   }
 
   async _logoutOnChainIdChange () {

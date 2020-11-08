@@ -1,8 +1,7 @@
 // theirs
-import React, { useEffect, useState, useCallback } from 'react'
+import React, { useEffect, useState } from 'react'
 import { useSelector } from 'react-redux'
 import { useHistory } from 'react-router'
-import { useWeb3 } from '@openzeppelin/network/react'
 // components
 import MaticWidgetAll from '../../MaticWidget/all'
 // styles
@@ -10,45 +9,34 @@ import StyledGeneralButton from '../../../styles/StyledGeneralButton'
 import { StyledFirstDivGroup } from './styles/DesktopNavbarStyles'
 // consntants
 import { USER_WITHDRAW_ROUTE } from '../../../../config/routes-config'
-import WithdrawBalance from '../../../../routes/withdraw/WithdrawComponent'
-import ethereumHandler from '../../../../utils/blockchain/ethereumHandler'
-
-export const GetBalanceComponent = ({ web3Context }) => {
-  const [balance, setBalance] = useState(0)
-  const { networkId, accounts, lib } = web3Context
-
-  const getBalance = useCallback(async () => {
-    let balance =
-      accounts && accounts.length > 0
-        ? lib.utils.fromWei(await lib.eth.getBalance(accounts[0]), 'ether')
-        : 0
-    setBalance(balance)
-  }, [accounts, lib.eth, lib.utils])
-
-  useEffect(() => {
-    getBalance()
-  }, [accounts, getBalance, networkId])
-
-  return <p>{balance ? parseFloat(balance).toFixed(3) : '0.00'} ETH</p>
-}
 
 export const NavbarAuthElements = () => {
-  // const contractData = useSelector(
-  //   ({ ethereumContractReducer }) => ethereumContractReducer
-  // )
-  const currentNetwork = ethereumHandler.currentNetwork
-  console.log('contract data navbar is --> ', currentNetwork)
-  const web3Context = useWeb3(process.env.REACT_APP_INFURA_GOERLI)
-
+  const web3Data = useSelector(
+    ({ ethereumContractReducer }) => ethereumContractReducer
+  )
+  console.log('navbauth web3data', web3Data)
+  const [balance, setBalance] = useState(0)
   const history = useHistory()
+  const fetchBalance = async () => {
+    const web3Provider = web3Data.web3Provider
+    const WeiBalance = await web3Provider.eth.getBalance(web3Data.account.toLowerCase())
+    console.log('wei balance is ', WeiBalance)
+    const balance = web3Provider.utils.fromWei(WeiBalance, 'ether')
+    setBalance(balance)
+  }
+  useEffect(() => {
+    if (web3Data && web3Data.web3Provider) {
+      fetchBalance()
+    }
+  }, [web3Data])
 
   return (
     <StyledFirstDivGroup>
       <div>
-        <GetBalanceComponent web3Context={web3Context} />
+        <p>{balance ? parseFloat(balance).toFixed(3) : '0.00'} ETH</p>
       </div>
       <div>
-        {currentNetwork === 80001 ? (
+        {web3Data.currentNetwork === 80001 ? (
           <MaticWidgetAll />
         ) : (
           <StyledGeneralButton

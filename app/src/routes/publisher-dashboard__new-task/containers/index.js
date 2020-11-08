@@ -1,7 +1,6 @@
 import React, { Fragment, useState, useReducer, useEffect, useCallback } from "react";
 import { Formik, Form } from "formik";
-import axios from "axios";
-import web3 from "web3";
+import { ethers } from 'ethers';
 // import { Prompt, matchPath, Redirect } from "react-router-dom";
 import { Redirect } from "react-router-dom";
 import { PublisherWizardFormCampaignDescription } from "../screen/PublisherWizardFormCampaignDescription";
@@ -12,7 +11,6 @@ import { PublisherWizardFormCampaignPayment } from "../screen/PublisherWizardFor
 import StyledGeneralButton  from "../../../shared/styles/StyledGeneralButton";
 import  StyledCardNavbar  from "../../../shared/styles/StyledCardNavbar";
 import { useHandleKeydownEvent } from "../../../hooks/useHandleKeydownEvent";
-import { TASK_ENDPOINT, COINGECKO_API } from "../../../config/api-config";
 import { PublisherWizardFormValidationSchema } from "../validationSchema/wizardFormValidationSchema";
 import { Temporary_CampaignOutcome } from "../screen/TemporaryComponent/Temporary_CampaignOutcome";
 import { PUBLISHER_DASHBOARD_ROUTE } from "../../../config/routes-config";
@@ -55,36 +53,39 @@ const PublisherWizardFormCampaignContainer = ({
   initial_values,
   edit,
   id,
-  drizzle,
-  drizzleState,
+  contract,
+  address,
+  account
 }) => {
   const [step, setStep] = useState(1);
   const [redirect, setRedirect] = useState(false);
   const [isError, setIsError] = useState(false);
   const [respStatus, setRespStatus] = useState();
   const [state, dispatch] = useReducer(reducer, initial_state);
-  const [ethPrice, setEthPrice] = useState();
-  const [dataKey, setDataKey] = useState(null);
   const [campaignData, setCampaignData] = useState();
-  const [transactionID, setTransactionID] = useState();
-  const [transactionCompleted, setTransactionCompleted] = useState(false);
+  const [wasCampaignDataForwarded, setWasCampaignDataForwarded] = useState(false)
+  const [txHash, setTxHash] = useState();
+  const [isBroadcasted, setIsBroadcasted] = useState(false);
+  const [receipt, setReceipt] = useState();
   const totalSteps = 6; //move to constant
-  const contract = drizzleState.contracts.CrowdclickEscrow;
-  const address =drizzleState.contracts.CrowdclickEscrow.address;
 
-  // const fetchEthPrice = useCallback(async() => {
-  //   console.log('inside fetch eth price function ')
-  //   if(!ethPrice) {
-  //     try {
-  //       const ethereumPrice = await coingeckoClient.getEthToUSD()
-  //       console.log('ethereum price is ', ethereumPrice)
-  //       setEthPrice(ethereumPrice);
+  // const [dataKey, setDataKey] = useState(null);
+  // const [transactionID, setTransactionID] = useState();
+  // const [transactionCompleted, setTransactionCompleted] = useState(false);
+  const getReceipt = async () => {
+    setIsBroadcasted(true);
+    // const provider = ethers.getDefaultProvider('goerli');
+    const provider = new ethers.providers.Web3Provider(web3.currentProvider);
+    console.log('get receipt current provider', provider)
 
-  //     } catch(err) {
-  //       console.log('ethereum price error is ', err)
-  //     }
-  //   }
-  // }, [ethPrice]) 
+    console.log('tx hash here', txHash);
+    console.log('now waiting')
+    const resp = await provider.waitForTransaction(txHash);
+    console.log('finished waiting')
+    console.log('receipt here', resp);
+    setReceipt(resp);
+  };
+
 
 
   const postCampaign = useCallback(async() => {
@@ -118,9 +119,7 @@ const PublisherWizardFormCampaignContainer = ({
             }),
           },
         ],
-      });
-  
-  
+      });  
       let respStatus = res.status;
       setRespStatus(respStatus);
     } catch(err) {
@@ -128,6 +127,42 @@ const PublisherWizardFormCampaignContainer = ({
     }
    
   }, [campaignData])
+
+  useEffect(() => {
+    // console.log('INSIDE USE EFFECT WHAT IS IS BROADCASTED?', isBroadcasted) //currently not being used
+    if (txHash && !respStatus) {
+      getReceipt();
+    }
+    if (receipt && !respStatus && !wasCampaignDataForwarded) {
+      console.log('##### POST CAMPAIGN');
+      setWasCampaignDataForwarded(true)
+      postCampaign();
+    }
+    if (txHash && !receipt && isBroadcasted) {
+      // toast.info(`Transaction broadcasted!`, {
+      //   position: 'top-center',
+      //   transition: Slide,
+      //   autoClose: 4000,
+      //   hideProgressBar: false,
+      //   closeOnClick: true,
+      //   pauseOnHover: true,
+      //   draggable: true,
+      //   progress: undefined,
+      // });
+    }  
+
+    if (respStatus && step < totalSteps) {
+      setStep(step + 1);
+      
+    }
+    if (edit) {
+      window.addEventListener("keydown", keyEventHandler);
+    }
+
+    return () => {
+      window.removeEventListener("keydown", keyEventHandler);
+    };
+  }, [respStatus, txHash, receipt, isBroadcasted]);
 
   const keyEventHandler = useCallback((e) => {
     if (e.key === "ArrowRight") {
@@ -139,39 +174,39 @@ const PublisherWizardFormCampaignContainer = ({
     }
   }, [step])
 
-  useEffect(() => {
-    // if (step === 5 && !ethPrice) {
-    //   fetchEthPrice();
-    // }
-    if (step === 5 && dataKey !== null) {
-      setTransactionID(drizzleState.transactionStack[dataKey]);
-    }
-    if (
-      step === 5 &&
-      transactionID &&
-      drizzleState.transactions[transactionID] &&
-      !respStatus
-    ) {
-      if (drizzleState.transactions[transactionID].status === "success" && !transactionCompleted) {
-        setTransactionCompleted(true);
-        postCampaign();
-      }
-      if (drizzleState.transactions[transactionID].status === "error") {
-        setRespStatus("transaction error");
-      }
-    }
-    if (step === 5 && respStatus) {
-      setStep(step + 1);
-    }
+  // useEffect(() => {
+  //   // if (step === 5 && !ethPrice) {
+  //   //   fetchEthPrice();
+  //   // }
+  //   if (step === 5 && dataKey !== null) {
+  //     // setTransactionID(drizzleState.transactionStack[dataKey]);
+  //     setTransactionID(1)
+  //   }
+  //   if (
+  //     step === 5 &&
+  //     transactionID &&
+  //     !respStatus
+  //   ) {
+  //     // if (drizzleState.transactions[transactionID].status === "success" && !transactionCompleted) {
+  //     //   setTransactionCompleted(true);
+  //     //   postCampaign();
+  //     // }
+  //     // if (drizzleState.transactions[transactionID].status === "error") {
+  //     //   setRespStatus("transaction error");
+  //     // }
+  //   }
+  //   if (step === 5 && respStatus) {
+  //     setStep(step + 1);
+  //   }
 
-    if (edit) {
-      window.addEventListener("keydown", keyEventHandler);
-    }
+  //   if (edit) {
+  //     window.addEventListener("keydown", keyEventHandler);
+  //   }
 
-    return () => {
-      window.removeEventListener("keydown", keyEventHandler);
-    };
-  }, [dataKey, drizzleState.transactionStack, drizzleState.transactions, edit, keyEventHandler, postCampaign, respStatus, step, transactionCompleted, transactionID]);
+  //   return () => {
+  //     window.removeEventListener("keydown", keyEventHandler);
+  //   };
+  // }, [ edit, keyEventHandler, postCampaign, respStatus, step, transactionCompleted, transactionID]);
 
   useHandleKeydownEvent(
     "ArrowRight",
@@ -252,25 +287,25 @@ const PublisherWizardFormCampaignContainer = ({
                   console.log('current eth price is ', ethPrice.data.ethereum.usd)
                   const budgetToEth = values.campaignBudget / currentEthPrice;
                   const rewardToEth = values.pricePerClick / currentEthPrice;
-                  const budgetToWei = web3.utils.toWei(budgetToEth.toFixed(6).toString());
-                  const rewardToWei = web3.utils.toWei(rewardToEth.toFixed(6).toString());
+                  const budgetToWei = ethers.utils.parseEther(budgetToEth.toFixed(6).toString());
+                  const rewardToWei = ethers.utils.parseEther(rewardToEth.toFixed(6).toString());
                   console.log('BEFORE CONSOLE LOGGING THE CONTRACT ARGUMENTS')
                   console.log('budget to wei is ', budgetToWei, ' reward to wei is ', rewardToWei, ' project url is ', projectURL)
-                  const dataKey = await contract.methods["openTask"].cacheSend(
+                  const transaction = await contract.functions.openTask(
                     budgetToWei,
                     rewardToWei,
                     projectURL,
                     {
-                      from: drizzleState.accounts[0],
                       value: budgetToWei,
-                      gas: 500000,
+                      gasLimit: 1000000,
                     }
                   );
-                  setDataKey(dataKey);
-
-                  if (dataKey !== null) {
-                    setCampaignData(values);
+                  if(transaction) {
+                    setTxHash(transaction.hash);
                   }
+
+                  setCampaignData(values);
+                  
   
                 } else {
                   const res = await crowdclickClient.patchTask({
@@ -331,17 +366,11 @@ const PublisherWizardFormCampaignContainer = ({
                     />
                     <PublisherWizardFormCampaignPayment
                       step={step}
-                      values={values}
-                      drizzle={drizzle}
-                      drizzleState={drizzleState}
+                      values={values}                 
                       setStep={setStep}
                       address={address}
-                      transactionID={
-                        transactionID && !transactionID.startsWith("TEMP")
-                          ? transactionID
-                          : false
-                      }
-                      setRespStatus={setRespStatus}
+                      isBroadcasted={isBroadcasted}
+                      txHash={txHash}                      
                     />
                     <Temporary_CampaignOutcome
                       step={step}
