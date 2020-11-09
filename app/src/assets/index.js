@@ -8,6 +8,9 @@ export { default as somethingWentWrongIcon } from './somethingWentWrong/somethin
 export { default as kittenWarning } from './shared/kittenWarning.svg'
 export { default as kittenSuccess } from './shared/kittenSuccess.png'
 export { default as portisLogo } from './walletIcons/portis-logo.svg'
+export { default as maticSponsor } from './homepage/partnershipsAndSponsors/maticSponsor.svg'
+export { default as hackToTheMoonSponsor } from './homepage/partnershipsAndSponsors/hackToTheMoonSponsor.svg'
+export { default as startfleetSponsor } from './homepage/partnershipsAndSponsors/starfleetSponsor.svg'
 
 // videos
 export { default as getEtherFromMaticFaucet } from './tutorial/getEtherFromMaticMumbaiFaucet.mp4'
