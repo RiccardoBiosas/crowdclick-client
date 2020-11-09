@@ -35,7 +35,7 @@ const PublisherDashboardCollection = ({ taskID }) => {
                     answersCount
                   )
                   return (
-                    <div>
+                    <div key={`answer${currentPercentage}${taskID}`}>
                       <StyledGeneralRowWrapper
                         rowWidth='60%'
                         rowJustify='space-between'

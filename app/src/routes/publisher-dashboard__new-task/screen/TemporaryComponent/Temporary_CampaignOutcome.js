@@ -5,8 +5,7 @@ import LoadingIcon from '../../../../shared/components/loadingIcons/LoadingIcon'
 // styles
 import { StyledGeneralHeadingTwo } from '../../../../shared/styles/StyledGeneralHeadings'
 // assets
-import { ReactComponent as SvgSuccess } from '../../../../assets/SVG/Success.svg'
-import { kittenWarning } from '../../../../assets'
+import { kittenWarning, kittenSuccess } from '../../../../assets'
 
 export const Temporary_CampaignOutcome = ({ step, respStatus }) => {
   if (step !== 6) {
@@ -30,7 +29,7 @@ export const Temporary_CampaignOutcome = ({ step, respStatus }) => {
                 justifyContent: 'center'
               }}
             >
-              <SvgSuccess style={{ width: '80px' }} />
+              <img alt='create-campaign-successful-icon' src={kittenSuccess} />
             </div>
           </>
         )
@@ -49,7 +48,7 @@ export const Temporary_CampaignOutcome = ({ step, respStatus }) => {
                 justifyContent: 'center'
               }}
             >
-              <SvgSuccess style={{ width: '80px' }} />
+              <img alt='edit-campaign-successful-icon' src={kittenSuccess} />
             </div>
           </>
         )
@@ -69,7 +68,7 @@ export const Temporary_CampaignOutcome = ({ step, respStatus }) => {
                 justifyContent: 'center'
               }}
             >
-              <img alt='campign-unsuccessful-icon' src={kittenWarning} />
+              <img alt='campaign-unsuccessful-icon' src={kittenWarning} />
             </div>
           </>
         )

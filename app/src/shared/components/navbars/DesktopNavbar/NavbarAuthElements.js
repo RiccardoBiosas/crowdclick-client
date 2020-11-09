@@ -14,13 +14,11 @@ export const NavbarAuthElements = () => {
   const web3Data = useSelector(
     ({ ethereumContractReducer }) => ethereumContractReducer
   )
-  console.log('navbauth web3data', web3Data)
   const [balance, setBalance] = useState(0)
   const history = useHistory()
   const fetchBalance = async () => {
     const web3Provider = web3Data.web3Provider
     const WeiBalance = await web3Provider.eth.getBalance(web3Data.account.toLowerCase())
-    console.log('wei balance is ', WeiBalance)
     const balance = web3Provider.utils.fromWei(WeiBalance, 'ether')
     setBalance(balance)
   }

@@ -55,7 +55,9 @@ const PublisherWizardFormCampaignContainer = ({
   id,
   contract,
   address,
-  account
+  account,
+  currentNetwork,
+  currentWallet
 }) => {
   const [step, setStep] = useState(1);
   const [redirect, setRedirect] = useState(false);
@@ -69,9 +71,6 @@ const PublisherWizardFormCampaignContainer = ({
   const [receipt, setReceipt] = useState();
   const totalSteps = 6; //move to constant
 
-  // const [dataKey, setDataKey] = useState(null);
-  // const [transactionID, setTransactionID] = useState();
-  // const [transactionCompleted, setTransactionCompleted] = useState(false);
   const getReceipt = async () => {
     setIsBroadcasted(true);
     // const provider = ethers.getDefaultProvider('goerli');
@@ -138,27 +137,12 @@ const PublisherWizardFormCampaignContainer = ({
       setWasCampaignDataForwarded(true)
       postCampaign();
     }
-    if (txHash && !receipt && isBroadcasted) {
-      // toast.info(`Transaction broadcasted!`, {
-      //   position: 'top-center',
-      //   transition: Slide,
-      //   autoClose: 4000,
-      //   hideProgressBar: false,
-      //   closeOnClick: true,
-      //   pauseOnHover: true,
-      //   draggable: true,
-      //   progress: undefined,
-      // });
-    }  
-
     if (respStatus && step < totalSteps) {
-      setStep(step + 1);
-      
+      setStep(step + 1);      
     }
     if (edit) {
       window.addEventListener("keydown", keyEventHandler);
     }
-
     return () => {
       window.removeEventListener("keydown", keyEventHandler);
     };
@@ -174,39 +158,6 @@ const PublisherWizardFormCampaignContainer = ({
     }
   }, [step])
 
-  // useEffect(() => {
-  //   // if (step === 5 && !ethPrice) {
-  //   //   fetchEthPrice();
-  //   // }
-  //   if (step === 5 && dataKey !== null) {
-  //     // setTransactionID(drizzleState.transactionStack[dataKey]);
-  //     setTransactionID(1)
-  //   }
-  //   if (
-  //     step === 5 &&
-  //     transactionID &&
-  //     !respStatus
-  //   ) {
-  //     // if (drizzleState.transactions[transactionID].status === "success" && !transactionCompleted) {
-  //     //   setTransactionCompleted(true);
-  //     //   postCampaign();
-  //     // }
-  //     // if (drizzleState.transactions[transactionID].status === "error") {
-  //     //   setRespStatus("transaction error");
-  //     // }
-  //   }
-  //   if (step === 5 && respStatus) {
-  //     setStep(step + 1);
-  //   }
-
-  //   if (edit) {
-  //     window.addEventListener("keydown", keyEventHandler);
-  //   }
-
-  //   return () => {
-  //     window.removeEventListener("keydown", keyEventHandler);
-  //   };
-  // }, [ edit, keyEventHandler, postCampaign, respStatus, step, transactionCompleted, transactionID]);
 
   useHandleKeydownEvent(
     "ArrowRight",
@@ -308,7 +259,7 @@ const PublisherWizardFormCampaignContainer = ({
                   
   
                 } else {
-                  const res = await crowdclickClient.patchTask({
+                  const res = await crowdclickClient.patchTask(id, {
                     title: projectName,
                     description: projectDescription,
                     website_link: projectURL,
@@ -316,6 +267,7 @@ const PublisherWizardFormCampaignContainer = ({
                     time_duration: "00:00:30",
                     spend_daily: campaignBudget,       
                   });
+                  console.log('patch response', res)
                   let respStatus = res ? res.status : "failed";
                   setRespStatus(respStatus);
                   setStep(step + 1);
@@ -366,14 +318,18 @@ const PublisherWizardFormCampaignContainer = ({
                     />
                     <PublisherWizardFormCampaignPayment
                       step={step}
+                      edit={edit}
                       values={values}                 
                       setStep={setStep}
                       address={address}
                       isBroadcasted={isBroadcasted}
-                      txHash={txHash}                      
+                      txHash={txHash}
+                      currentNetwork={currentNetwork}
+                      currentWallet={currentWallet}                    
                     />
                     <Temporary_CampaignOutcome
                       step={step}
+                      edit={edit}
                       respStatus={respStatus}
                     />
                   </Form>

@@ -7,10 +7,7 @@ import PublisherWizardFormCampaignContainer from '../publisher-dashboard__new-ta
 // utils
 import crowdclickClient from '../../utils/api/crowdclick'
 
-const EditPublisherWizardFormCampaignContainer = ({
-  drizzle,
-  drizzleState
-}) => {
+const EditPublisherWizardFormCampaignContainer = () => {
   const { id } = useParams()
 
   return (
@@ -33,8 +30,6 @@ const EditPublisherWizardFormCampaignContainer = ({
             initial_values={initial_values}
             edit={true}
             id={id}
-            drizzle={drizzle}
-            drizzleState={drizzleState}
           />
         )
       }}

@@ -58,7 +58,7 @@ const reducer = (state, action) => {
   }
 }
 
-const TaskIframeContainer = ({ drizzle, drizzleState }) => {
+const TaskIframeContainer = () => {
   const time = 3
   const maximumInterruptions = 3
   const location = useLocation()
@@ -203,9 +203,7 @@ const TaskIframeContainer = ({ drizzle, drizzleState }) => {
                 slide={wasTaskSuccessful}
                 taskQuestions={taskQuestions}
                 url={URL}
-                taskID={taskID}
-                drizzle={drizzle}
-                drizzleState={drizzleState}
+                taskID={taskID}          
                 taskOwnerAddress={taskOwnerAddress}
               />
             )}

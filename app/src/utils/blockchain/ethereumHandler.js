@@ -25,7 +25,7 @@ const networkNameToContractAction = {
   80001: MUMBAI_TYPE
 }
 
-const WALLETS = {
+export const WALLETS = {
   PORTIS: 'PORTIS',
   METAMASK: 'METAMASK'
 }
@@ -135,20 +135,15 @@ class EthereumHandler {
     }
   }
 
-  async _getCurrentNetwork () {
-    const currentNetwork = (await this.web3.eth.getChainId()) || false
-    return currentNetwork
-  }
-
   async _dispatchWeb3Data () {
-    const currentNetwork = await this._getCurrentNetwork()
+    await this._setCurrentNetwork()
     console.log(
       'current network about to be dispatched to redux ',
-      currentNetwork
+      this.currentNetwork
     )
-    const actionType = networkNameToContractAction[currentNetwork]
+    const actionType = networkNameToContractAction[this.currentNetwork]
     console.log('action type about to be forwarded', actionType)
-    window.localStorage.setItem('chainId', currentNetwork)
+    window.localStorage.setItem('chainId', this.currentNetwork)
     store.dispatch({ type: actionType })
   }
 

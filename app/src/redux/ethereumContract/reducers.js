@@ -1,6 +1,4 @@
 import config from '../../config/env-config'
-import { Drizzle } from '@drizzle/store'
-
 import { MAINNET_ID, ROPSTEN_ID, GOERLI_ID, MUMBAI_ID } from './actions'
 import { MAINNET_TYPE, ROPSTEN_TYPE, GOERLI_TYPE, MUMBAI_TYPE } from './actions'
 import { ethers } from 'ethers'
@@ -19,11 +17,6 @@ const initialWeb3State = {
 }
 
 const ethereumContractReducer = (state = initialWeb3State, action) => {
-  console.log(
-    'ETHEREUM CONTRACT REDUCER ABOUT TO BE UPDATED --- ACTION: ',
-    action
-  )
-  console.log('ethereum contract reducer state is: ', state)
   switch (action.type) {
     case MAINNET_TYPE:
       return {
@@ -51,7 +44,7 @@ const ethereumContractReducer = (state = initialWeb3State, action) => {
         currentNetwork: ethereumHandler.currentNetwork
       }
     case MUMBAI_TYPE:
-      console.log('MUMBAI TYPE WAS HIT')
+      console.log('MUMBAI TYPE WAS HIT')  
       return {
         ...state,
         active: true,

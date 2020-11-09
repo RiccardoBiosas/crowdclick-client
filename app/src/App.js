@@ -32,6 +32,7 @@ const EditPublisherWizardFormCampaignContainer = lazy(() => import('./routes/pub
 
 
 const App = () => {
+  console.log('ON APP ROOT AT INITIALIZATION, window.ethereum: ', window.ethereum)
   return (
     <HashRouter>
         <Route path="/" component={NavbarWrapper} />
@@ -44,7 +45,7 @@ const App = () => {
               path={NO_METAMASK_ROUTE}
               component={InstallMetamaskWarning}
             />
-            <Route exact path={TUTORIAL_ROUTE} component={() => withDrizzleInitializer(Tutorial)} />
+            <Route exact path={TUTORIAL_ROUTE} component={Tutorial} />
             <ProtectedRoute
               exact
               path={USER_TASKS_LIST_ROUTE}
@@ -86,7 +87,6 @@ const App = () => {
             <Route path="*" component={NotFound} />
           </Switch>
         </Suspense>
-      {/* </DrizzleContext.Provider> */}
     </HashRouter>
   )
 }

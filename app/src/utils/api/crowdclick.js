@@ -36,8 +36,8 @@ export const crowdclickClient = {
   postTask: async bodyPayload => {
     return await client.post(`${host_env}/api/task/`, bodyPayload)
   },
-  patchTask: async bodyPayload => {
-    return await client.patch(`${host_env}/api/task/`, bodyPayload)
+  patchTask: async (id, bodyPayload) => {
+    return await client.patch(`${host_env}/api/task/${id}/`, bodyPayload)
   },
   postAnswer: async (id, bodyPayload) => {
     return await client.post(`${host_env}/api/task/${id}/answer/`, bodyPayload)
