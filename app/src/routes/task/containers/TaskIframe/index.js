@@ -139,7 +139,7 @@ const TaskIframeContainer = () => {
     dispatch,
     reduxDispatch
   ])
-  console.log('CURRENT TASK INTERRUPTIONS IS ', taskInterruptions)
+
   const resumeTask = () => {
     dispatch({ type: IS_TASK_STOPPED_FALSE_ACTION })
   }

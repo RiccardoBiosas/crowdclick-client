@@ -27,29 +27,25 @@ const withDrizzleInitializer = ComposedComponent => {
 
   useEffect(() => {
     if(wasStorageChecked) {
-      console.log('STORAGE WAS CHECKED, HOC MAKING SURE THAT EVERYTHING MATCHES WEB3 CONF')
       const fetchAccounts = async() => {  
         const accounts = await web3Provider.eth.getAccounts()
-        console.log('accounts hoc wasstoragechecked true')
-        console.log(accounts)
         const account = accounts[0]
         if(account.toLowerCase() !== window.localStorage.getItem(SCOPED_LOCAL_STORAGE_USER_PUBLIC_KEY).toLowerCase()) {
-          console.log('about to logout trigger debugger')          
           await ethereumHandler.disconnectFromWeb3AndLogout()
         }
       }
       fetchAccounts()
     }
   }, [])
-  console.log('INSIDE WITH DRIZZLE INTIALIZER ##################')
-  console.log('redux web3 data', web3Data)
-  console.log('is active? ', active)
-  console.log('check account ', account)
-  console.log('current network ', currentNetwork)
-  console.log('current wallet ', currentWallet)
-  console.log('current web3provider', web3Provider)
-  console.log('check window.web 3', window.ethereum)
-  console.log('INSIDE WITH DRIZZLE INTIALIZER ##################')
+  // console.log('INSIDE WITH DRIZZLE INTIALIZER ##################')
+  // console.log('redux web3 data', web3Data)
+  // console.log('is active? ', active)
+  // console.log('check account ', account)
+  // console.log('current network ', currentNetwork)
+  // console.log('current wallet ', currentWallet)
+  // console.log('current web3provider', web3Provider)
+  // console.log('check window.web 3', window.ethereum)
+  // console.log('INSIDE WITH DRIZZLE INTIALIZER ##################')
 
   if (!active) {
     return <SignupFallback />

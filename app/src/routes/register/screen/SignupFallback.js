@@ -46,21 +46,19 @@ const SignupFallback = () => {
 
 
   const loginAndRedirect = async provider => {
-    console.log('login redirect here !==== ', provider)
     switch (provider) {
       case loginType.METAMASK:
-        console.log('metamask being called')
+        console.log('signup fallback: metamask wallet selected')
         await ethereumHandler.initWeb3AndLogin()
         setRedirect(true)
         break
       case loginType.PORTIS_ON_MUMBAI:
-        console.log('portis mumbai being called')
+        console.log('signup fallback: mumbai portis wallet selected')
         const portisMumbai = await ethereumHandler.initPortisAndLogin('maticMumbai')
-        console.log('connection attempt was ->', portisMumbai)
         setRedirect(true)
         break
       case loginType.PORTIS_ON_GOERLI:
-        console.log('portis goerli being called')
+        console.log('signup fallback: goerli wallet selected')
         await ethereumHandler.initPortisAndLogin('goerli')
         setRedirect(true)
       default:

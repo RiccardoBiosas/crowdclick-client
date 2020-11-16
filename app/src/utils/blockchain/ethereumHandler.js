@@ -138,12 +138,8 @@ class EthereumHandler {
 
   async _dispatchWeb3Data () {
     await this._setCurrentNetwork()
-    console.log(
-      'current network about to be dispatched to redux ',
-      this.currentNetwork
-    )
     const actionType = networkNameToContractAction[this.currentNetwork]
-    console.log('action type about to be forwarded', actionType)
+    console.log(`action type to forward to redux store: ${actionType}`)
     window.localStorage.setItem(
       SCOPED_LOCAL_STORAGE_CHAIN_ID,
       this.currentNetwork

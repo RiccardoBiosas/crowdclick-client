@@ -32,7 +32,6 @@ const EditPublisherWizardFormCampaignContainer = lazy(() => import('./routes/pub
 
 
 const App = () => {
-  console.log('ON APP ROOT AT INITIALIZATION, window.ethereum: ', window.ethereum)
   return (
     <HashRouter>
         <Route path="/" component={NavbarWrapper} />

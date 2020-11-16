@@ -17,7 +17,6 @@ const EthereumListener = () => {
   const checkAccountChange = () => {
     if (window.ethereum) {
       window.ethereum.on('accountsChanged', async () => {
-        console.log('ETHEREUM LISTENER HAS BEEN CALLED ###############')
         await crowdclickClient.logout()
         window.localStorage.removeItem(SCOPED_LOCAL_STORAGE_USER_PUBLIC_KEY)
         dispatch(navAuthFalseAction)

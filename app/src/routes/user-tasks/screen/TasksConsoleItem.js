@@ -17,7 +17,6 @@ const TasksConsoleItem = ({
   taskOwnerAddress
 }) => {
   const history = useHistory()
-  console.log('task item, reward per click -> ', rewardPerClick)
   const isPlaceholderNeeded =
     RegExp('foo', 'g').test(ogImage) ||
     RegExp('placeholder', 'g').test(ogImage)

@@ -65,7 +65,6 @@ const PublisherWizardFormCampaignContainer = ({
   currentNetwork,
   currentWallet
 }) => {
-  console.log('PUBLISHER WIZARD FORM CAMPAIGN CONTAINER NETWORK ID $$$$$$$$$$', currentNetwork)
   const [step, setStep] = useState(1);
   const [redirect, setRedirect] = useState(false);
   const [isError, setIsError] = useState(false);
@@ -74,7 +73,7 @@ const PublisherWizardFormCampaignContainer = ({
   const [campaignData, setCampaignData] = useState();
   const [wasCampaignDataForwarded, setWasCampaignDataForwarded] = useState(false)
   const [txHash, setTxHash] = useState();
-  const [isBroadcasted, setIsBroadcasted] = useState(false);
+  const [isBroadcasted, setIsBroadcasted] = useState(false); // current not being used
   const [receipt, setReceipt] = useState();
   const totalSteps = 6; //move to constant
 
@@ -82,13 +81,7 @@ const PublisherWizardFormCampaignContainer = ({
     setIsBroadcasted(true);
     // const provider = ethers.getDefaultProvider('goerli');
     const provider = new ethers.providers.Web3Provider(web3.currentProvider);
-    console.log('get receipt current provider', provider)
-
-    console.log('tx hash here', txHash);
-    console.log('now waiting')
     const resp = await provider.waitForTransaction(txHash);
-    console.log('finished waiting')
-    console.log('receipt here', resp);
     setReceipt(resp);
   };
 
@@ -136,13 +129,11 @@ const PublisherWizardFormCampaignContainer = ({
    
   }, [campaignData])
 
-  useEffect(() => {
-    // console.log('INSIDE USE EFFECT WHAT IS IS BROADCASTED?', isBroadcasted) //currently not being used
+  useEffect(() => {    
     if (txHash && !respStatus) {
       getReceipt();
     }
     if (receipt && !respStatus && !wasCampaignDataForwarded) {
-      console.log('##### POST CAMPAIGN');
       setWasCampaignDataForwarded(true)
       postCampaign();
     }
@@ -237,21 +228,15 @@ const PublisherWizardFormCampaignContainer = ({
                 campaignBudget,      
               } = values;
 
-              console.log('BEFORE CONSOLE LOGGING THE CONTRACT ARGUMENTS')
-
-              console.log('what is the current step ', step)
               try {
                 if (!edit) {
-                  console.log('inside no edit ')
                   console.log('budget is ',  values.campaignBudget , 'reward is ',  values.pricePerClick, 'url is ', projectURL )
                   const ethPrice = await coingeckoClient.getEthToUSD()
                   const currentEthPrice = ethPrice.data.ethereum.usd;
-                  console.log('current eth price is ', ethPrice.data.ethereum.usd)
                   const budgetToEth = values.campaignBudget / currentEthPrice;
                   const rewardToEth = values.pricePerClick / currentEthPrice;
                   const budgetToWei = ethers.utils.parseEther(budgetToEth.toFixed(6).toString());
-                  const rewardToWei = ethers.utils.parseEther(rewardToEth.toFixed(6).toString());
-                  console.log('BEFORE CONSOLE LOGGING THE CONTRACT ARGUMENTS')
+                  const rewardToWei = ethers.utils.parseEther(rewardToEth.toFixed(6).toString());                  
                   console.log('budget to wei is ', budgetToWei, ' reward to wei is ', rewardToWei, ' project url is ', projectURL)
                   const transaction = await contract.functions.openTask(
                     budgetToWei,
@@ -278,13 +263,11 @@ const PublisherWizardFormCampaignContainer = ({
                     time_duration: "00:00:30",
                     spend_daily: campaignBudget,       
                   });
-                  console.log('patch response', res)
                   let respStatus = res ? res.status : "failed";
                   setRespStatus(respStatus);
                   setStep(step + 1);
                 }
               } catch (err) {
-                console.log('ERROR IS ', err)
                 let errorResponse = err.response.status;
                 setRespStatus(errorResponse);
                 setStep(step + 1);

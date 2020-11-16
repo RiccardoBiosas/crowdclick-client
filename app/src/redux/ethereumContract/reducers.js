@@ -42,8 +42,6 @@ const initialWeb3State =
         currentContracts: null,
         wasStorageChecked: false
       }
-console.log('########REDUCER initialweb3state: ')
-console.log(initialWeb3State)
 
 const ethereumContractReducer = (state = initialWeb3State, action) => {
   switch (action.type) {
@@ -67,7 +65,7 @@ const ethereumContractReducer = (state = initialWeb3State, action) => {
         currentNetwork: ethereumHandler.currentNetwork
       }
     case GOERLI_TYPE:
-      console.log('goerli TYPE WAS HIT')
+      console.log('goerli action was called')
       return {
         ...state,
         active: true,
@@ -78,7 +76,7 @@ const ethereumContractReducer = (state = initialWeb3State, action) => {
         currentNetwork: ethereumHandler.currentNetwork
       }
     case MUMBAI_TYPE:
-      console.log('MUMBAI TYPE WAS HIT')
+      console.log('mumbai action was called')
       return {
         ...state,
         active: true,

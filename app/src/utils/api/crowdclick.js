@@ -28,10 +28,7 @@ export const crowdclickClient = {
     return await client.get(`${host_env}/api/task/${id}/`)
   },
   getTasks: async (page, networkName='goerli') => {
-    const resp = await client.get(`${host_env}/api/task/?page=${page}`, { params: { chain: networkName } })
-    console.log('get tasks repsonse is= ')
-    console.log(resp)
-    return resp
+    return await client.get(`${host_env}/api/task/?page=${page}`, { params: { chain: networkName } })
   },
   getUserTasks: async () => {
     return await client.get(`${host_env}/api/user/tasks/`)

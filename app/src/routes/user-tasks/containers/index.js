@@ -12,7 +12,6 @@ import SomethingWentWrong from '../../../shared/components/SomethingWentWrong'
 import config from '../../../config/env-config'
 
 const TasksConsoleDashboardContainer = ({currentNetwork}) => {
-  console.log('CURRENT NETWORK IN TASKSCONSOLEDASHBOARDCONTAINER : ', currentNetwork)
   const [page, setPage] = useState(1)
   const [data, setData] = useState()
   const [loading, setLoading] = useState(true)

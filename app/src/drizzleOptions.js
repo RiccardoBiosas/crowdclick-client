@@ -13,7 +13,6 @@ const options = {
 export default options
 
 export const returnDrizzleOptions = contracts => {
-  console.log('contracts in reutnrdrizlzeoptions is ', contracts)
   const myOptions = {
     web3: {
       block: false
@@ -22,6 +21,5 @@ export const returnDrizzleOptions = contracts => {
     events: {}
   }
   const drizzle = new Drizzle(myOptions)
-  console.log('drizzle is in reutnrdrizzeooptions', drizzle)
   return drizzle
 }
