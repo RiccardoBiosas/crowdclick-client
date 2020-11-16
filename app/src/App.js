@@ -49,7 +49,7 @@ const App = () => {
             <ProtectedRoute
               exact
               path={USER_TASKS_LIST_ROUTE}
-              component={TasksConsoleDashboardContainer}
+              component={() => withDrizzleInitializer(TasksConsoleDashboardContainer)}
             />
 
             <ProtectedRoute

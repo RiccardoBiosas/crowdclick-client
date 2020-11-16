@@ -22,6 +22,7 @@ import {
   PUBLISHER_WIZARD_ROUTE,
   USER_TASKS_LIST_ROUTE,
 } from "../../../config/routes-config";
+import { SCOPED_LOCAL_STORAGE_USER_PUBLIC_KEY } from "../../../utils/blockchain/constants";
 
 export const HomepageDoubleCard = ({ currencyTheme }) => {
   const [isVizSensorActive, setIsVizSensorActive] = useState(true)
@@ -39,7 +40,7 @@ export const HomepageDoubleCard = ({ currencyTheme }) => {
   }
 
   const handleRedirect = (redirectRoute) => {
-    if (!window.localStorage.getItem("userPubKey")) {
+    if (!window.localStorage.getItem(SCOPED_LOCAL_STORAGE_USER_PUBLIC_KEY)) {
       history.push({
         pathname: REGISTER_FALLBACK_ROUTE,
         state: { next_redirect: redirectRoute },

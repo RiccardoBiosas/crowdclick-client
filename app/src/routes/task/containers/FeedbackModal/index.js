@@ -37,7 +37,7 @@ export const FeedbackModal = ({
       })
 
       await crowdclickClient.postAnswer(taskID, {questions: answersBatch})
-      // await crowdclickClient.getReward(taskID)   
+      await crowdclickClient.getReward(taskID)
     }
     if (indx === taskQuestions.length) {
       dispatch(iframeNormalScreenAction)

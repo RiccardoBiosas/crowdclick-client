@@ -99,6 +99,7 @@ const HomepageCardSwipe = ({ setFlipped, flipped, cardsSteps }) => {
                 srcImage={arrowBackward}
                 altAttribute='arrow-backward'
                 styledMargin='0 1rem 0 0'
+                styledWidth='2.6rem'
                 onClick={() => setStep(step - 1)}
               />
             )}
@@ -110,6 +111,7 @@ const HomepageCardSwipe = ({ setFlipped, flipped, cardsSteps }) => {
                 srcImage={arrowForward}
                 altAttribute='arrow-forward'
                 styledMargin='0 0 0 1rem'
+                styledWidth='2.6rem'
                 onClick={() => setStep(step + 1)}
               />
             )}

@@ -27,8 +27,11 @@ export const crowdclickClient = {
   getTask: async id => {
     return await client.get(`${host_env}/api/task/${id}/`)
   },
-  getTasks: async page => {
-    return await client.get(`${host_env}/api/task/?page=${page}`)
+  getTasks: async (page, networkName='goerli') => {
+    const resp = await client.get(`${host_env}/api/task/?page=${page}`, { params: { chain: networkName } })
+    console.log('get tasks repsonse is= ')
+    console.log(resp)
+    return resp
   },
   getUserTasks: async () => {
     return await client.get(`${host_env}/api/user/tasks/`)
@@ -47,8 +50,8 @@ export const crowdclickClient = {
       withCredentials: false
     })
   },
-  getReward: async id => {
-    return await client.post(`${host_env}/api/task/${id}/reward/`)
+  getReward: async (id, networkName='goerli') => {
+    return await client.post(`${host_env}/api/task/${id}/reward/`, {chain: networkName})
   }
 }
 

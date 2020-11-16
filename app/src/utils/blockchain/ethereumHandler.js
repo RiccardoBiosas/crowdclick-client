@@ -17,6 +17,7 @@ import {
   GOERLI_TYPE,
   MUMBAI_TYPE
 } from '../../redux/ethereumContract/actions'
+import { SCOPED_LOCAL_STORAGE_CHAIN_ID, SCOPED_LOCAL_STORAGE_USER_PUBLIC_KEY } from './constants'
 
 const networkNameToContractAction = {
   1: MAINNET_TYPE,
@@ -46,15 +47,15 @@ class EthereumHandler {
           method: 'eth_requestAccounts'
         })
         this.web3 = new Web3(window.ethereum)
-        await this._updateAccounts(accounts)
+        await this._updateAccounts()
         this.currentWallet = WALLETS.METAMASK
         await this._setCurrentNetwork()
         window.ethereum.autoRefreshOnNetworkChange = false
         window.ethereum.on('accountsChanged', async () => {
-          await this._logoutOnAccountChange()
+          await this.disconnectFromWeb3AndLogout()
         })
         window.ethereum.on('chainChanged', async () => {
-          await this._logoutOnChainIdChange()
+          await this.disconnectFromWeb3AndLogout()
         })
         return {
           account: this.account,
@@ -143,12 +144,15 @@ class EthereumHandler {
     )
     const actionType = networkNameToContractAction[this.currentNetwork]
     console.log('action type about to be forwarded', actionType)
-    window.localStorage.setItem('chainId', this.currentNetwork)
+    window.localStorage.setItem(
+      SCOPED_LOCAL_STORAGE_CHAIN_ID,
+      this.currentNetwork
+    )
     store.dispatch({ type: actionType })
   }
 
-  async _updateAccounts (accounts) {
-    const updatedAccounts = accounts || (await this.web3.eth.getAccounts())
+  async _updateAccounts () {
+    const updatedAccounts = await this.web3.eth.getAccounts()
     this.account = updatedAccounts[0].toLowerCase()
   }
 
@@ -157,27 +161,33 @@ class EthereumHandler {
   }
 
   _performLoginSideEffects () {
-    window.localStorage.setItem('userPubKey', this.account)
+    window.localStorage.setItem(SCOPED_LOCAL_STORAGE_USER_PUBLIC_KEY, this.account)
     store.dispatch(navAuthTrueAction)
   }
 
   _performLogoutSideEffects () {
     store.dispatch(navAuthFalseAction)
-    window.localStorage.removeItem('userPubKey')
-    window.localStorage.removeItem('chainId')
+    window.localStorage.removeItem(SCOPED_LOCAL_STORAGE_USER_PUBLIC_KEY)
+    window.localStorage.removeItem(SCOPED_LOCAL_STORAGE_CHAIN_ID)
     window.location.href = `#${HOME_ROUTE}`
   }
 
-  async _logoutOnAccountChange () {
-    const response = await crowdclickClient.logout()
-    this._performLogoutSideEffects()
-    return response
-  }
+  // async _logoutOnAccountChange () {
+  //   const response = await crowdclickClient.logout()
+  //   this._performLogoutSideEffects()
+  //   return response
+  // }
 
-  async _logoutOnChainIdChange () {
-    // await this._setCurrentNetwork()
+  // async _logoutOnChainIdChange () {
+  //   // await this._setCurrentNetwork()
+  //   const response = await crowdclickClient.logout()
+  //   this._performLogoutSideEffects()
+  //   return response
+  // }
+
+  async disconnectFromWeb3AndLogout() {    
+    this._performLogoutSideEffects() // perform side effects before logging out
     const response = await crowdclickClient.logout()
-    this._performLogoutSideEffects()
     return response
   }
 }

@@ -1,23 +1,57 @@
 import config from '../../config/env-config'
-import { MAINNET_ID, ROPSTEN_ID, GOERLI_ID, MUMBAI_ID } from './actions'
-import { MAINNET_TYPE, ROPSTEN_TYPE, GOERLI_TYPE, MUMBAI_TYPE } from './actions'
-import { ethers } from 'ethers'
+import Web3 from 'web3'
+import { GOERLI_ID, MUMBAI_ID } from './actions'
+import {
+  MAINNET_TYPE,
+  ROPSTEN_TYPE,
+  GOERLI_TYPE,
+  MUMBAI_TYPE,
+  CACHED_WEB3_FROM_STORAGE
+} from './actions'
 import ethereumHandler from '../../utils/blockchain/ethereumHandler'
+import {
+  SCOPED_LOCAL_STORAGE_CHAIN_ID,
+  SCOPED_LOCAL_STORAGE_USER_PUBLIC_KEY
+} from '../../utils/blockchain/constants'
 
 const blockchainConfig = config.blockchain
 
-// TO DO: improve & remove side effect/reliance on local storage
-const initialWeb3State = {
-  active: false,
-  web3Provider: null,
-  currentNetwork: null,
-  account: null,
-  currentWallet: null,
-  currentContracts: null
-}
+const cachedWeb3 =
+  window.localStorage.getItem(SCOPED_LOCAL_STORAGE_CHAIN_ID) &&
+  parseInt(window.localStorage.getItem(SCOPED_LOCAL_STORAGE_CHAIN_ID), 10)
+const cachedPublicKey =
+  window.localStorage.getItem(SCOPED_LOCAL_STORAGE_USER_PUBLIC_KEY) || undefined
+
+const initialWeb3State =
+  cachedWeb3 && cachedPublicKey
+    ? {
+        active: true,
+        web3Provider: new Web3(window.ethereum),
+        currentNetwork: cachedWeb3,
+        account: cachedPublicKey,
+        currentWallet: 'metamask',
+        currentContracts: blockchainConfig[cachedWeb3].contracts,
+        wasStorageChecked: true
+      }
+    : {
+        active: false,
+        web3Provider: null,
+        currentNetwork: null,
+        account: null,
+        currentWallet: null,
+        currentContracts: null,
+        wasStorageChecked: false
+      }
+console.log('########REDUCER initialweb3state: ')
+console.log(initialWeb3State)
 
 const ethereumContractReducer = (state = initialWeb3State, action) => {
   switch (action.type) {
+    case CACHED_WEB3_FROM_STORAGE:
+      return {
+        ...state,
+        ...action.payload
+      }
     case MAINNET_TYPE:
       return {
         ...state,
@@ -44,7 +78,7 @@ const ethereumContractReducer = (state = initialWeb3State, action) => {
         currentNetwork: ethereumHandler.currentNetwork
       }
     case MUMBAI_TYPE:
-      console.log('MUMBAI TYPE WAS HIT')  
+      console.log('MUMBAI TYPE WAS HIT')
       return {
         ...state,
         active: true,

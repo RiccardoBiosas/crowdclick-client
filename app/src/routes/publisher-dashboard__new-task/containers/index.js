@@ -1,24 +1,30 @@
+// theirs
 import React, { Fragment, useState, useReducer, useEffect, useCallback } from "react";
 import { Formik, Form } from "formik";
 import { ethers } from 'ethers';
 // import { Prompt, matchPath, Redirect } from "react-router-dom";
 import { Redirect } from "react-router-dom";
+// components
 import { PublisherWizardFormCampaignDescription } from "../screen/PublisherWizardFormCampaignDescription";
 import { PublisherWizardFormCampaignPublisherBudget } from "../screen/PublisherWizardFormCampaignBudget";
 import { PublisherWizardFormCampaignQuiz } from "../screen/PublisherWizardFormCampaignQuiz";
 import { PublisherWizardFormCampaignPreview } from "../screen/PublisherWizardFormCampaignPreview";
 import { PublisherWizardFormCampaignPayment } from "../screen/PublisherWizardFormCampaignPayment";
+import PublisherWizardCampaignOutcome  from "../screen/PublisherWizardCampaignOutcome";
+// styles
 import StyledGeneralButton  from "../../../shared/styles/StyledGeneralButton";
 import  StyledCardNavbar  from "../../../shared/styles/StyledCardNavbar";
-import { useHandleKeydownEvent } from "../../../hooks/useHandleKeydownEvent";
-import { PublisherWizardFormValidationSchema } from "../validationSchema/wizardFormValidationSchema";
-import { Temporary_CampaignOutcome } from "../screen/TemporaryComponent/Temporary_CampaignOutcome";
-import { PUBLISHER_DASHBOARD_ROUTE } from "../../../config/routes-config";
 import StyledGeneralCardLayout from "../../../shared/styles/StyledGeneralCardLayout";
 import StyledGeneralCardWrapper from "../../../shared/styles/StyledGeneralCardWrapper";
 import StyledGeneralColumnWrapper from "../../../shared/styles/StyledGeneralColumnWrapper";
+// utils
+import { useHandleKeydownEvent } from "../../../hooks/useHandleKeydownEvent";
 import crowdclickClient from "../../../utils/api/crowdclick";
 import { coingeckoClient } from "../../../utils/api/coingecko";
+import  PublisherWizardFormValidationSchema  from "../validationSchema/wizardFormValidationSchema";
+// constants
+import { PUBLISHER_DASHBOARD_ROUTE } from "../../../config/routes-config";
+import config from "../../../config/env-config";
 
 const empty_initial_values = {
   projectName: "",
@@ -59,6 +65,7 @@ const PublisherWizardFormCampaignContainer = ({
   currentNetwork,
   currentWallet
 }) => {
+  console.log('PUBLISHER WIZARD FORM CAMPAIGN CONTAINER NETWORK ID $$$$$$$$$$', currentNetwork)
   const [step, setStep] = useState(1);
   const [redirect, setRedirect] = useState(false);
   const [isError, setIsError] = useState(false);
@@ -102,6 +109,7 @@ const PublisherWizardFormCampaignContainer = ({
       const filteredProjectOptionsWithoutEmptyStrings = projectOptions.filter(
         (x) => x.option !== ""
       );
+      const networkName = config.blockchain[currentNetwork].chainName
   
       const res = await crowdclickClient.postTask({
         title: projectName,
@@ -110,6 +118,7 @@ const PublisherWizardFormCampaignContainer = ({
         reward_per_click: pricePerClick,
         time_duration: "00:00:30",
         spend_daily: campaignBudget,
+        chain: networkName,
         questions: [
           {
             title: projectQuestion,
@@ -197,6 +206,7 @@ const PublisherWizardFormCampaignContainer = ({
           <StyledCardNavbar>
             <div>
               <button
+                type='button'
                 className="stepBack"
                 onClick={() => (step > 1 ? setStep(step - 1) : null)}
               >
@@ -205,6 +215,7 @@ const PublisherWizardFormCampaignContainer = ({
             </div>
             <div>
               <button
+                type='button'
                 className="closeCard"
                 onClick={() => setRedirect(true)}
               >
@@ -327,7 +338,7 @@ const PublisherWizardFormCampaignContainer = ({
                       currentNetwork={currentNetwork}
                       currentWallet={currentWallet}                    
                     />
-                    <Temporary_CampaignOutcome
+                    <PublisherWizardCampaignOutcome
                       step={step}
                       edit={edit}
                       respStatus={respStatus}

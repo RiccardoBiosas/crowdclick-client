@@ -11,7 +11,7 @@ const rootReducer = combineReducers({
   themeModeReducer,
   navAuthReducer,
   ethereumContractReducer
-});
+})
 
 export const store = createStore(
   rootReducer,

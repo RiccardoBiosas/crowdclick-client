@@ -1,13 +1,14 @@
 // theirs
 import React from 'react'
 // components
-import LoadingIcon from '../../../../shared/components/loadingIcons/LoadingIcon'
+import LoadingIcon from '../../../shared/components/loadingIcons/LoadingIcon'
 // styles
-import { StyledGeneralHeadingTwo } from '../../../../shared/styles/StyledGeneralHeadings'
+import { StyledGeneralHeadingTwo } from '../../../shared/styles/StyledGeneralHeadings'
+import StyledGeneralRowWrapper from '../../../shared/styles/StyledGeneralRowWrapper'
 // assets
-import { kittenWarning, kittenSuccess } from '../../../../assets'
+import { kittenWarning, kittenSuccess } from '../../../assets'
 
-export const Temporary_CampaignOutcome = ({ step, respStatus }) => {
+const PublisherWizardCampaignOutcome = ({ step, respStatus }) => {
   if (step !== 6) {
     return null
   } else {
@@ -22,15 +23,9 @@ export const Temporary_CampaignOutcome = ({ step, respStatus }) => {
                 Campaign Successfully Created!
               </StyledGeneralHeadingTwo>
             </div>
-            <div
-              style={{
-                display: 'flex',
-                alignItems: 'center',
-                justifyContent: 'center'
-              }}
-            >
+            <StyledGeneralRowWrapper>
               <img alt='create-campaign-successful-icon' src={kittenSuccess} />
-            </div>
+            </StyledGeneralRowWrapper>
           </>
         )
       } else if (respStatus === 200) {
@@ -41,15 +36,9 @@ export const Temporary_CampaignOutcome = ({ step, respStatus }) => {
                 Campaign Successfully Edited!
               </StyledGeneralHeadingTwo>
             </div>
-            <div
-              style={{
-                display: 'flex',
-                alignItems: 'center',
-                justifyContent: 'center'
-              }}
-            >
+            <StyledGeneralRowWrapper>
               <img alt='edit-campaign-successful-icon' src={kittenSuccess} />
-            </div>
+            </StyledGeneralRowWrapper>
           </>
         )
       } else {
@@ -61,18 +50,14 @@ export const Temporary_CampaignOutcome = ({ step, respStatus }) => {
               </StyledGeneralHeadingTwo>
               <p>Go back and review the submitted campaign for errors</p>
             </div>
-            <div
-              style={{
-                display: 'flex',
-                alignItems: 'center',
-                justifyContent: 'center'
-              }}
-            >
+            <StyledGeneralRowWrapper>
               <img alt='campaign-unsuccessful-icon' src={kittenWarning} />
-            </div>
+            </StyledGeneralRowWrapper>
           </>
         )
       }
     }
   }
 }
+
+export default PublisherWizardCampaignOutcome

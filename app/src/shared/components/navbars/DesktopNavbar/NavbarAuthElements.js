@@ -18,7 +18,10 @@ export const NavbarAuthElements = () => {
   const history = useHistory()
   const fetchBalance = async () => {
     const web3Provider = web3Data.web3Provider
-    const WeiBalance = await web3Provider.eth.getBalance(web3Data.account.toLowerCase())
+    const WeiBalance = await web3Provider.eth.getBalance(
+      web3Data.account.toLowerCase(),
+      console.log
+    )
     const balance = web3Provider.utils.fromWei(WeiBalance, 'ether')
     setBalance(balance)
   }

@@ -1,6 +1,6 @@
 import * as Yup from 'yup'
 
-export const PublisherWizardFormValidationSchema = Yup.object().shape({
+const PublisherWizardFormValidationSchema = Yup.object().shape({
   projectName: Yup.string()
     .min(2, 'too short!')
     .max(30, 'too long!')
@@ -29,3 +29,5 @@ export const PublisherWizardFormValidationSchema = Yup.object().shape({
     .required('required'),
   projectOptions: Yup.array().min(2, 'minimum of 2 answers!')
 })
+
+export default PublisherWizardFormValidationSchema

@@ -1,5 +1,6 @@
 // theirs
 import React, { useState, useEffect, useCallback } from 'react'
+import {ethers} from 'ethers'
 // styles
 import StyledGeneralCardLayout from '../../shared/styles/StyledGeneralCardLayout'
 import StyledGeneralCardWrapper from '../../shared/styles/StyledGeneralCardWrapper'
@@ -12,7 +13,9 @@ const WithdrawBalance = ({ contract, address, account }) => {
     console.log('contract functions ', contract.functions)
     const balance = await contract.functions.balancesOfUser(account)
     console.log('USER BALACNE ON THE CONTRACT IS ', balance)
+    const balanceToEther = ethers.utils.formatEther(balance)
 
+    console.log(balanceToEther)
     setUserBalance(balance)
   })
   useEffect(() => {

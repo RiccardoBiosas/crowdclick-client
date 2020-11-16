@@ -1,13 +1,8 @@
+// theirs
 import React, { useState, useEffect, useRef } from "react";
 import VizSensor from "react-visibility-sensor";
 import { useSelector, useDispatch } from "react-redux";
-import {
-  ethereumStyleAction,
-  aeternityStyleAction,
-} from "../../../../redux/CurrencyStyle/currencyStyleActions";
-import {ReactComponent as TelegramIcon} from "../../../../assets/mobileNavbar/telegram_small_icon.svg"
-import { ReactComponent as Sun } from "../../../../assets/navbar/sun.svg";
-import { ReactComponent as Moon } from "../../../../assets/navbar/moon.svg";
+// styles
 import {
   StyledBurger,
   StyledMenu,
@@ -15,12 +10,21 @@ import {
   StyledMobileNavbarLayout,
   StyledCurrencyOption,
 } from "./styles/MobileNavbarStyles";
+import StyledCircleButton from "../../../styles/StyledCircleButton";
+import StyledAnchor from "../../../styles/StyledAnchor";
+// constants
+import {
+  ethereumStyleAction,
+  aeternityStyleAction,
+} from "../../../../redux/CurrencyStyle/currencyStyleActions";
 import {
   lightModeAction,
   darkModeAction,
 } from "../../../../redux/ThemeMode/themeModeActions";
-import StyledCircleButton from "../../../styles/StyledCircleButton";
-import StyledAnchor from "../../../styles/StyledAnchor";
+// assets
+import {ReactComponent as TelegramIcon} from "../../../../assets/mobileNavbar/telegram_small_icon.svg"
+import { ReactComponent as Sun } from "../../../../assets/navbar/sun.svg";
+import { ReactComponent as Moon } from "../../../../assets/navbar/moon.svg";
 
 
 export const MobileNavbar = () => {

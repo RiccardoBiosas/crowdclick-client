@@ -6,12 +6,13 @@ import LoadingIcon from '../../../shared/components/loadingIcons/LoadingIcon'
 // styles
 import StyledGeneralRowWrapper from '../../../shared/styles/StyledGeneralRowWrapper'
 import StyledGlobalButton from '../../../shared/styles/StyledGeneralButton'
-
 // utils
 import crowdclickClient from '../../../utils/api/crowdclick'
 import SomethingWentWrong from '../../../shared/components/SomethingWentWrong'
+import config from '../../../config/env-config'
 
-const TasksConsoleDashboardContainer = () => {
+const TasksConsoleDashboardContainer = ({currentNetwork}) => {
+  console.log('CURRENT NETWORK IN TASKSCONSOLEDASHBOARDCONTAINER : ', currentNetwork)
   const [page, setPage] = useState(1)
   const [data, setData] = useState()
   const [loading, setLoading] = useState(true)
@@ -31,7 +32,8 @@ const TasksConsoleDashboardContainer = () => {
   const fetchUrl = async page => {
     setLoading(true)
     try {
-      const response = await crowdclickClient.getTasks(page)
+      const networkName = config.blockchain[currentNetwork].chainName      
+      const response = await crowdclickClient.getTasks(page, networkName)
       setData(response.data)
       setLoading(false)
     } catch (err) {
