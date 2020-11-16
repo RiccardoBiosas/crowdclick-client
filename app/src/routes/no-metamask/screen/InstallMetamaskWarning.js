@@ -44,8 +44,7 @@ const InstallMetamaskWarning = () => {
             paragraphColor='#000000'
             paragraphFontSize='20px'
           >
-            Our Web 3.0 application doesn’t collect any user data and is
-            completely safe to protect your identity
+            Our Web 3.0 application doesn’t collect any user data and we strive to respect our users' privacy.
           </StyledGeneralParagraph>
         </div>
         <div>

@@ -22,28 +22,12 @@ import {
 import ethereumHandler from '../../../utils/blockchain/ethereumHandler'
 import StyledGeneralRowWrapper from '../../../shared/styles/StyledGeneralRowWrapper'
 import loginType from '../constants'
-// import {
-//   Web3ReactProvider,
-//   useWeb3React,
-//   UnsupportedChainIdError
-// } from '@web3-react/core'
-// import Portis from '../../../connectors/portis'
-// import { InjectedConnector } from '@web3-react/injected-connector';
-// import config from '../../../config/env-config'
-// import { PortisConnector } from '@web3-react/portis-connector'
-// import PortisApi from '@portis/web3';
 
-// console.log('prtis dappid', config.providers.portis)
-// const portis = new PortisConnector({  api: PortisApi,
-//   dappId: config.providers.portis, networks: [5]})
 
-// export const injected = new InjectedConnector({ supportedChainIds: [1, 3, 4, 5, 80001] });
 const SignupFallback = () => {
   const [redirect, setRedirect] = useState(false)
   const history = useHistory()
   const location = useLocation()
-  // const context = useWeb3React()
-
 
   const loginAndRedirect = async provider => {
     switch (provider) {
@@ -116,7 +100,7 @@ const SignupFallback = () => {
             </StyledGeneralRowWrapper>
 
             <StyledGeneralColumnWrapper
-              columnHeight='80%'
+              columnHeight='100%'
               columnJustify='space-around'
             >
               <StyledGlobalButton

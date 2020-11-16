@@ -2,7 +2,7 @@
 import React, { Suspense, lazy} from 'react'
 import { HashRouter, Route, Switch } from 'react-router-dom'
 // HOC
-import withDrizzleInitializer from './hoc/withDrizzleInitializer'
+import withWeb3Initializer from './hoc/withWeb3Initializer'
 import {
   REGISTER_FALLBACK_ROUTE,
   PUBLISHER_DASHBOARD_ROUTE,
@@ -19,7 +19,7 @@ import Homepage  from './routes/homepage/containers/index'
 import NavbarWrapper from './shared/components/navbars/NavbarWrapper'
 import LoadingIcon from './shared/components/loadingIcons/LoadingIcon'
 import ProtectedRoute from './hoc/ProtectedRoute'
-import Tutorial from './shared/components/tutorial/screen'
+const Tutorial = lazy(() => import('./shared/components/tutorial/screen'))
 const TaskIframeContainer  = lazy(() => import('./routes/task/containers/TaskIframe/index'))
 const SignupFallback  = lazy(() => import('./routes/register/screen/SignupFallback'))
 const NotFound = lazy(() => import('./routes/404/NotFound'))
@@ -48,18 +48,18 @@ const App = () => {
             <ProtectedRoute
               exact
               path={USER_TASKS_LIST_ROUTE}
-              component={() => withDrizzleInitializer(TasksConsoleDashboardContainer)}
+              component={() => withWeb3Initializer(TasksConsoleDashboardContainer)}
             />
 
             <ProtectedRoute
               path={`${USER_TASK_ROUTE_WITH_PARAM}:id`}
-              component={() => withDrizzleInitializer(TaskIframeContainer)}
+              component={() => withWeb3Initializer(TaskIframeContainer)}
             />
 
             <ProtectedRoute
               exact
               path={PUBLISHER_WIZARD_ROUTE}
-              component={() => withDrizzleInitializer(PublisherWizardFormContainer)
+              component={() => withWeb3Initializer(PublisherWizardFormContainer)
               }
             />
 
@@ -67,20 +67,20 @@ const App = () => {
               exact
               path={`${PUBLISHER_WIZARD_EDIT_ROUTE_WITH_PARAM}:id`}
               component={() =>
-                withDrizzleInitializer(EditPublisherWizardFormCampaignContainer)
+                withWeb3Initializer(EditPublisherWizardFormCampaignContainer)
               }
             />
 
             <ProtectedRoute
               exact
               path={PUBLISHER_DASHBOARD_ROUTE}
-              component={() => withDrizzleInitializer(PublisherDashboardContainer)}
+              component={() => withWeb3Initializer(PublisherDashboardContainer)}
             />
 
             <ProtectedRoute
               exact
               path={USER_WITHDRAW_ROUTE}
-              component={() => withDrizzleInitializer(WithdrawBalance)}
+              component={() => withWeb3Initializer(WithdrawBalance)}
             />
 
             <Route path="*" component={NotFound} />

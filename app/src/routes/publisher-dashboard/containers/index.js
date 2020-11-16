@@ -15,20 +15,16 @@ const PublisherDashboardContainer = () => {
       <PublisherDashboardNextCampaign />
       <DataFetcher action={crowdclickClient.getUserTasks}>
         {data => {
-          return (
-            <>
-              {data.map((x, i) => (
-                <PublisherDashboardCampaignTaskItem
-                  key={`campaignTask${i}`}
-                  taskID={x.id}
-                  title={x.title}
-                  campaignDescription={x.description}
-                  og_image={x.og_image_link}
-                  dashboardData={''}
-                />
-              ))}
-            </>
-          )
+          return data.map((x, i) => (
+            <PublisherDashboardCampaignTaskItem
+              key={`campaignTask${i}`}
+              taskID={x.id}
+              title={x.title}
+              campaignDescription={x.description}
+              og_image={x.og_image_link}
+              dashboardData={''}
+            />
+          ))
         }}
       </DataFetcher>
     </StyledGeneralCardLayout>
