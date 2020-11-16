@@ -1,6 +1,7 @@
 // theirs
 import React from 'react'
 // styles
+import { StyledGeneralHeadingTwo } from '../../../shared/styles/StyledGeneralHeadings'
 import StyledGeneralRowWrapper from '../../../shared/styles/StyledGeneralRowWrapper'
 import StyledGeneralColumnWrapper from '../../../shared/styles/StyledGeneralColumnWrapper'
 import StyledGeneralParagraph from '../../../shared/styles/StyledGeneralParagraph'
@@ -10,7 +11,6 @@ import {
   maticSponsor,
   startfleetSponsor
 } from '../../../assets'
-import { StyledGeneralHeadingTwo } from '../../../shared/styles/StyledGeneralHeadings'
 
 const HomepagePartnerships = () => {
   return (
@@ -34,7 +34,7 @@ const HomepagePartnerships = () => {
               paragraphLineHeight='1.6'
             >
               Built on Matic’s sidechain <br /> to allow fast {'&'} affordable
-              transations
+              transactions
             </StyledGeneralParagraph>
           </div>
         </StyledGeneralColumnWrapper>

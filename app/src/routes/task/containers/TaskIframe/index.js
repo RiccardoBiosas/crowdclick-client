@@ -75,7 +75,7 @@ const TaskIframeContainer = () => {
     wasTaskSuccessful
   } = state
   const taskOwnerAddress = location.state
-    ? location.state.task_owner_address
+    ? location.state.taskOwnerAddress
     : null
 
   const fade = useSpring({

@@ -91,8 +91,9 @@ const TasksConsoleDashboardContainer = ({currentNetwork}) => {
             id={x.id}
             title={x.title}
             description={x.description}
-            og_image={x.og_image_link}
-            task_owner_address={x.user.username}
+            rewardPerClick={x.reward_per_click}
+            ogImage={x.og_image_link}
+            taskOwnerAddress={x.user.username}
           />
         ))}
       </div>
