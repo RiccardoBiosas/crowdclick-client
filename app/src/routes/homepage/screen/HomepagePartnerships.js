@@ -1,5 +1,7 @@
 // theirs
 import React from 'react'
+import '../styles/carousel.css'
+import { Carousel } from 'react-responsive-carousel'
 // styles
 import { StyledGeneralHeadingTwo } from '../../../shared/styles/StyledGeneralHeadings'
 import StyledGeneralRowWrapper from '../../../shared/styles/StyledGeneralRowWrapper'
@@ -14,17 +16,26 @@ import {
 
 const HomepagePartnerships = () => {
   return (
-    <StyledGeneralColumnWrapper rowHeight='100%'>
+    <StyledGeneralColumnWrapper columnHeight='100%' columnWidth='100%'>
       <StyledGeneralHeadingTwo headingColor='#636262'>
         Partners {'&'} Accomplishments
       </StyledGeneralHeadingTwo>
-      <StyledGeneralRowWrapper rowHeight='18rem'>
+      <Carousel autoPlay infiniteLoop width='100%' style={{ width: '100%' }}>
+        {/* <StyledGeneralRowWrapper rowHeight='18rem'> */}
         <StyledGeneralColumnWrapper
           columnHeight='90%'
           columnJustify='space-between'
+          style={{ backgroundColor: '#F3F6FE' }}
         >
           <div style={{ height: '60%' }}>
-            <img src={maticSponsor} alt='matic-icon' />
+            <a
+              target='_blank'
+              rel='noopener noreferrer'
+              href='https://matic.today/'
+              style={{ display: 'inline-block' }}
+            >
+              <img src={maticSponsor} alt='matic-icon' />
+            </a>
           </div>
           <div style={{ height: '40%' }}>
             <StyledGeneralParagraph
@@ -38,12 +49,20 @@ const HomepagePartnerships = () => {
             </StyledGeneralParagraph>
           </div>
         </StyledGeneralColumnWrapper>
+
         <StyledGeneralColumnWrapper
           columnHeight='90%'
           columnJustify='space-between'
         >
           <div style={{ height: '60%' }}>
-            <img src={hackToTheMoonSponsor} alt='hackToTheMoon-icon' />
+            <a
+              target='_blank'
+              rel='noopener noreferrer'
+              href='https://hacktothemoon.com/'
+              style={{ display: 'inline-block' }}
+            >
+              <img src={hackToTheMoonSponsor} alt='hackToTheMoon-icon' />
+            </a>
           </div>
           <div style={{ height: '40%' }}>
             <StyledGeneralParagraph
@@ -61,7 +80,14 @@ const HomepagePartnerships = () => {
           columnJustify='space-between'
         >
           <div style={{ height: '60%' }}>
-            <img src={startfleetSponsor} alt='starfleet-icon' />
+            <a
+              target='_blank'
+              rel='noopener noreferrer'
+              href='https://www.aeternitystarfleet.com/'
+              style={{ display: 'inline-block' }}
+            >
+              <img src={startfleetSponsor} alt='starfleet-icon' />
+            </a>
           </div>
           <div style={{ height: '40%' }}>
             <StyledGeneralParagraph
@@ -75,7 +101,8 @@ const HomepagePartnerships = () => {
             </StyledGeneralParagraph>
           </div>
         </StyledGeneralColumnWrapper>
-      </StyledGeneralRowWrapper>
+        {/* </StyledGeneralRowWrapper> */}
+      </Carousel>
     </StyledGeneralColumnWrapper>
   )
 }
