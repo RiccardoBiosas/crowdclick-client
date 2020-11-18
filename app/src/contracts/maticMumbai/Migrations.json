@@ -887,12 +887,12 @@
     "80001": {
       "events": {},
       "links": {},
-      "address": "0xB3fb2f3cf6Ea7b93324D53884d2AD9ce4FFFa4Cd",
-      "transactionHash": "0xa9983bfc7c7453b7888eae01cff1b8f7d307a799a7f930fe41007b22aca427b2"
+      "address": "0xd697040c7c38303DA2e2cCAA86582082aFf5CF40",
+      "transactionHash": "0xf1ef898cc04b2afb11e9d64a8ef4b5802e950828c6eb03c70733303ab7dda37b"
     }
   },
   "schemaVersion": "3.2.4",
-  "updatedAt": "2020-09-12T08:39:33.711Z",
+  "updatedAt": "2020-11-18T04:30:53.395Z",
   "networkType": "ethereum",
   "devdoc": {
     "methods": {}
