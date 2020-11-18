@@ -4,7 +4,8 @@ import { StyledGeneralHeadingTwo } from '../../../styles/StyledGeneralHeadings'
 // assets
 import {
   configureMaticMumbai,
-  getEtherFromMaticFaucet
+  getEtherFromMaticFaucet,
+  createTask
 } from '../../../../assets'
 import StyledGeneralParagraph from '../../../styles/StyledGeneralParagraph'
 
@@ -73,6 +74,6 @@ export const maticWithEthereumSteps = [
         Ready to go! You can create a task, spend & test.
       </StyledGeneralHeadingTwo>
     ),
-    video: getEtherFromMaticFaucet
+    video: createTask
   }
 ]

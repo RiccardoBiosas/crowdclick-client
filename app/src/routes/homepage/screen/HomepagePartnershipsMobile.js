@@ -23,7 +23,6 @@ const HomepagePartnershipsMobile = () => {
         <StyledGeneralColumnWrapper
           columnHeight='90%'
           columnJustify='space-between'
-          style={{ backgroundColor: '#F3F6FE' }}
         >
           <div style={{ height: '60%' }}>
             <a

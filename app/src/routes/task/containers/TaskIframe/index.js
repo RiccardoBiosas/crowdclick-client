@@ -203,7 +203,7 @@ const TaskIframeContainer = () => {
                 slide={wasTaskSuccessful}
                 taskQuestions={taskQuestions}
                 url={URL}
-                taskID={taskID}          
+                taskID={taskID}
                 taskOwnerAddress={taskOwnerAddress}
               />
             )}

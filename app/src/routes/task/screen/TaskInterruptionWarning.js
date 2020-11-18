@@ -48,7 +48,7 @@ const TaskInterruptionWarning = ({
 
           <StyledGlobalButton
             buttonWidth='148'
-            buttonHeight='8rem'
+            buttonHeight='48px'
             buttonMargin='30px 0 0 0'
             buttonColor={'green'}
             buttonTextColor={'#FFFFFF'}

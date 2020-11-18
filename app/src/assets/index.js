@@ -1,3 +1,4 @@
+// images
 export { default as arrowForward } from './navigationArrows/forward.svg'
 export { default as arrowBackward } from './navigationArrows/backward.svg'
 export { default as bigCrowdclickLogo } from './images/Logo.svg'
@@ -15,3 +16,4 @@ export { default as startfleetSponsor } from './homepage/partnershipsAndSponsors
 // videos
 export { default as getEtherFromMaticFaucet } from './tutorial/getEtherFromMaticMumbaiFaucet.mp4'
 export { default as configureMaticMumbai } from './tutorial/configureMaticMumbai.mp4'
+export { default as createTask } from './tutorial/createTask.mp4'
