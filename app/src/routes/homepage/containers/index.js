@@ -8,7 +8,7 @@ import HomepageContactForm from '../screen/HomepageContactForm'
 import { HomepageBecomeAPublisher } from '../screen/HomepageBecomeAPublisher'
 import { HomepageDoubleCard } from '../screen/HomepageDoubleCard'
 import { HomepageBecomeAUser } from '../screen/HomepageBecomeAUser'
-import HomepagePartnerships from '../screen/HomepagePartnerships'
+import HomepagePartnerships from './HomepagePartnerships'
 // styles
 import {
   StyledFlexWrapper,

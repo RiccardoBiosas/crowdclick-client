@@ -13,7 +13,7 @@ import {
   startfleetSponsor
 } from '../../../assets'
 
-const HomepagePartnerships = () => {
+const HomepagePartnershipsMobile = () => {
   return (
     <StyledGeneralColumnWrapper columnHeight='100%' columnWidth='80%'>
       <StyledGeneralHeadingTwo headingColor='#636262'>
@@ -104,4 +104,4 @@ const HomepagePartnerships = () => {
   )
 }
 
-export default HomepagePartnerships
+export default HomepagePartnershipsMobile
