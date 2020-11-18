@@ -49,13 +49,13 @@ const Tutorial = () => {
                 rowWidth='100%'
                 rowJustify='space-around'
               >
-                {step > 1 ? (
+                {step > 0 ? (
                   <StyledImageButton
                     styledHeight='1.6rem'
                     srcImage={arrowBackward}
                     altAttribute='move-forward'
                     onClick={() =>
-                      step > 1 ? setStep(step - 1) : setStep(step)
+                      step > 0 ? setStep(step - 1) : setStep(step)
                     }
                   />
                 ) : (

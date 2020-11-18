@@ -225,6 +225,7 @@
           opacity: 1;
           filter: alpha(opacity=100); }
     .carousel .carousel-status {
+      display: none;
       position: absolute;
       top: 0;
       right: 0;

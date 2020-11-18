@@ -54,7 +54,7 @@ const TasksConsoleItem = ({
           </div>
         </div>
       <div style={{display: 'flex', alignItems: 'flex-end'}}>
-            <StyledGeneralParagraph paragraphColor='#00E15D' paragraphFontWeight='900'>{`${(parseInt(rewardPerClick, 10)).toFixed(2).toString()} USD`}</StyledGeneralParagraph>
+            <StyledGeneralParagraph paragraphColor='#00E15D' paragraphFontWeight='900'>{`${(parseFloat(rewardPerClick, 10)).toFixed(2).toString()} USD`}</StyledGeneralParagraph>
       </div>
       </StyledUserTaskSummaryLayout>
     </div>

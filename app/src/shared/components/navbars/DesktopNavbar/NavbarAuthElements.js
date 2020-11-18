@@ -2,8 +2,6 @@
 import React, { useEffect, useState } from 'react'
 import { useSelector } from 'react-redux'
 import { useHistory } from 'react-router'
-// components
-import MaticWidgetAll from '../../MaticWidget/all'
 // styles
 import StyledGeneralButton from '../../../styles/StyledGeneralButton'
 import { StyledFirstDivGroup } from './styles/DesktopNavbarStyles'
@@ -37,18 +35,14 @@ export const NavbarAuthElements = () => {
         <p>{balance ? parseFloat(balance).toFixed(3) : '0.00'} ETH</p>
       </div>
       <div>
-        {web3Data.currentNetwork === 80001 ? (
-          <MaticWidgetAll />
-        ) : (
-          <StyledGeneralButton
-            buttonWidth='135'
-            buttonColor='blue'
-            buttonTextColor='#FFFFFF'
-            onClick={() => history.push(USER_WITHDRAW_ROUTE)}
-          >
-            withdraw
-          </StyledGeneralButton>
-        )}
+        <StyledGeneralButton
+          buttonWidth='135'
+          buttonColor='blue'
+          buttonTextColor='#FFFFFF'
+          onClick={() => history.push(USER_WITHDRAW_ROUTE)}
+        >
+          withdraw
+        </StyledGeneralButton>
       </div>
     </StyledFirstDivGroup>
   )

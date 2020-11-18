@@ -31,11 +31,12 @@ export const maticWithEthereumSteps = [
             https://rpc-mumbai.matic.today
           </span>
           <br />
-          Read more about the process on the{' '}
+          Read more on the{' '}
           <a
             target='_blank'
             rel='noopener noreferrer'
             href='https://docs.matic.network/docs/develop/metamask/testnet/'
+            style={{ textDecoration: 'none', fontWeight: '900' }}
           >
             official matic tutorial
           </a>

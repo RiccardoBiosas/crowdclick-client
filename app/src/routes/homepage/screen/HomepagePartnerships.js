@@ -4,7 +4,6 @@ import '../styles/carousel.css'
 import { Carousel } from 'react-responsive-carousel'
 // styles
 import { StyledGeneralHeadingTwo } from '../../../shared/styles/StyledGeneralHeadings'
-import StyledGeneralRowWrapper from '../../../shared/styles/StyledGeneralRowWrapper'
 import StyledGeneralColumnWrapper from '../../../shared/styles/StyledGeneralColumnWrapper'
 import StyledGeneralParagraph from '../../../shared/styles/StyledGeneralParagraph'
 // assets
@@ -16,12 +15,11 @@ import {
 
 const HomepagePartnerships = () => {
   return (
-    <StyledGeneralColumnWrapper columnHeight='100%' columnWidth='100%'>
+    <StyledGeneralColumnWrapper columnHeight='100%' columnWidth='80%'>
       <StyledGeneralHeadingTwo headingColor='#636262'>
         Partners {'&'} Accomplishments
       </StyledGeneralHeadingTwo>
-      <Carousel autoPlay infiniteLoop width='100%' style={{ width: '100%' }}>
-        {/* <StyledGeneralRowWrapper rowHeight='18rem'> */}
+      <Carousel autoPlay infiniteLoop>
         <StyledGeneralColumnWrapper
           columnHeight='90%'
           columnJustify='space-between'
@@ -101,7 +99,6 @@ const HomepagePartnerships = () => {
             </StyledGeneralParagraph>
           </div>
         </StyledGeneralColumnWrapper>
-        {/* </StyledGeneralRowWrapper> */}
       </Carousel>
     </StyledGeneralColumnWrapper>
   )
