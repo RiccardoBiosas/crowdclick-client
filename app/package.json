@@ -29,7 +29,6 @@
     "react": "^16.10.2",
     "react-dom": "^16.10.2",
     "react-helmet": "^6.1.0",
-    "react-icons": "^3.10.0",
     "react-redux": "^7.1.1",
     "react-responsive-carousel": "^3.2.10",
     "react-router-dom": "^5.1.2",
@@ -54,11 +53,7 @@
     "extends": "react-app"
   },
   "browserslist": {
-    "production": [
-      ">0.2%",
-      "not dead",
-      "not op_mini all"
-    ],
+    "production": [">0.2%", "not dead", "not op_mini all"],
     "development": [
       "last 1 chrome version",
       "last 1 firefox version",
@@ -74,9 +69,7 @@
     "react-test-renderer": "^16.13.1"
   },
   "jest": {
-    "transformIgnorePatterns": [
-      "/node_modules/(?!@babel).+\\.js$"
-    ],
+    "transformIgnorePatterns": ["/node_modules/(?!@babel).+\\.js$"],
     "transform": {
       "^.+\\.js?$": "babel-jest"
     }

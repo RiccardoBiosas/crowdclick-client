@@ -12,9 +12,13 @@ import crowdclickClient from '../../../utils/api/crowdclick'
 import { somethingWentWrongIcon } from '../../../assets'
 
 const PublisherDashboardCollection = ({ taskID }) => {
+  const axiosCallbackWrapper = async() => {
+    return await crowdclickClient.getDashboardTask(taskID)
+  }
   return (
-    <DataFetcher action={crowdclickClient.getDashboardData}>
+    <DataFetcher action={axiosCallbackWrapper}>
       {data => {
+        console.log('data: ', data)
         const answersDashboardData = data.find(x => x.id === taskID)
         const answersCount =
           (answersDashboardData && answersDashboardData.answers_result_count) ||

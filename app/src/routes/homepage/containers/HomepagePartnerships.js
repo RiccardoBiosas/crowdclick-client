@@ -1,5 +1,4 @@
 // theirs
-// theirs
 import React from 'react'
 // components
 import HomepagePartnershipsDesktop from '../screen/HomepagePartnershipDesktop'

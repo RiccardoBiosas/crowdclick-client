@@ -1,23 +1,26 @@
 // theirs
-import React, { forwardRef } from 'react'
+import React from 'react'
 // styles
 import { StyledFooterLayout } from '../styles/HomepageFooterStyles'
 // assets
 import { FaMedium, FaGithub, FaTelegram } from 'react-icons/fa'
 import Logo from '../../../assets/images/Logo.svg'
-// import GithubIssue from "../../../assets/images/github-issue.png";
 
-export const HomepageFooter = forwardRef((props, ref) => {
+export const HomepageFooter = () => {
   return (
-    <StyledFooterLayout ref={ref}>
+    <StyledFooterLayout>
       <div className='logo-container'>
         <img src={Logo} alt='crowdclick-logo' />
       </div>
 
       <div className='logos-container'>
-        <span>
+        <a
+          href='https://t.me/crowdclick'
+          target='_blank'
+          rel='noopener noreferrer'
+        >
           <FaTelegram className='footerIcon' />
-        </span>
+        </a>
         <a
           href='https://medium.com/crowdclick'
           target='_blank'
@@ -36,4 +39,4 @@ export const HomepageFooter = forwardRef((props, ref) => {
       </div>
     </StyledFooterLayout>
   )
-})
+}

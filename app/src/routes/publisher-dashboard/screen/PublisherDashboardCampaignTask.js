@@ -8,10 +8,14 @@ import {
   StyledPublisherCampaignGeneralTaskLayout
 } from '../../publisher-dashboard__new-task/styles/CampaignStyles'
 import StyledGeneralButton from '../../../shared/styles/StyledGeneralButton'
-// utils
 // constants
-import { PUBLISHER_WIZARD_EDIT_ROUTE_WITH_PARAM } from '../../../config/routes-config'
+import {
+  PUBLISHER_WITHDRAW_ROUTE,
+  PUBLISHER_WIZARD_EDIT_ROUTE_WITH_PARAM
+} from '../../../config/routes-config'
 import PublisherDashboardCollection from './PublisherDashboardCollection'
+// assets
+import { IoCloseCircleOutline } from 'react-icons/io5'
 
 export const PublisherDashboardCampaignTaskItem = ({
   taskID,
@@ -66,10 +70,17 @@ export const PublisherDashboardCampaignTaskItem = ({
               buttonWidth={200}
               onClick={() => setCampaignState(!campaignState)}
             >
-              {!campaignState && 'Show results'}{' '}
+              {!campaignState && 'Show results'}
               {campaignState && 'Hide results'}
             </StyledGeneralButton>
           </div>
+        </div>
+        <div>
+          <IoCloseCircleOutline
+            role='button'
+            style={{ width: '30px', height: '40px', cursor: 'pointer' }}
+            onClick={() => history.push(PUBLISHER_WITHDRAW_ROUTE)}
+          />
         </div>
       </StyledPublisherCampaignTaskSummaryLayout>
 

@@ -24,6 +24,9 @@ export const crowdclickClient = {
   getDashboardData: async () => {
     return await client.get(`${host_env}/api/task/dashboard/`)
   },
+  getDashboardTask: async (id) => {
+    return await client.get(`${host_env}/api/task/dashboard/${id}/`)
+  },
   getTask: async id => {
     return await client.get(`${host_env}/api/task/${id}/`)
   },

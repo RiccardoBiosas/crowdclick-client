@@ -43,7 +43,7 @@ class EthereumHandler {
   async _initMetamask () {
     if (typeof window.ethereum !== 'undefined') {
       try {
-        const accounts = await window.ethereum.request({
+        await window.ethereum.request({
           method: 'eth_requestAccounts'
         })
         this.web3 = new Web3(window.ethereum)

@@ -9,7 +9,7 @@ import { SCOPED_LOCAL_STORAGE_CHAIN_ID, SCOPED_LOCAL_STORAGE_USER_PUBLIC_KEY } f
 import ethereumHandler from '../utils/blockchain/ethereumHandler'
 
 
-const withWeb3Initializer = ComposedComponent => {
+const WithWeb3Initializer = ComposedComponent => {
   const web3Data = useSelector(
     ({ ethereumContractReducer }) => ethereumContractReducer
   )
@@ -71,10 +71,10 @@ const withWeb3Initializer = ComposedComponent => {
         account={account}
         currentWallet={currentWallet}
         currentNetwork={currentNetwork}
-        currentWallet={currentWallet}
+        provider={provider}
       />
     </>
   )
 }
 
-export default withWeb3Initializer
+export default WithWeb3Initializer

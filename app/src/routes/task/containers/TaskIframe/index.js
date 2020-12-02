@@ -59,7 +59,7 @@ const reducer = (state, action) => {
 }
 
 const TaskIframeContainer = () => {
-  const time = 20
+  const time = 4
   const maximumInterruptions = 3
   const location = useLocation()
   const { id } = useParams()

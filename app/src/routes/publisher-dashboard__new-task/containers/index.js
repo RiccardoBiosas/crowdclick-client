@@ -63,7 +63,8 @@ const PublisherWizardFormCampaignContainer = ({
   address,
   account,
   currentNetwork,
-  currentWallet
+  currentWallet,
+  provider
 }) => {
   const [step, setStep] = useState(1);
   const [redirect, setRedirect] = useState(false);
@@ -79,13 +80,9 @@ const PublisherWizardFormCampaignContainer = ({
 
   const getReceipt = async () => {
     setIsBroadcasted(true);
-    // const provider = ethers.getDefaultProvider('goerli');
-    const provider = new ethers.providers.Web3Provider(web3.currentProvider);
     const resp = await provider.waitForTransaction(txHash);
     setReceipt(resp);
   };
-
-
 
   const postCampaign = useCallback(async() => {
     try {

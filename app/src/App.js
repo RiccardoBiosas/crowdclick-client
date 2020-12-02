@@ -13,12 +13,14 @@ import {
   USER_WITHDRAW_ROUTE,
   NO_METAMASK_ROUTE,
   TUTORIAL_ROUTE,
+  PUBLISHER_WITHDRAW_ROUTE,
 } from './config/routes-config'
 // components
 import Homepage  from './routes/homepage/containers/index'
 import NavbarWrapper from './shared/components/navbars/NavbarWrapper'
 import LoadingIcon from './shared/components/loadingIcons/LoadingIcon'
 import ProtectedRoute from './hoc/ProtectedRoute'
+import PublisherWithdraw from './routes/publisher-withdraw'
 const Tutorial = lazy(() => import('./shared/components/tutorial/screen'))
 const TaskIframeContainer  = lazy(() => import('./routes/task/containers/TaskIframe/index'))
 const SignupFallback  = lazy(() => import('./routes/register/screen/SignupFallback'))
@@ -81,6 +83,12 @@ const App = () => {
               exact
               path={USER_WITHDRAW_ROUTE}
               component={() => withWeb3Initializer(WithdrawBalance)}
+            />
+
+            <ProtectedRoute
+              exact
+              path={PUBLISHER_WITHDRAW_ROUTE}
+              component={() => withWeb3Initializer(PublisherWithdraw)}
             />
 
             <Route path="*" component={NotFound} />
