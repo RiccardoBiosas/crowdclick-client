@@ -2,8 +2,9 @@
 import React from 'react'
 import { useHistory } from 'react-router-dom'
 // styles
-import { StyledPublisherCampaignTaskSummaryLayout as StyledUserTaskSummaryLayout } from '../../publisher-dashboard__new-task/styles/CampaignStyles'
+import { StyledUserTaskSummaryLayout } from '../styles'
 import StyledGeneralButton from '../../../shared/styles/StyledGeneralButton'
+import StyledGeneralParagraph from '../../../shared/styles/StyledGeneralParagraph'
 // constants
 import { USER_TASK_ROUTE_WITH_PARAM } from '../../../config/routes-config'
 
@@ -11,14 +12,14 @@ const TasksConsoleItem = ({
   id,
   title,
   description,
-  og_image,
-  task_owner_address
+  rewardPerClick,
+  ogImage,
+  taskOwnerAddress
 }) => {
   const history = useHistory()
-
   const isPlaceholderNeeded =
-    RegExp('foo', 'g').test(og_image) ||
-    RegExp('placeholder', 'g').test(og_image)
+    RegExp('foo', 'g').test(ogImage) ||
+    RegExp('placeholder', 'g').test(ogImage)
 
   return (
     <div
@@ -29,7 +30,7 @@ const TasksConsoleItem = ({
       }}
     >
       <StyledUserTaskSummaryLayout
-        og_background={!isPlaceholderNeeded ? og_image : ''}
+        og_background={!isPlaceholderNeeded ? ogImage : ''}
       >
         <div className='campaignAvatar' />
         <div style={{ marginLeft: '34px' }}>
@@ -44,7 +45,7 @@ const TasksConsoleItem = ({
               onClick={() =>
                 history.push({
                   pathname: `${USER_TASK_ROUTE_WITH_PARAM}${id}`,
-                  state: { task_owner_address }
+                  state: { taskOwnerAddress }
                 })
               }
             >
@@ -52,6 +53,9 @@ const TasksConsoleItem = ({
             </StyledGeneralButton>
           </div>
         </div>
+      <div style={{display: 'flex', alignItems: 'flex-end'}}>
+            <StyledGeneralParagraph paragraphColor='#00E15D' paragraphFontWeight='900'>{`${(parseFloat(rewardPerClick, 10)).toFixed(2).toString()} USD`}</StyledGeneralParagraph>
+      </div>
       </StyledUserTaskSummaryLayout>
     </div>
   )

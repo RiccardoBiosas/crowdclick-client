@@ -8,7 +8,6 @@ const client = new AxiosClient({
   },
   withCredentials: true
 })
-console.log('client is ', client)
 
 export const crowdclickClient = {
   login: {
@@ -25,11 +24,14 @@ export const crowdclickClient = {
   getDashboardData: async () => {
     return await client.get(`${host_env}/api/task/dashboard/`)
   },
+  getDashboardTask: async (id) => {
+    return await client.get(`${host_env}/api/task/dashboard/${id}/`)
+  },
   getTask: async id => {
     return await client.get(`${host_env}/api/task/${id}/`)
   },
-  getTasks: async page => {
-    return await client.get(`${host_env}/api/task/?page=${page}`)
+  getTasks: async (page, networkName='goerli') => {
+    return await client.get(`${host_env}/api/task/?page=${page}`, { params: { chain: networkName } })
   },
   getUserTasks: async () => {
     return await client.get(`${host_env}/api/user/tasks/`)
@@ -37,8 +39,8 @@ export const crowdclickClient = {
   postTask: async bodyPayload => {
     return await client.post(`${host_env}/api/task/`, bodyPayload)
   },
-  patchTask: async bodyPayload => {
-    return await client.patch(`${host_env}/api/task/`, bodyPayload)
+  patchTask: async (id, bodyPayload) => {
+    return await client.patch(`${host_env}/api/task/${id}/`, bodyPayload)
   },
   postAnswer: async (id, bodyPayload) => {
     return await client.post(`${host_env}/api/task/${id}/answer/`, bodyPayload)
@@ -48,8 +50,8 @@ export const crowdclickClient = {
       withCredentials: false
     })
   },
-  getReward: async id => {
-    return await client.post(`${host_env}/api/task/${id}/reward/`)
+  getReward: async (id, networkName='goerli') => {
+    return await client.post(`${host_env}/api/task/${id}/reward/`, {chain: networkName})
   }
 }
 

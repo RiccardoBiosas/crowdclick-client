@@ -1,46 +1,21 @@
-import React from "react";
-import { toast, ToastContainer, Slide } from "react-toastify";
-import Copy from "../../assets/images/copy.svg";
+import React from 'react'
+import { toast, ToastContainer, Slide } from 'react-toastify'
+import Copy from '../../assets/images/copy.svg'
 
 const CopyToClipboard = ({
   condition,
   contentToCopy,
   successTxt,
-  failureTxt,
+  failureTxt
 }) => {
-    const copyToClipboard = () => {
-    
-        if (condition) {
-          const temporaryInput = document.createElement('input');
-          document.body.appendChild(temporaryInput);
-          temporaryInput.setAttribute('value', contentToCopy);
-          temporaryInput.select();
-          document.execCommand('copy');
-          document.body.removeChild(temporaryInput);
-          toast.success(successTxt, {
-            position: 'top-center',
-            transition: Slide,
-            autoClose: 1500,
-            hideProgressBar: false,
-            closeOnClick: true,
-            pauseOnHover: true,
-            draggable: true,
-            progress: undefined,
-          });
-        } else {
-          toast.warn(failureTxt, {
-            position: 'top-center',
-            transition: Slide,
-            autoClose: 1500,
-            hideProgressBar: false,
-            closeOnClick: true,
-            pauseOnHover: true,
-            draggable: true,
-            progress: undefined,
-          });
-        }
-      };
-
+  const copyToClipboard = () => {
+    const temporaryInput = document.createElement('input')
+    document.body.appendChild(temporaryInput)
+    temporaryInput.setAttribute('value', contentToCopy)
+    temporaryInput.select()
+    document.execCommand('copy')
+    document.body.removeChild(temporaryInput)
+  }
 
   return (
     <>
@@ -48,11 +23,11 @@ const CopyToClipboard = ({
         <img
           onClick={copyToClipboard}
           src={Copy}
-          alt="copy to clipboard button"
+          alt='copy to clipboard button'
         />
       </span>
       <ToastContainer
-        position="top-center"
+        position='top-center'
         transition={Slide}
         autoClose={1500}
         hideProgressBar={false}
@@ -64,7 +39,7 @@ const CopyToClipboard = ({
         pauseOnHover
       />
     </>
-  );
-};
+  )
+}
 
-export default CopyToClipboard;
+export default CopyToClipboard

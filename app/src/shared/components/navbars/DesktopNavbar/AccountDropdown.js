@@ -1,21 +1,27 @@
+// theirs
 import React, { useState, useRef } from "react";
 import { useHistory, NavLink } from "react-router-dom";
 import { useDispatch } from "react-redux";
+// styles
 import {
   StyledArrowLayout,
   StyledDropdownLayout,
   StyledDropdownButton,
 } from "../../../styles/StyledDropdownLayout";
-import { MdKeyboardArrowDown } from "react-icons/md";
+// utils
+import crowdclickClient from "../../../../utils/api/crowdclick";
 import { useHandleEventOutsideRef } from "../../../../hooks/useHandleEventOutsideRef";
-import { navAuthFalseAction } from "../../../../redux/NavAuth/navAuthActions";
+// constants
 import {
   USER_TASKS_LIST_ROUTE,
   PUBLISHER_DASHBOARD_ROUTE,
   HOME_ROUTE,
   TUTORIAL_ROUTE,
 } from "../../../../config/routes-config";
-import crowdclickClient from "../../../../utils/api/crowdclick";
+import { SCOPED_LOCAL_STORAGE_USER_PUBLIC_KEY } from "../../../../utils/blockchain/constants";
+// assets
+import { MdKeyboardArrowDown } from "react-icons/md";
+import { navAuthFalseAction } from "../../../../redux/NavAuth/navAuthActions";
 
 export const AccountDropdown = () => {
   const [dropdownStatus, setDropdownStatus] = useState(false);
@@ -30,7 +36,7 @@ export const AccountDropdown = () => {
 
   const handleClick = async() => {
     await crowdclickClient.logout()
-    window.localStorage.removeItem("userPubKey");
+    window.localStorage.removeItem(SCOPED_LOCAL_STORAGE_USER_PUBLIC_KEY);
     dispatch(navAuthFalseAction);
     history.push(HOME_ROUTE);
   };

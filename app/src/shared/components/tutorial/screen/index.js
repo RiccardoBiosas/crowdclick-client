@@ -12,7 +12,6 @@ import StyledGeneralRowWrapper from '../../../styles/StyledGeneralRowWrapper'
 import StyledGeneralColumnWrapper from '../../../styles/StyledGeneralColumnWrapper'
 import StyledGeneralParagraph from '../../../styles/StyledGeneralParagraph'
 import StyledGlobalButton from '../../../styles/StyledGeneralButton'
-
 // assets
 import { arrowForward, kittenSuccess } from '../../../../assets'
 import { arrowBackward } from '../../../../assets'
@@ -37,6 +36,7 @@ const Tutorial = () => {
             headingColor='#767676'
             headingTextAlign='left'
             headingMargin='1rem 0 0 1.6rem'
+            headingFontSize='1.6rem'
           >
             Tutorial
           </StyledGeneralHeadingOne>
@@ -49,13 +49,13 @@ const Tutorial = () => {
                 rowWidth='100%'
                 rowJustify='space-around'
               >
-                {step > 1 ? (
+                {step > 0 ? (
                   <StyledImageButton
                     styledHeight='1.6rem'
                     srcImage={arrowBackward}
                     altAttribute='move-forward'
                     onClick={() =>
-                      step > 1 ? setStep(step - 1) : setStep(step)
+                      step > 0 ? setStep(step - 1) : setStep(step)
                     }
                   />
                 ) : (
@@ -64,7 +64,7 @@ const Tutorial = () => {
 
                 <video
                   width='600px'
-                  height='400px'
+                  height='380px'
                   src={maticWithEthereumSteps[step].video}
                   autoPlay
                   loop

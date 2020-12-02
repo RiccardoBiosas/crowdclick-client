@@ -1,7 +1,8 @@
+import { SCOPED_LOCAL_STORAGE_USER_PUBLIC_KEY } from "../../utils/blockchain/constants";
 import { NAV_AUTH_TRUE, NAV_AUTH_FALSE } from "./navAuthActions";
 
 const initialState = {
-    isNavAuth: window.localStorage.getItem("userPubKey") ? true : false
+    isNavAuth: window.localStorage.getItem(SCOPED_LOCAL_STORAGE_USER_PUBLIC_KEY) ? true : false
 }
 
 export const navAuthReducer = (state, action) => {

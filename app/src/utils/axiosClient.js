@@ -8,7 +8,7 @@ class AxiosClient {
     }, 
     (error) => {
       if(error.response.status === 401) {
-        console.log('NOT AUTHORIZED FROM AXIOS INTERCEPTOR!')
+        console.log('axios interceptor: forbidden')
       }
     })
     // this.client.interceptors.request(() => {})

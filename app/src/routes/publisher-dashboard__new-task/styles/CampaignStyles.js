@@ -9,7 +9,7 @@ export const StyledPublisherCampaignTaskSummaryLayout = styled.div`
   border-radius: ${(props) =>
     props.campaignToggle ? "21px 21px 0px 0px" : "21px"};
   display: grid;
-  grid-template-columns: 300px 1fr;
+  grid-template-columns: 300px 2fr 0.2fr;
   .campaignAvatar {
     background-image: url(${(props) =>
       props.og_background

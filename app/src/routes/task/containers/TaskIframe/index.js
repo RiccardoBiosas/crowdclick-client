@@ -58,8 +58,8 @@ const reducer = (state, action) => {
   }
 }
 
-const TaskIframeContainer = ({ drizzle, drizzleState }) => {
-  const time = 3
+const TaskIframeContainer = () => {
+  const time = 4
   const maximumInterruptions = 3
   const location = useLocation()
   const { id } = useParams()
@@ -75,7 +75,7 @@ const TaskIframeContainer = ({ drizzle, drizzleState }) => {
     wasTaskSuccessful
   } = state
   const taskOwnerAddress = location.state
-    ? location.state.task_owner_address
+    ? location.state.taskOwnerAddress
     : null
 
   const fade = useSpring({
@@ -139,7 +139,7 @@ const TaskIframeContainer = ({ drizzle, drizzleState }) => {
     dispatch,
     reduxDispatch
   ])
-  console.log('CURRENT TASK INTERRUPTIONS IS ', taskInterruptions)
+
   const resumeTask = () => {
     dispatch({ type: IS_TASK_STOPPED_FALSE_ACTION })
   }
@@ -204,8 +204,6 @@ const TaskIframeContainer = ({ drizzle, drizzleState }) => {
                 taskQuestions={taskQuestions}
                 url={URL}
                 taskID={taskID}
-                drizzle={drizzle}
-                drizzleState={drizzleState}
                 taskOwnerAddress={taskOwnerAddress}
               />
             )}

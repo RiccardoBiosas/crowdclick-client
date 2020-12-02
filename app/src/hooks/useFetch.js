@@ -1,6 +1,6 @@
 import { useState, useEffect } from 'react'
 
-export const useFetch = (axiosCallback, initialData) => {
+export const useFetch = (axiosCallback, fetcherDeps, initialData) => {
   const [data, setData] = useState(initialData)
   const [loading, setLoading] = useState(true)
   const [error, setError] = useState(false)
@@ -18,7 +18,7 @@ export const useFetch = (axiosCallback, initialData) => {
   }
   useEffect(() => {
     fetchUrl()
-  }, [])
+  }, [fetcherDeps])
 
   return { data, loading, error }
 }

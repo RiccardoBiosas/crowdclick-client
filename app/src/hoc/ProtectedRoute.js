@@ -5,12 +5,13 @@ import { Route, Redirect } from 'react-router-dom'
 import DataFetcher from '../shared/components/DataFetcher'
 // utils
 import crowdclickClient from '../utils/api/crowdclick'
+// constants
+import { REGISTER_FALLBACK_ROUTE } from '../config/routes-config'
 
 const ProtectedRoute = ({ ComposedComponent, ...rest }) => {
   return (
     <DataFetcher action={crowdclickClient.login.get}>
       {data => {
-        console.log('INSIDE DATA FETCH DATA IS ', data)
         const isAuthenticated = data.is_authenticated
         if (isAuthenticated) {
           return (
@@ -22,7 +23,7 @@ const ProtectedRoute = ({ ComposedComponent, ...rest }) => {
             />
           )
         } else {
-          return <Redirect to='/' /> //pass param to communicate whether user is auth or not
+          return <Redirect to={REGISTER_FALLBACK_ROUTE} />
         }
       }}
     </DataFetcher>

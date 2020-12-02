@@ -4,10 +4,9 @@ const StyledGlobalButton = styled.button.attrs({
   type: 'button'
 })`
     ${({ buttonWidth }) =>  buttonWidth && `width: ${buttonWidth}px`};
-    ${({ buttonHeight }) =>  buttonHeight && `height: ${buttonHeight}`};
     ${({ buttonTextColor }) => buttonTextColor && `color: ${buttonTextColor}`};
     ${({buttonMargin}) => buttonMargin && `margin: ${buttonMargin}`};
-    height: 48px;
+    height: ${({ buttonHeight }) =>  buttonHeight ? `${buttonHeight}` : '48px'};
     border-radius: 8px;
     border-style: none;
     text-align: center;

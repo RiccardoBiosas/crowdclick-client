@@ -8,7 +8,6 @@ export const StyledNavbarFlexWrapper = styled.header`
   margin-top: 5vh;
 `
 
-
 export const StyledDesktopNavbarLayout = styled.div`
   width: 60%;
   display: flex;
@@ -17,17 +16,16 @@ export const StyledDesktopNavbarLayout = styled.div`
   .logo-container {
     flex: 1;
   }
- 
+
   @media screen and (max-width: 1480px) {
     width: 80%;
   }
 `
 
-
 export const StyledFirstDivGroup = styled.div`
   flex: 4;
   display: flex;
-  justify-content: center;  
+  justify-content: center;
   > div:nth-child(1) {
     margin-right: 20px;
   }
@@ -43,7 +41,7 @@ export const StyledAuthSecondDivGroup = styled.div`
   justify-content: space-between;
   > div:nth-child(1) {
     display: flex;
-    justify-content: flex-end
+    justify-content: flex-end;
   }
   > div:nth-child(2) {
     display: flex;
@@ -51,7 +49,6 @@ export const StyledAuthSecondDivGroup = styled.div`
   }
   > div:nth-child(3) {
   }
-
 `
 
 export const StyledBackgroundThemeButton = styled.button`
@@ -105,4 +102,26 @@ export const StyledBackgroundThemeButton = styled.button`
         props.bgtheme === 'dark' ? 'translateX(0)' : 'translateX(-50px)'};
     }
 }
+`
+
+export const StyledTelegramLink = styled.a`
+  display: flex;
+  align-items: center;
+  justify-content: space-around;
+  text-decoration: none;
+  ${({ styledWidth }) => styledWidth && `width: ${styledWidth}px`};
+  ${({ styledTextColor }) => styledTextColor && `color: ${styledTextColor}`};
+  ${({ styledMargin }) => styledMargin && `margin: ${styledMargin}`};
+  height: ${({ styledHeight }) => (styledHeight ? `${styledHeight}` : '48px')};
+  border-radius: 8px;
+  border-style: none;
+  text-align: center;
+  font-weight: 900;
+  font-size: 16px;
+  letter-spacing: 0;
+  transition: color 0.15s ease-in-out, background-color 0.15s ease-in-out,
+    border-color 0.15s ease-in-out, box-shadow 0.15s ease-in-out;
+  box-shadow: 0px 3px 6px #00000029;
+  cursor: pointer;
+  background: #206dff 0% 0% no-repeat padding-box;
 `

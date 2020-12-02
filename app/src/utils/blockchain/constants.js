@@ -1,0 +1,2 @@
+export const SCOPED_LOCAL_STORAGE_CHAIN_ID = 'crowdclick::CROWDCLICK_CHAINID'
+export const SCOPED_LOCAL_STORAGE_USER_PUBLIC_KEY = 'userPubKey'

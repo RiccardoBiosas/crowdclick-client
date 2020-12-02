@@ -1,12 +1,8 @@
 // theirs
-import React, { Suspense, lazy } from 'react'
+import React, { Suspense, lazy} from 'react'
 import { HashRouter, Route, Switch } from 'react-router-dom'
-import { Drizzle } from '@drizzle/store'
-import { DrizzleContext } from '@drizzle/react-plugin'
 // HOC
-import withDrizzleInitializer from './hoc/withDrizzleInitializer'
-// constants
-import options from './drizzleOptions'
+import withWeb3Initializer from './hoc/withWeb3Initializer'
 import {
   REGISTER_FALLBACK_ROUTE,
   PUBLISHER_DASHBOARD_ROUTE,
@@ -17,14 +13,15 @@ import {
   USER_WITHDRAW_ROUTE,
   NO_METAMASK_ROUTE,
   TUTORIAL_ROUTE,
+  PUBLISHER_WITHDRAW_ROUTE,
 } from './config/routes-config'
 // components
 import Homepage  from './routes/homepage/containers/index'
 import NavbarWrapper from './shared/components/navbars/NavbarWrapper'
-import EthereumListener from './shared/components/ethereumListener/EthereumListener'
 import LoadingIcon from './shared/components/loadingIcons/LoadingIcon'
 import ProtectedRoute from './hoc/ProtectedRoute'
-import Tutorial from './shared/components/tutorial/screen'
+import PublisherWithdraw from './routes/publisher-withdraw'
+const Tutorial = lazy(() => import('./shared/components/tutorial/screen'))
 const TaskIframeContainer  = lazy(() => import('./routes/task/containers/TaskIframe/index'))
 const SignupFallback  = lazy(() => import('./routes/register/screen/SignupFallback'))
 const NotFound = lazy(() => import('./routes/404/NotFound'))
@@ -36,15 +33,10 @@ const PublisherWizardFormContainer = lazy(() => import('./routes/publisher-dashb
 const EditPublisherWizardFormCampaignContainer = lazy(() => import('./routes/publisher-dashboard__edit-task/EditPublisherWizardFormCampaignContainer'))
 
 
-export const drizzle = new Drizzle(options)
-
 const App = () => {
-
   return (
     <HashRouter>
-      <DrizzleContext.Provider drizzle={drizzle}>
         <Route path="/" component={NavbarWrapper} />
-        {/* <Route path="/" component={EthereumListener} /> */}
 
         <Suspense fallback={<LoadingIcon />}>
           <Switch>
@@ -55,22 +47,21 @@ const App = () => {
               component={InstallMetamaskWarning}
             />
             <Route exact path={TUTORIAL_ROUTE} component={Tutorial} />
-
             <ProtectedRoute
               exact
               path={USER_TASKS_LIST_ROUTE}
-              component={TasksConsoleDashboardContainer}
+              component={() => withWeb3Initializer(TasksConsoleDashboardContainer)}
             />
 
             <ProtectedRoute
               path={`${USER_TASK_ROUTE_WITH_PARAM}:id`}
-              component={() => withDrizzleInitializer(TaskIframeContainer)}
+              component={() => withWeb3Initializer(TaskIframeContainer)}
             />
 
             <ProtectedRoute
               exact
               path={PUBLISHER_WIZARD_ROUTE}
-              component={() => withDrizzleInitializer(PublisherWizardFormContainer)
+              component={() => withWeb3Initializer(PublisherWizardFormContainer)
               }
             />
 
@@ -78,26 +69,31 @@ const App = () => {
               exact
               path={`${PUBLISHER_WIZARD_EDIT_ROUTE_WITH_PARAM}:id`}
               component={() =>
-                withDrizzleInitializer(EditPublisherWizardFormCampaignContainer)
+                withWeb3Initializer(EditPublisherWizardFormCampaignContainer)
               }
             />
 
             <ProtectedRoute
               exact
               path={PUBLISHER_DASHBOARD_ROUTE}
-              component={() => withDrizzleInitializer(PublisherDashboardContainer)}
+              component={() => withWeb3Initializer(PublisherDashboardContainer)}
             />
 
             <ProtectedRoute
               exact
               path={USER_WITHDRAW_ROUTE}
-              component={() => withDrizzleInitializer(WithdrawBalance)}
+              component={() => withWeb3Initializer(WithdrawBalance)}
+            />
+
+            <ProtectedRoute
+              exact
+              path={PUBLISHER_WITHDRAW_ROUTE}
+              component={() => withWeb3Initializer(PublisherWithdraw)}
             />
 
             <Route path="*" component={NotFound} />
           </Switch>
         </Suspense>
-      </DrizzleContext.Provider>
     </HashRouter>
   )
 }

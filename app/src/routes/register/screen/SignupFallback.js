@@ -2,7 +2,7 @@
 import React, { useState } from 'react'
 import { Redirect, useHistory, useLocation } from 'react-router'
 // assets
-import { ReactComponent as Placeholder } from '../../../assets/Iframe/ETH-Reward.svg'
+import { metamaskIcon, portisLogo } from '../../../assets'
 // styes
 import StyledGeneralColumnWrapper from '../../../shared/styles/StyledGeneralColumnWrapper'
 import StyledGeneralParagraph from '../../../shared/styles/StyledGeneralParagraph'
@@ -20,20 +20,36 @@ import {
   HOME_ROUTE
 } from '../../../config/routes-config'
 import ethereumHandler from '../../../utils/blockchain/ethereumHandler'
+import StyledGeneralRowWrapper from '../../../shared/styles/StyledGeneralRowWrapper'
+import loginType from '../constants'
+
 
 const SignupFallback = () => {
   const [redirect, setRedirect] = useState(false)
   const history = useHistory()
   const location = useLocation()
 
-  const login = async () => {
-    await Promise.all([ethereumHandler.initWeb3(), ethereumHandler.login()])
-      .then(response => {
+  const loginAndRedirect = async provider => {
+    switch (provider) {
+      case loginType.METAMASK:
+        console.log('signup fallback: metamask wallet selected')
+        await ethereumHandler.initWeb3AndLogin()
         setRedirect(true)
-        return response
-      })
-      .catch(err => console.error(err))
+        break
+      case loginType.PORTIS_ON_MUMBAI:
+        console.log('signup fallback: mumbai portis wallet selected')
+        const portisMumbai = await ethereumHandler.initPortisAndLogin('maticMumbai')
+        setRedirect(true)
+        break
+      case loginType.PORTIS_ON_GOERLI:
+        console.log('signup fallback: goerli wallet selected')
+        await ethereumHandler.initPortisAndLogin('goerli')
+        setRedirect(true)
+      default:
+        return
+    }
   }
+
   return (
     <>
       <StyledGeneralCardLayout>
@@ -66,53 +82,112 @@ const SignupFallback = () => {
               </button>
             </div>
           </div>
-          <div>
-            <StyledGeneralHeadingTwo>
-              Connect with Metamask
-            </StyledGeneralHeadingTwo>
-          </div>
-          <div>
-            <Placeholder />
-          </div>
-
-          <StyledGeneralColumnWrapper
-            columnHeight='100%'
-            columnJustify='space-around'
-          >
-            <StyledGlobalButton
-              buttonColor={'orange'}
-              buttonTextColor={'#FFFFFF'}
-              buttonWidth={240}
-              onClick={login}
-            >
-              Connect with metamask
-            </StyledGlobalButton>
-
-            <StyledGeneralParagraph
-              paragraphColor='#636262'
-              paragraphFontSize='1.2rem'
-              paragraphFontWeight='500'
-              paragraphLineHeight='1.6'
-            >
-              You can download metamask
-              <a
-                href='https://metamask.io/'
-                rel='noopener noreferrer'
-                target='_blank'
-                style={{ paddingLeft: '6px' }}
+          <StyledGeneralRowWrapper rowHeight='40%'>
+            <div style={{ width: '40%' }}>
+              <StyledGeneralHeadingTwo
+                headingColor='#636262'
+                headingFontSize='1.4rem'
               >
-                here
-              </a>
-            </StyledGeneralParagraph>
-            <StyledGeneralParagraph
-              paragraphColor='#636262'
-              paragraphFontSize='1.4rem'
-              paragraphFontWeight='500'
-              paragraphLineHeight='1.6'
+                Connect with Metamask
+              </StyledGeneralHeadingTwo>
+            </div>
+            <StyledGeneralRowWrapper rowWidth='20%'>
+              <img
+                src={metamaskIcon}
+                alt='metamask-logo'
+                style={{ width: '6rem', height: '8rem' }}
+              />
+            </StyledGeneralRowWrapper>
+
+            <StyledGeneralColumnWrapper
+              columnHeight='100%'
+              columnJustify='space-around'
             >
-              Step 1 of 2
-            </StyledGeneralParagraph>
-          </StyledGeneralColumnWrapper>
+              <StyledGlobalButton
+                buttonColor={'orange'}
+                buttonTextColor={'#FFFFFF'}
+                buttonWidth={240}
+                onClick={() => loginAndRedirect(loginType.METAMASK)}
+              >
+                Connect with Metamask
+              </StyledGlobalButton>
+
+              <StyledGeneralParagraph
+                paragraphColor='#636262'
+                paragraphFontSize='1.2rem'
+                paragraphFontWeight='500'
+                paragraphLineHeight='1.6'
+              >
+                You can download metamask
+                <a
+                  href='https://metamask.io/'
+                  rel='noopener noreferrer'
+                  target='_blank'
+                  style={{ paddingLeft: '6px' }}
+                >
+                  here
+                </a>
+              </StyledGeneralParagraph>
+            </StyledGeneralColumnWrapper>
+          </StyledGeneralRowWrapper>
+          {/* #################### */}
+          <StyledGeneralRowWrapper>
+            <div style={{ width: '40%' }}>
+              <StyledGeneralHeadingTwo
+                headingColor='#636262'
+                headingFontSize='1.4rem'
+              >
+                Connect with Portis
+              </StyledGeneralHeadingTwo>
+            </div>
+            <StyledGeneralRowWrapper rowWidth='20%'>
+              <img
+                src={portisLogo}
+                alt='portis-logo'
+                style={{ width: '6rem', height: '8rem' }}
+              />
+            </StyledGeneralRowWrapper>
+
+            <StyledGeneralColumnWrapper
+              columnHeight='80%'
+              columnJustify='space-around'
+            >
+              <StyledGlobalButton
+                buttonColor={'linear-gradient(90deg, #b06aec 0%, #7839d5 100%)'}
+                buttonTextColor={'#FFFFFF'}
+                buttonWidth={240}
+                onClick={() => loginAndRedirect(loginType.PORTIS_ON_MUMBAI)}
+              >
+                Connect to Matic with Portis
+              </StyledGlobalButton>
+
+              <StyledGeneralParagraph
+                paragraphColor='#636262'
+                paragraphFontSize='1.2rem'
+                paragraphFontWeight='500'
+                paragraphLineHeight='1.6'
+              >
+                ...Or don't install anything at all! <br />
+                Easy onboarding with
+                <a
+                  href='https://www.portis.io/'
+                  rel='noopener noreferrer'
+                  target='_blank'
+                  style={{ paddingLeft: '6px' }}
+                >
+                  portis
+                </a>
+              </StyledGeneralParagraph>
+              <StyledGlobalButton
+                buttonColor={'linear-gradient(90deg, #b06aec 0%, #7839d5 100%)'}
+                buttonTextColor={'#FFFFFF'}
+                buttonWidth={240}
+                onClick={() => loginAndRedirect(loginType.PORTIS_ON_GOERLI)}
+              >
+                Connect to Goerli with Portis
+              </StyledGlobalButton>
+            </StyledGeneralColumnWrapper>
+          </StyledGeneralRowWrapper>
         </StyledGeneralCardWrapper>
       </StyledGeneralCardLayout>
       {redirect && (
@@ -122,7 +197,7 @@ const SignupFallback = () => {
               ? location.state.next_redirect === 'publisher'
                 ? PUBLISHER_WIZARD_ROUTE
                 : USER_TASKS_LIST_ROUTE
-              : HOME_ROUTE
+              : location.pathname || HOME_ROUTE
           }
         />
       )}
