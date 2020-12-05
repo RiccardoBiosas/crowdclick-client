@@ -4,9 +4,11 @@ const { convertFromWeiToEthereum, approximateEquality } = require('../helpers')
 
 const mockCampaigns = [
   {
-    ethBudget: '0.4',
-    ethReward: '0.03',
-    campaignUrl: 'https://ethereum.org/en/'
+    taskBudget: '0.4',
+    taskReward: '0.03',
+    currentBudget: '0.4',
+    url: 'https://ethereum.org/en/',
+    isActive: true
   }
 ]
 
@@ -42,12 +44,12 @@ contract('Crowdclick escrow contract', accounts => {
 
   it("should show the publisher's contract balance as equal to the budget of the first publisher's task being created", async () => {
     const campaign = mockCampaigns[0]
-    const budgetToWei = web3.utils.toWei(campaign.ethBudget)
-    const rewardToWei = web3.utils.toWei(campaign.ethReward)
+    const budgetToWei = web3.utils.toWei(campaign.taskBudget)
+    const rewardToWei = web3.utils.toWei(campaign.taskReward)
     await crowdclickEscrowContractInstance.openTask(
       budgetToWei,
       rewardToWei,
-      campaign.campaignUrl,
+      campaign.url,
       {
         from: publisher,
         value: budgetToWei
@@ -61,7 +63,7 @@ contract('Crowdclick escrow contract', accounts => {
     )
     assert.equal(
       publisherContractEtherereumBalance,
-      parseFloat(campaign.ethBudget, 10)
+      parseFloat(campaign.taskBudget, 10)
     )
   })
 
@@ -70,7 +72,7 @@ contract('Crowdclick escrow contract', accounts => {
     await crowdclickEscrowContractInstance.forwardRewards(
       user,
       publisher,
-      campaign.campaignUrl,
+      campaign.url,
       {
         from: contractOwner
       }
@@ -99,7 +101,7 @@ contract('Crowdclick escrow contract', accounts => {
       userContractWeiBalance
     )
     const expectedPublisherContractEthereumBalance =
-      parseFloat(campaign.ethBudget) - userContractEtherereumBalance
+      parseFloat(campaign.taskBudget) - userContractEtherereumBalance
 
     assert.equal(
       publisherContractEtherereumBalance,
@@ -108,30 +110,66 @@ contract('Crowdclick escrow contract', accounts => {
   })
 
   it("should allow the user to withdraw the earned balance and show the user's ethereum wallet balance as the initial balance plus the withdrawn balance minus the gas fee estimate", async () => {
+    const campaign = mockCampaigns[0]
     const userInitialWalletBalance = await web3.eth.getBalance(user)
-    const weiBalanceToWithdraw = '0.03'
-    const ethbalanceToWithdraw = web3.utils.toWei(weiBalanceToWithdraw)
+    const taskRewardToEth = web3.utils.toWei(campaign.taskReward)
     await crowdclickEscrowContractInstance.withdrawUserBalance(
-      ethbalanceToWithdraw,
+      taskRewardToEth,
       { from: user }
     )
-    const userFinalBalance = await web3.eth.getBalance(user)
     const expectedBalance =
-      parseFloat(userInitialWalletBalance, 10) +
-      parseFloat(ethbalanceToWithdraw, 10)
-    const userFinalBalanceToEthereum = convertFromWeiToEthereum(
-      userFinalBalance
-    )
+      parseFloat(userInitialWalletBalance, 10) + parseFloat(taskRewardToEth, 10)
     const expectedBalanceToEthereum = convertFromWeiToEthereum(
       expectedBalance.toString()
+    )
+
+    const userFinalBalance = await web3.eth.getBalance(user)
+    const userFinalBalanceToEthereum = convertFromWeiToEthereum(
+      userFinalBalance
     )
     assert.isTrue(
       approximateEquality(userFinalBalanceToEthereum, expectedBalanceToEthereum)
     )
   })
 
-  it("should allow the publisher to withdraw the remaining allocated budget from the campaign and update the publisher's wallet balance as the remaining allocated budget on the given campaign minus the reward previously forwarded", async () => {
+  it('should show the correct campaign stats given the url associated to the campaign', async () => {
     const campaign = mockCampaigns[0]
+    const expectedCampaign = {
+      ...campaign,
+      currentBudget: (+campaign.currentBudget - +campaign.taskReward).toString()
+    }
+
+    const fetchedCampaign = await crowdclickEscrowContractInstance.lookupTask(
+      expectedCampaign.url,
+      {
+        from: publisher
+      }
+    )
+
+    const fetchedCampaignToEthereum = {
+      taskBudget: convertFromWeiToEthereum(
+        fetchedCampaign.taskBudget
+      ).toString(),
+      taskReward: convertFromWeiToEthereum(
+        fetchedCampaign.taskReward
+      ).toString(),
+      currentBudget: convertFromWeiToEthereum(
+        fetchedCampaign.currentBudget
+      ).toString(),
+      url: fetchedCampaign.url,
+      isActive: fetchedCampaign.isActive
+    }
+    assert.deepEqual(fetchedCampaignToEthereum, expectedCampaign)
+  })
+
+  /** publisher's withdraw sets campaign's active field to false */
+  it("should allow the publisher to withdraw the remaining allocated budget from the campaign and update the publisher's wallet balance as the remaining allocated budget on the given campaign minus the reward previously forwarded", async () => {
+    /** we get the initial wallet balance
+     * convert it to ethereum
+     * calculate the sum of initial wallet balance and the remaining task budget
+     */
+    const campaign = mockCampaigns[0]
+
     const publisherInitialWalletWeiBalance = await web3.eth.getBalance(
       publisher
     )
@@ -139,26 +177,26 @@ contract('Crowdclick escrow contract', accounts => {
       publisherInitialWalletWeiBalance
     )
 
-    await crowdclickEscrowContractInstance.withdrawFromCampaign(
-      campaign.campaignUrl,
-      {
-        from: publisher
-      }
-    )
-
-    const publisherFinalWalletWeiBalance = await web3.eth.getBalance(publisher)
-    const publisherFinalWalletEthereumBalance = convertFromWeiToEthereum(
-      publisherFinalWalletWeiBalance
-    )
     const publisherExpectedFinalEthereumBalance =
       parseFloat(publisherInitialWalletEthereumBalance, 10) +
-      parseFloat(campaign.ethBudget, 10) -
-      parseFloat(campaign.ethReward, 10)
+      parseFloat(campaign.taskBudget, 10) -
+      parseFloat(campaign.taskReward, 10)
+
+    /** we perform the withdrawal and check the actual balance after performing withdrawfromcampaign */
+    await crowdclickEscrowContractInstance.withdrawFromCampaign(campaign.url, {
+      from: publisher
+    })
+    const publisherWalletBalanceAfterWithdraw = await web3.eth.getBalance(
+      publisher
+    )
+    const publisherWalletBalanceAfterWithdrawToEthereum = convertFromWeiToEthereum(
+      publisherWalletBalanceAfterWithdraw
+    )
 
     assert.isTrue(
       approximateEquality(
         publisherExpectedFinalEthereumBalance,
-        publisherFinalWalletEthereumBalance
+        publisherWalletBalanceAfterWithdrawToEthereum
       )
     )
   })

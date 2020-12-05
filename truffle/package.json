@@ -1,5 +1,5 @@
 {
-  "name": "drizzle-box",
+  "name": "crowdclick-escrow-contract",
   "version": "1.0.0",
   "description": "",
   "main": "truffle-config.js",
@@ -7,11 +7,14 @@
     "test": "test"
   },
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "commpile": "truffle compile",
+    "test:develop": "truffle test --network develop",
+    "migrate:goerli": "truffle migrate --network goerli",
+    "migate:mumbai": "truffle migrate --network mumbai"
   },
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/truffle-box/drizzle-box.git"
+    "url": "git+https://github.com/RiccardoBiosas/crowdclick-client"
   },
   "keywords": [],
   "author": "",
