@@ -3,8 +3,9 @@ pragma experimental ABIEncoderV2;
 
 import "@openzeppelin/contracts/ownership/Ownable.sol";
 import "@openzeppelin/contracts/math/SafeMath.sol";
+import "./constants/CrowdclickEscrowErrors.sol";
 
-contract CrowdclickEscrow is Ownable {
+contract CrowdclickEscrow is Ownable, CrowdclickEscrowErrors {
     using SafeMath for uint256;
 
     struct Task {
@@ -24,7 +25,7 @@ contract CrowdclickEscrow is Ownable {
         ####
         external functions
         ####
-     */
+    */
 
     /** open task */
     function openTask(
@@ -32,7 +33,7 @@ contract CrowdclickEscrow is Ownable {
         uint256 _taskReward,
         string calldata _campaignUrl
     ) external payable {
-        require(msg.value == _taskBudget, "wrong budget");
+        require(msg.value == _taskBudget, WRONG_CAMPAIGN_BUDGET);
 
         Task memory taskInstance;
         taskInstance.taskBudget = _taskBudget;
@@ -65,11 +66,11 @@ contract CrowdclickEscrow is Ownable {
     function withdrawUserBalance(uint256 withdrawAmount) external payable {
         require(
             withdrawAmount >= HARDCODED_MINIMUM_WITHDRAWAL,
-            "LESS_THAN_MINIMUM_WITHDRAWAL"
+            LESS_THAN_MINIMUM_WITHDRAWAL
         );
         require(
             userAccountBalance[msg.sender] >= withdrawAmount,
-            "NOT_ENOUGH_USER_BALANCE"
+            NOT_ENOUGH_USER_BALANCE
         );
         userAccountBalance[msg.sender] = userAccountBalance[msg.sender].sub(
             withdrawAmount
@@ -85,12 +86,12 @@ contract CrowdclickEscrow is Ownable {
         (uint256 campaignIndex, ) = helperSelectTask(msg.sender, _campaignUrl);
         require(
             taskCollection[msg.sender][campaignIndex].currentBudget > 0,
-            "NOT_ENOUGH_CAMPAIGN_BALANCE"
+            NOT_ENOUGH_CAMPAIGN_BALANCE
         );
         require(
             publisherAccountBalance[msg.sender] >=
                 taskCollection[msg.sender][campaignIndex].currentBudget,
-            "NOT_ENOUGH_PUBLISHER_BALANCE"
+            NOT_ENOUGH_PUBLISHER_BALANCE
         );
         taskCollection[msg.sender][campaignIndex].isActive = false;
         publisherAccountBalance[msg.sender] = publisherAccountBalance[msg
@@ -125,12 +126,12 @@ contract CrowdclickEscrow is Ownable {
         );
         require(
             taskCollection[_publisherAddress][campaignIndex].isActive,
-            "CAMPAIGN_NOT_ACTIVE"
+            CAMPAIGN_NOT_ACTIVE
         );
         require(
             publisherAccountBalance[_publisherAddress] >
                 taskCollection[_publisherAddress][campaignIndex].taskReward,
-            "NOT_ENOUGH_PUBLISHER_BALANCE"
+            NOT_ENOUGH_PUBLISHER_BALANCE
         );
         /** decreases campaign task's current budget by campaign's reward */
         taskCollection[_publisherAddress][campaignIndex]
@@ -159,7 +160,7 @@ contract CrowdclickEscrow is Ownable {
         ####
      */
 
-    /** select correct task based on url */
+    /** select correct task based on the address of the publisher and the campaign's url */
     function helperSelectTask(address _address, string memory _campaignUrl)
         internal
         view
