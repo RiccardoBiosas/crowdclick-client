@@ -1,7 +1,7 @@
 // theirs
 import React from 'react'
 // components
-import { DesktopNavbar } from './DesktopNavbar/DesktopNavbar'
+import DesktopNavbar from './DesktopNavbar/DesktopNavbar'
 import { MobileNavbar } from './MobileNavbar/MobileNavbar'
 // utils
 import { useWindowSize } from '../../../hooks/useWindowSize'

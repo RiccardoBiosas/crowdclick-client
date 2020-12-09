@@ -127,7 +127,6 @@ const TaskIframeContainer = () => {
       return () => {
         window.removeEventListener('visibilitychange', handleVisibility)
         clearInterval(intervalId)
-        reduxDispatch(iframeNormalScreenAction)
       }
     }
   }, [
