@@ -11,7 +11,7 @@ export const currencyStyleReducer = (state = initialState, action) => {
         case "aeternity":      
             return Object.assign({}, state, {colorStyle: "aeternityStyle"});
         default:
-            return initialState
+            return state
     }
 }
 

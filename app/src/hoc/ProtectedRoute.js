@@ -4,9 +4,9 @@ import { Route, Redirect } from 'react-router-dom'
 // components
 import DataFetcher from '../shared/components/DataFetcher'
 // utils
-import crowdclickClient from '../utils/api/crowdclick'
+import crowdclickClient from '../services/api/crowdclickService'
 // constants
-import { REGISTER_FALLBACK_ROUTE } from '../config/routes-config'
+import { REGISTER_FALLBACK_ROUTE } from '../constants/config/routes-config'
 
 const ProtectedRoute = ({ ComposedComponent, ...rest }) => {
   return (

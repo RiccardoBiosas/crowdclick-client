@@ -29,9 +29,11 @@ export const StyledDropdownLayout = styled.ul`
   overflow: hidden;
   margin: 0.3rem 0 0 0;
   padding: 0;
-  height: ${({active}) => active ? "inherit" : "0"};
+  height: ${({active, activeHeight}) => active ? (activeHeight || "inherit") : "0"};
   width : ${({size}) => {
     switch (size) {
+      case "large":
+        return "20rem";
       case "medium":
         return "139px;";
       case "small":

@@ -1,68 +1,63 @@
 // theirs
 import React, { useState, useEffect, useRef } from 'react'
 import { useLocation, NavLink } from 'react-router-dom'
-
 import { useSpring, useChain, animated } from 'react-spring'
 import { useSelector, useDispatch } from 'react-redux'
+// assets
+import { bigCrowdclickLogo, aeternityLogo, DarkModeIcon, DropdownDownwardArrow, EthereumIcon, LightModeIcon } from '../../../../assets'
 // components
-import { FaEthereum } from 'react-icons/fa'
-import { MdKeyboardArrowDown } from 'react-icons/md'
 import { NavbarNotAuthElements } from './NavbarNotAuthElements'
-import { AccountDropdown } from './AccountDropdown'
-import MetamaskButton from '../../metamask/MetamaskButton'
+import AccountDropdown from './AccountDropdown'
+import ConnectorsWizard from '../../connectors/ConnectorsWizard'
 // styles
 import {
   StyledNavbarFlexWrapper,
   StyledDesktopNavbarLayout,
   StyledAuthSecondDivGroup,
-  StyledBackgroundThemeButton,
+  StyledBackgroundThemeButton
 } from './styles/DesktopNavbarStyles'
 import {
   StyledArrowLayout,
   StyledDropdownLayout,
-  StyledDropdownButton,
+  StyledDropdownButton
 } from '../../../styles/StyledDropdownLayout'
-// assets
-import { ReactComponent as Sun } from '../../../../assets/navbar/sun.svg'
-import { ReactComponent as Moon } from '../../../../assets/navbar/moon.svg'
-import Logo from '../../../../assets/images/Logo.svg'
-import aeternity_currency_menu_logo from '../../../../assets/images/aeternity_currency_menu_logo.png'
 // constants
 import {
   ethereumStyleAction,
-  aeternityStyleAction,
+  aeternityStyleAction
 } from '../../../../redux/CurrencyStyle/currencyStyleActions'
 import {
   darkModeAction,
-  lightModeAction,
+  lightModeAction
 } from '../../../../redux/ThemeMode/themeModeActions'
 import {
   HOME_ROUTE,
-  USER_TASK_ROUTE_WITH_PARAM,
-} from '../../../../config/routes-config'
-import { useHandleEventOutsideRef } from '../../../../hooks/useHandleEventOutsideRef'
+  USER_TASK_ROUTE_WITH_PARAM
+} from '../../../../constants/config/routes-config'
 import { iframeNormalScreenAction } from '../../../../redux/Iframe/IframeActions'
+// hooks
+import { useHandleEventOutsideRef } from '../../../../hooks/useHandleEventOutsideRef'
 
 const DesktopNavbar = () => {
   const [currencyMenuStatus, setCurrencyMenuStatus] = useState(false)
   const currencyTheme = useSelector(
-    ({ currencyStyleReducer }) => currencyStyleReducer,
+    ({ currencyStyleReducer }) => currencyStyleReducer
   ).colorStyle
   const navbarState = useSelector(
-    ({ IFrameVisibilityReducer }) => IFrameVisibilityReducer,
+    ({ IFrameVisibilityReducer }) => IFrameVisibilityReducer
   ).full_screen
   const currentScreenTheme = useSelector(
-    ({ themeModeReducer }) => themeModeReducer,
+    ({ themeModeReducer }) => themeModeReducer
   ).screenTheme
   const isAuthenticated = useSelector(({ navAuthReducer }) => navAuthReducer)
     .isNavAuth
-
   const dispatch = useDispatch()
   const currencyThemeContainerRef = useRef()
   const NavbarOpacityAnimationRef = useRef()
   const NavbarPositionAnimationRef = useRef()
 
   const location = useLocation()
+
   useEffect(() => {
     if (!location.pathname.includes(USER_TASK_ROUTE_WITH_PARAM)) {
       dispatch(iframeNormalScreenAction)
@@ -70,29 +65,29 @@ const DesktopNavbar = () => {
   }, [location])
 
   const setNavbarOpacity = useSpring({
-    opacity: !navbarState ? 1 : 0,
+    opacity: navbarState ? 0 : 1,
     config: {
-      duration: 400,
-    },
+      duration: 400
+    }
   })
 
   const setNavbarPosition = useSpring({
-    display: !navbarState ? '' : 'none',
-    // delay: !navbarState ? 400 : 0,
+    display: navbarState ? 'none' :  '',
     config: {
-      duration: 400,
-    },
+      duration: 400
+    }
   })
 
   useChain(
     !navbarState
       ? [NavbarOpacityAnimationRef, NavbarPositionAnimationRef]
       : [NavbarPositionAnimationRef, NavbarOpacityAnimationRef],
-    [0, 0.45],
+    [0, 0.45]
   )
 
   const toggleBackground = () => {
-    const updatedBackgroundState = currentScreenTheme === 'light' ? darkModeAction : lightModeAction
+    const updatedBackgroundState =
+      currentScreenTheme === 'light' ? darkModeAction : lightModeAction
     dispatch(updatedBackgroundState)
   }
 
@@ -100,15 +95,17 @@ const DesktopNavbar = () => {
     setCurrencyMenuStatus(!currencyMenuStatus)
   }
 
-  useHandleEventOutsideRef(currencyThemeContainerRef, () => setCurrencyMenuStatus(false))
+  useHandleEventOutsideRef(currencyThemeContainerRef, () =>
+    setCurrencyMenuStatus(false)
+  )
 
   return (
     <animated.div style={{ ...setNavbarOpacity, ...setNavbarPosition }}>
       <StyledNavbarFlexWrapper>
         <StyledDesktopNavbarLayout>
-          <div className="logo-container">
+          <div className='logo-container'>
             <NavLink exact to={HOME_ROUTE}>
-              <img src={Logo} alt="crowdclick-logo" />
+              <img src={bigCrowdclickLogo} alt='crowdclick-logo' />
             </NavLink>
           </div>
 
@@ -119,16 +116,16 @@ const DesktopNavbar = () => {
               onClick={toggleBackground}
               bgtheme={currentScreenTheme}
             >
-              <div className="sunContainer">
-                <Sun className="sun" />
+              <div className='sunContainer'>
+                <LightModeIcon className='sun' />
               </div>
-              <div className="moonContainer">
-                <Moon className="moon" />
+              <div className='moonContainer'>
+                <DarkModeIcon className='moon' />
               </div>
             </StyledBackgroundThemeButton>
 
             <div>
-              {isAuthenticated ? <AccountDropdown /> : <MetamaskButton />}
+              {isAuthenticated ? <AccountDropdown /> : <ConnectorsWizard />}
             </div>
 
             <>
@@ -137,43 +134,40 @@ const DesktopNavbar = () => {
                 ref={currencyThemeContainerRef}
               >
                 <StyledDropdownButton
-                  size="small"
-                  dropdownBtnPadding="0 0 0 4px"
+                  size='small'
+                  dropdownBtnPadding='0 0 0 4px'
                 >
                   {currencyTheme === 'ethereumStyle' ? (
-                    <FaEthereum color="#206dff" size="28px" />
+                    <EthereumIcon color='#206dff' size='28px' />
                   ) : (
-                    <img
-                      src={aeternity_currency_menu_logo}
-                      alt="cryptocurrency-logo"
-                    />
+                    <img src={aeternityLogo} alt='cryptocurrency-logo' />
                   )}
                   <StyledArrowLayout>
-                    <MdKeyboardArrowDown
-                      size="28px"
-                      color="#206dff"
-                      className="arrow"
+                    <DropdownDownwardArrow
+                      size='28px'
+                      color='#206dff'
+                      className='arrow'
                       onClick={handleCurrency}
                     />
                   </StyledArrowLayout>
                 </StyledDropdownButton>
 
                 <StyledDropdownLayout
-                  size="small"
+                  size='small'
                   active={currencyMenuStatus}
-                  itemPadding="12px 0 8px 14px"
-                  activeHeight="6rem"
+                  activeHeight='5.2rem'
+                  itemPadding='12px 0 8px 14px'
                 >
                   <li
-                    role="button"
-                    className="dropdown-item"
+                    role='button'
+                    className='dropdown-item'
                     onClick={() => dispatch(ethereumStyleAction)}
                   >
                     ETH
                   </li>
                   <li
-                    role="button"
-                    className="dropdown-item"
+                    role='button'
+                    className='dropdown-item'
                     onClick={() => dispatch(aeternityStyleAction)}
                   >
                     AE

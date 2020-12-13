@@ -1,79 +1,59 @@
 // theirs
-import React, {useEffect} from 'react'
-import { ethers } from 'ethers'
-import { useSelector } from 'react-redux'
+import React, { useEffect, useState } from 'react'
 // components
 import NetworkFallback from '../routes/network-fallback'
 import SignupFallback from '../routes/register/screen/SignupFallback'
-import { SCOPED_LOCAL_STORAGE_CHAIN_ID, SCOPED_LOCAL_STORAGE_USER_PUBLIC_KEY } from '../utils/blockchain/constants'
-import ethereumHandler from '../utils/blockchain/ethereumHandler'
-
+import ethereumHandler from '../services/blockchain/ethereumHandler'
 
 const WithWeb3Initializer = ComposedComponent => {
-  const web3Data = useSelector(
-    ({ ethereumContractReducer }) => ethereumContractReducer
+  const [web3Singleton, setWeb3Singleton] = useState(() =>
+    ethereumHandler.getWeb3Singleton()
   )
-  const {
-    active,
-    web3Provider,
-    currentNetwork,
-    account,
-    currentWallet,
-    currentContracts,
-    wasStorageChecked
-  } = web3Data
 
   useEffect(() => {
-    if(wasStorageChecked) {
-      const fetchAccounts = async() => {  
-        const accounts = await web3Provider.eth.getAccounts()
-        const account = accounts && accounts.length > 0 && accounts[0].toLowerCase()
-        const cachedWeb3 = window.localStorage.getItem(SCOPED_LOCAL_STORAGE_USER_PUBLIC_KEY) && window.localStorage.getItem(SCOPED_LOCAL_STORAGE_USER_PUBLIC_KEY).toLowerCase()
-        if(!account || !cachedWeb3 || account !== cachedWeb3) {
-          await ethereumHandler.disconnectFromWeb3AndLogout()
-        }
+    if (!web3Singleton.wasLocalStorageChecked) {
+      console.log('localstorage was not checked: ', web3Singleton)
+      const checkLocalStorage = async () => {
+        await ethereumHandler.initCachedWeb3()
+        setWeb3Singleton(ethereumHandler.getWeb3Singleton())
       }
-      fetchAccounts()
+      checkLocalStorage()
     }
   }, [])
-  // console.log('WITHWEB3INTIALIZER hoc ##################')
-  // console.log('redux web3 data', web3Data)
-  // console.log('is active? ', active)
-  // console.log('check account ', account)
-  // console.log('current network ', currentNetwork)
-  // console.log('current wallet ', currentWallet)
-  // console.log('current web3provider', web3Provider)
-  // console.log('check window.web 3', window.ethereum)
-  // console.log('WITHWEB3INTIALIZER hoc ##################')
 
-  if (!active) {
-    return <SignupFallback />
+  console.groupCollapsed('withWeb3Initializer')
+  console.log('singleton state: ', ethereumHandler.getWeb3Singleton())
+  console.log('active: ', web3Singleton.active)
+  console.log('current account: ', web3Singleton.account)
+  console.log('current network: ', web3Singleton.currentNetwork)
+  console.log('current wallet: ', web3Singleton.currentWallet)
+  console.log('current web3provider: ', web3Singleton.web3Provider)
+  console.log('check window.web3: ', window.ethereum)
+  console.log('current contract: ', web3Singleton.currentContract)
+  console.groupEnd()
+
+  if (!web3Singleton.active) {
+    setTimeout(() => {
+      return <SignupFallback />
+    }, 2000)
   }
-  if (active && !currentContracts) {
-    return <NetworkFallback currentNetwork={currentNetwork} />
+
+  if (web3Singleton.active && !web3Singleton.currentContract) {
+    setTimeout(() => {
+      return <NetworkFallback currentNetwork={web3Singleton.currentNetwork} />
+    }, 2000)
   }
 
-  const provider = new ethers.providers.Web3Provider(
-    web3Provider.currentProvider
-  )
-  const contractAddress = currentContracts.networks[currentNetwork].address
-
-  const contract = new ethers.Contract(
-    contractAddress,
-    currentContracts.abi,
-    provider.getSigner()
-  )
   return (
-    <>
-      <ComposedComponent
-        contract={contract}
-        address={contractAddress}
-        account={account}
-        currentWallet={currentWallet}
-        currentNetwork={currentNetwork}
-        provider={provider}
-      />
-    </>
+    <ComposedComponent
+      contract={web3Singleton.currentContract}
+      contractAddress={web3Singleton.contractAddress}
+      account={web3Singleton.account}
+      currentWallet={web3Singleton.currentWallet}
+      currentNetwork={web3Singleton.currentNetwork}
+      currentChainId={web3Singleton.currentChainId}
+      web3Provider={web3Singleton.web3Provider}
+    />
   )
 }
 

@@ -9,7 +9,7 @@ export const useFetch = (axiosCallback, fetcherDeps, initialData) => {
     setLoading(true)
     try {
       const response = await axiosCallback()
-      setData(response.data)
+      setData(response.data || response)
       setLoading(false)
     } catch (err) {
       setError(true)

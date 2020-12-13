@@ -1,90 +1,97 @@
 // theirs
-import React, { Fragment, useState, useReducer, useEffect, useCallback } from "react";
-import { Formik, Form } from "formik";
-import { ethers } from 'ethers';
+import React, {
+  Fragment,
+  useState,
+  useReducer,
+  useEffect,
+  useCallback
+} from 'react'
+import { Formik, Form } from 'formik'
 // import { Prompt, matchPath, Redirect } from "react-router-dom";
-import { Redirect } from "react-router-dom";
+import { Redirect } from 'react-router-dom'
 // components
-import { PublisherWizardFormCampaignDescription } from "../screen/PublisherWizardFormCampaignDescription";
-import { PublisherWizardFormCampaignPublisherBudget } from "../screen/PublisherWizardFormCampaignBudget";
-import { PublisherWizardFormCampaignQuiz } from "../screen/PublisherWizardFormCampaignQuiz";
-import { PublisherWizardFormCampaignPreview } from "../screen/PublisherWizardFormCampaignPreview";
-import { PublisherWizardFormCampaignPayment } from "../screen/PublisherWizardFormCampaignPayment";
-import PublisherWizardCampaignOutcome  from "../screen/PublisherWizardCampaignOutcome";
+import { PublisherWizardFormCampaignDescription } from '../screen/PublisherWizardFormCampaignDescription'
+import { PublisherWizardFormCampaignPublisherBudget } from '../screen/PublisherWizardFormCampaignBudget'
+import { PublisherWizardFormCampaignQuiz } from '../screen/PublisherWizardFormCampaignQuiz'
+import { PublisherWizardFormCampaignPreview } from '../screen/PublisherWizardFormCampaignPreview'
+import { PublisherWizardFormCampaignPayment } from '../screen/PublisherWizardFormCampaignPayment'
+import PublisherWizardCampaignOutcome from '../screen/PublisherWizardCampaignOutcome'
 // styles
-import StyledGeneralButton  from "../../../shared/styles/StyledGeneralButton";
-import  StyledCardNavbar  from "../../../shared/styles/StyledCardNavbar";
-import StyledGeneralCardLayout from "../../../shared/styles/StyledGeneralCardLayout";
-import StyledGeneralCardWrapper from "../../../shared/styles/StyledGeneralCardWrapper";
-import StyledGeneralColumnWrapper from "../../../shared/styles/StyledGeneralColumnWrapper";
+import StyledGeneralButton from '../../../shared/styles/StyledGeneralButton'
+import StyledCardNavbar from '../../../shared/styles/StyledCardNavbar'
+import StyledGeneralCardLayout from '../../../shared/styles/StyledGeneralCardLayout'
+import StyledGeneralCardWrapper from '../../../shared/styles/StyledGeneralCardWrapper'
+import StyledGeneralColumnWrapper from '../../../shared/styles/StyledGeneralColumnWrapper'
 // utils
-import { useHandleKeydownEvent } from "../../../hooks/useHandleKeydownEvent";
-import crowdclickClient from "../../../utils/api/crowdclick";
-import { coingeckoClient } from "../../../utils/api/coingecko";
-import  PublisherWizardFormValidationSchema  from "../validationSchema/wizardFormValidationSchema";
+import { useHandleKeydownEvent } from '../../../hooks/useHandleKeydownEvent'
+import crowdclickClient from '../../../services/api/crowdclickService'
+import currencyApi from '../../../services/api/currencyService/api'
+import PublisherWizardFormValidationSchema from '../validationSchema/wizardFormValidationSchema'
 // constants
-import { PUBLISHER_DASHBOARD_ROUTE } from "../../../config/routes-config";
-import config from "../../../config/env-config";
+import { PUBLISHER_DASHBOARD_ROUTE } from '../../../constants/config/routes-config'
+import { parseEthersToWei, waitForTransactionReceipt } from '../../../utils'
 
 const empty_initial_values = {
-  projectName: "",
-  projectDescription: "",
-  projectURL: "",
+  projectName: '',
+  projectDescription: '',
+  projectURL: '',
   pricePerClick: 0,
   campaignBudget: 0,
-  projectQuestion: "",
-  projectOptions: [{ option: "" }],
-};
+  projectQuestion: '',
+  projectOptions: [{ option: '' }]
+}
 
 const initial_state = {
   first_step_no_error: false,
   second_step_no_error: false,
-  third_step_no_error: false,
-};
+  third_step_no_error: false
+}
 
 const reducer = (state, action) => {
   switch (action.type) {
-    case "first_step":
-      return { ...state, first_step_no_error: true };
-    case "second_step":
-      return { ...state, second_step_no_error: true };
-    case "third_step":
-      return { ...state, third_step_no_error: true };
+    case 'first_step':
+      return { ...state, first_step_no_error: true }
+    case 'second_step':
+      return { ...state, second_step_no_error: true }
+    case 'third_step':
+      return { ...state, third_step_no_error: true }
     default:
       break
   }
-};
+}
 
 const PublisherWizardFormCampaignContainer = ({
   initial_values,
   edit,
   id,
   contract,
-  address,
-  account,
+  contractAddress,
   currentNetwork,
   currentWallet,
-  provider
+  web3Provider
 }) => {
-  const [step, setStep] = useState(1);
-  const [redirect, setRedirect] = useState(false);
-  const [isError, setIsError] = useState(false);
-  const [respStatus, setRespStatus] = useState();
-  const [state, dispatch] = useReducer(reducer, initial_state);
-  const [campaignData, setCampaignData] = useState();
-  const [wasCampaignDataForwarded, setWasCampaignDataForwarded] = useState(false)
-  const [txHash, setTxHash] = useState();
-  const [isBroadcasted, setIsBroadcasted] = useState(false); // current not being used
-  const [receipt, setReceipt] = useState();
-  const totalSteps = 6; //move to constant
+  const [step, setStep] = useState(1)
+  const [redirect, setRedirect] = useState(false)
+  const [isError, setIsError] = useState(false)
+  const [respStatus, setRespStatus] = useState()
+  const [state, dispatch] = useReducer(reducer, initial_state)
+  const [campaignData, setCampaignData] = useState()
+  const [wasCampaignDataForwarded, setWasCampaignDataForwarded] = useState(
+    false
+  )
+  const [txHash, setTxHash] = useState()
+  const [isBroadcasted, setIsBroadcasted] = useState(false) // current not being used
+  const [receipt, setReceipt] = useState()
+  const totalSteps = 6 //move to constant
 
-  const getReceipt = async () => {
-    setIsBroadcasted(true);
-    const resp = await provider.waitForTransaction(txHash);
-    setReceipt(resp);
-  };
+  const getTransactionReceipt = async () => {
+    setIsBroadcasted(true)
+    const fetchedReceipt = await waitForTransactionReceipt(txHash, web3Provider)
+    console.log('fetchedreceipt: ', fetchedReceipt)
+    setReceipt(fetchedReceipt)
+  }
 
-  const postCampaign = useCallback(async() => {
+  const postCampaign = useCallback(async () => {
     try {
       const {
         projectName,
@@ -93,71 +100,76 @@ const PublisherWizardFormCampaignContainer = ({
         pricePerClick,
         campaignBudget,
         projectQuestion,
-        projectOptions,
-      } = campaignData;
-  
+        projectOptions
+      } = campaignData
+
       const filteredProjectOptionsWithoutEmptyStrings = projectOptions.filter(
-        (x) => x.option !== ""
-      );
-      const networkName = config.blockchain[currentNetwork].chainName
-  
-      const res = await crowdclickClient.postTask({
+        x => x.option !== ''
+      )
+      // HARDCODED NETWORKNAME NEEDS TO BE REPLACED!
+      console.log('CURRENT NETWORK FROM ETHREUM HANDLER: --new task ')
+
+      //   console.log('contractaddress will be: ', contractAddress)
+
+      const response = await crowdclickClient.postTask({
         title: projectName,
         description: projectDescription,
         website_link: projectURL,
         reward_per_click: pricePerClick,
-        time_duration: "00:00:30",
+        time_duration: '00:00:30',
         spend_daily: campaignBudget,
-        chain: networkName,
+        chain: currentNetwork,
+        contract_address: contractAddress,
         questions: [
           {
             title: projectQuestion,
-            options: filteredProjectOptionsWithoutEmptyStrings.map((x) => {
-              return { title: x.option };
-            }),
-          },
-        ],
-      });  
-      let respStatus = res.status;
-      setRespStatus(respStatus);
-    } catch(err) {
+            options: filteredProjectOptionsWithoutEmptyStrings.map(x => {
+              return { title: x.option }
+            })
+          }
+        ]
+      })
+      let responseStatus = response.status
+      setRespStatus(responseStatus)
+    } catch (err) {
       console.error(err)
     }
-   
   }, [campaignData])
 
-  useEffect(() => {    
+  useEffect(() => {
     if (txHash && !respStatus) {
-      getReceipt();
+      getTransactionReceipt()
     }
     if (receipt && !respStatus && !wasCampaignDataForwarded) {
       setWasCampaignDataForwarded(true)
-      postCampaign();
+      postCampaign()
     }
     if (respStatus && step < totalSteps) {
-      setStep(step + 1);      
+      setStep(step + 1)
     }
     if (edit) {
-      window.addEventListener("keydown", keyEventHandler);
+      window.addEventListener('keydown', keyEventHandler)
     }
     return () => {
-      window.removeEventListener("keydown", keyEventHandler);
-    };
-  }, [respStatus, txHash, receipt, isBroadcasted]);
-
-  const keyEventHandler = useCallback((e) => {
-    if (e.key === "ArrowRight") {
-      if (step < 3) {
-        setStep(step + 1);
-      } else {
-        return;
-      }
+      window.removeEventListener('keydown', keyEventHandler)
     }
-  }, [step])
+  }, [respStatus, txHash, receipt, isBroadcasted])
 
+  const keyEventHandler = useCallback(
+    e => {
+      if (e.key === 'ArrowRight') {
+        if (step < 3) {
+          setStep(step + 1)
+        } else {
+          return
+        }
+      }
+    },
+    [step]
+  )
 
   useHandleKeydownEvent(
-    "ArrowRight",
+    'ArrowRight',
     () =>
       !edit
         ? step < totalSteps
@@ -177,13 +189,13 @@ const PublisherWizardFormCampaignContainer = ({
           : null
         : null,
     state
-  );
+  )
 
   useHandleKeydownEvent(
-    "ArrowLeft",
+    'ArrowLeft',
     () => (step > 1 ? setStep(step - 1) : null),
     step
-  );
+  )
   return (
     <Fragment>
       <StyledGeneralCardLayout>
@@ -195,7 +207,7 @@ const PublisherWizardFormCampaignContainer = ({
             <div>
               <button
                 type='button'
-                className="stepBack"
+                className='stepBack'
                 onClick={() => (step > 1 ? setStep(step - 1) : null)}
               >
                 Back
@@ -204,7 +216,7 @@ const PublisherWizardFormCampaignContainer = ({
             <div>
               <button
                 type='button'
-                className="closeCard"
+                className='closeCard'
                 onClick={() => setRedirect(true)}
               >
                 x
@@ -216,58 +228,58 @@ const PublisherWizardFormCampaignContainer = ({
               initial_values ? initial_values : empty_initial_values
             }
             validationSchema={PublisherWizardFormValidationSchema}
-            onSubmit={async (values) => {
+            onSubmit={async values => {
               const {
                 projectName,
                 projectDescription,
                 projectURL,
                 pricePerClick,
-                campaignBudget,      
-              } = values;
+                campaignBudget
+              } = values
 
               try {
                 if (!edit) {
-                  console.log('budget is ',  values.campaignBudget , 'reward is ',  values.pricePerClick, 'url is ', projectURL )
-                  const ethPrice = await coingeckoClient.getEthToUSD()
-                  const currentEthPrice = ethPrice.data.ethereum.usd;
-                  const budgetToEth = values.campaignBudget / currentEthPrice;
-                  const rewardToEth = values.pricePerClick / currentEthPrice;
-                  const budgetToWei = ethers.utils.parseEther(budgetToEth.toFixed(6).toString());
-                  const rewardToWei = ethers.utils.parseEther(rewardToEth.toFixed(6).toString());                  
-                  console.log('budget to wei is ', budgetToWei, ' reward to wei is ', rewardToWei, ' project url is ', projectURL)
-                  const transaction = await contract.functions.openTask(
+                  const ethPrice = await currencyApi.fetchEthToUSD()
+
+                  const budgetToEth = currencyApi.convertUSDToEther(
+                    values.campaignBudget,
+                    ethPrice
+                  )
+                  const rewardToEth = currencyApi.convertUSDToEther(
+                    values.pricePerClick,
+                    ethPrice
+                  )
+                  const budgetToWei = parseEthersToWei(budgetToEth)
+                  const rewardToWei = parseEthersToWei(rewardToEth)
+
+                  const transaction = await contract.openTask(
                     budgetToWei,
                     rewardToWei,
-                    projectURL,
-                    {
-                      value: budgetToWei,
-                      gasLimit: 1000000,
-                    }
-                  );
-                  if(transaction) {
-                    setTxHash(transaction.hash);
-                  }
+                    projectURL
+                  )
+                  console.log('transaction:', transaction)
 
-                  setCampaignData(values);
-                  
-  
+                  if (transaction) {
+                    setTxHash(transaction.hash)
+                  }
+                  setCampaignData(values)
                 } else {
-                  const res = await crowdclickClient.patchTask(id, {
+                  const response = await crowdclickClient.patchTask(id, {
                     title: projectName,
                     description: projectDescription,
                     website_link: projectURL,
                     reward_per_click: pricePerClick,
-                    time_duration: "00:00:30",
-                    spend_daily: campaignBudget,       
-                  });
-                  let respStatus = res ? res.status : "failed";
-                  setRespStatus(respStatus);
-                  setStep(step + 1);
+                    time_duration: '00:00:30',
+                    spend_daily: campaignBudget
+                  })
+                  let respStatus = response ? response.status : 'failed'
+                  setRespStatus(respStatus)
+                  setStep(step + 1)
                 }
               } catch (err) {
-                let errorResponse = err.response.status;
-                setRespStatus(errorResponse);
-                setStep(step + 1);
+                let errorResponse = err.response.status
+                setRespStatus(errorResponse)
+                setStep(step + 1)
               }
             }}
           >
@@ -310,13 +322,13 @@ const PublisherWizardFormCampaignContainer = ({
                     <PublisherWizardFormCampaignPayment
                       step={step}
                       edit={edit}
-                      values={values}                 
+                      values={values}
                       setStep={setStep}
-                      address={address}
+                      contractAddress={contractAddress}
                       isBroadcasted={isBroadcasted}
                       txHash={txHash}
                       currentNetwork={currentNetwork}
-                      currentWallet={currentWallet}                    
+                      currentWallet={currentWallet}
                     />
                     <PublisherWizardCampaignOutcome
                       step={step}
@@ -326,10 +338,10 @@ const PublisherWizardFormCampaignContainer = ({
                   </Form>
 
                   {step < totalSteps - 1 ? (
-                    <StyledGeneralColumnWrapper columnJustify="flex-end">
+                    <StyledGeneralColumnWrapper columnJustify='flex-end'>
                       <StyledGeneralButton
-                        buttonColor={"blue"}
-                        buttonTextColor={"#FFFFFF"}
+                        buttonColor={'blue'}
+                        buttonTextColor={'#FFFFFF'}
                         buttonWidth={280}
                         onClick={() => {
                           const {
@@ -339,13 +351,13 @@ const PublisherWizardFormCampaignContainer = ({
                             pricePerClick,
                             campaignBudget,
                             projectQuestion,
-                            projectOptions,
-                          } = errors;
+                            projectOptions
+                          } = errors
 
                           //test
 
                           if (edit) {
-                            setStep(step + 1);
+                            setStep(step + 1)
                           } else {
                             switch (step) {
                               case 1:
@@ -357,12 +369,12 @@ const PublisherWizardFormCampaignContainer = ({
                                   touched.projectDescription &&
                                   touched.projectURL
                                 ) {
-                                  setStep(step + 1);
-                                  setIsError(false);
+                                  setStep(step + 1)
+                                  setIsError(false)
                                 } else {
-                                  setIsError(true);
+                                  setIsError(true)
                                 }
-                                break;
+                                break
                               case 2:
                                 if (
                                   !pricePerClick &&
@@ -370,12 +382,12 @@ const PublisherWizardFormCampaignContainer = ({
                                   touched.pricePerClick &&
                                   touched.campaignBudget
                                 ) {
-                                  setIsError(false);
-                                  setStep(step + 1);
+                                  setIsError(false)
+                                  setStep(step + 1)
                                 } else {
-                                  setIsError(true);
+                                  setIsError(true)
                                 }
-                                break;
+                                break
                               case 3:
                                 if (
                                   !projectQuestion &&
@@ -383,12 +395,12 @@ const PublisherWizardFormCampaignContainer = ({
                                   touched.projectQuestion &&
                                   touched.projectOptions
                                 ) {
-                                  setIsError(false);
-                                  setStep(step + 1);
+                                  setIsError(false)
+                                  setStep(step + 1)
                                 } else {
-                                  setIsError(true);
+                                  setIsError(true)
                                 }
-                                break;
+                                break
                               case 4:
                                 if (
                                   !projectQuestion &&
@@ -396,11 +408,11 @@ const PublisherWizardFormCampaignContainer = ({
                                   touched.projectQuestion &&
                                   touched.projectOptions
                                 ) {
-                                  setStep(step + 1);
+                                  setStep(step + 1)
                                 }
-                                break;
+                                break
                               default:
-                                return null;
+                                return null
                             }
                           }
                         }}
@@ -408,20 +420,20 @@ const PublisherWizardFormCampaignContainer = ({
                         Next step
                       </StyledGeneralButton>
 
-                      <p style={{ color: "#9ea0a5", fontSize: "16px" }}>
+                      <p style={{ color: '#9ea0a5', fontSize: '16px' }}>
                         Step {step} of {totalSteps}
                       </p>
                     </StyledGeneralColumnWrapper>
                   ) : null}
                 </Fragment>
-              );
+              )
             }}
           </Formik>
         </StyledGeneralCardWrapper>
       </StyledGeneralCardLayout>
       {redirect && <Redirect to={PUBLISHER_DASHBOARD_ROUTE} />}
     </Fragment>
-  );
-};
+  )
+}
 
 export default PublisherWizardFormCampaignContainer

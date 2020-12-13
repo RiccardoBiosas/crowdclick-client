@@ -8,47 +8,41 @@ import StyledGeneralParagraph from '../../../shared/styles/StyledGeneralParagrap
 // assets
 import Copy from '../../../assets/images/copy.svg'
 // constants
-import config from '../../../config/env-config'
-import { WALLETS } from '../../../utils/blockchain/ethereumHandler'
+import config from '../../../constants/config/env-config'
+import { WALLETS } from '../../../constants/blockchain'
+// assets
 import { metamaskIcon, portisLogo } from '../../../assets'
-// import CopyToClipboard from "../../../shared/copyToClipboard/CopyToClipboard";
+import useCopyToClipboard from '../../../hooks/useCopyToClipboard'
+import { getBlockchainExplorerByNetwork } from '../../../utils'
 
 export const PublisherWizardFormCampaignPayment = ({
   step,
-  address,
+  contractAddress,
   txHash,
   currentNetwork,
   currentWallet,
   edit
 }) => {
+  const [clipboardtext, setValue] = useCopyToClipboard()
+
   if (step !== 5) {
     return null
   } else {
-    const copyToClickboard = txt => {
-      const temporaryInput = document.createElement('input')
-      document.body.appendChild(temporaryInput)
-      temporaryInput.setAttribute('value', txt)
-      temporaryInput.select()
-      document.execCommand('copy')
-      document.body.removeChild(temporaryInput)
-    }
-    const blockchainExplorer =
-      config.blockchain[currentNetwork].chainExplorerTransactions || null
+    const blockchainExplorer = getBlockchainExplorerByNetwork(currentNetwork)
     const chainName = config.blockchain[currentNetwork].chainName || null
 
-    // if (!txHash) {
     return (
       <>
         <div>
           <StyledGeneralHeadingTwo headingFontSize='24px'>
             You're almost done! Just deposit ETH
           </StyledGeneralHeadingTwo>
-          {/* <StyledGeneralParagraph
+          <StyledGeneralParagraph
             paragraphColor='#9ea0a5'
             paragraphFontSize='16px'
           >
             Here is your total campaign cost
-          </StyledGeneralParagraph> */}
+          </StyledGeneralParagraph>
         </div>
         <div
           style={{
@@ -69,9 +63,9 @@ export const PublisherWizardFormCampaignPayment = ({
                 alignItems: 'center'
               }}
             >
-              {address}
+              {contractAddress}
             </div>
-            {/* <CopyToClipboard condition={true} contentToCopy={address} successTxt={"address copied!"} failureTxt={"nothing was copied!"} /> */}
+
             <button
               style={{
                 background: 'none',
@@ -80,9 +74,9 @@ export const PublisherWizardFormCampaignPayment = ({
                 marginLeft: '6px'
               }}
               type='button'
-              onClick={() => copyToClickboard(address)}
+              onClick={() => setValue(contractAddress)}
             >
-              <img src={Copy} alt='copy' />
+              <img style={{cursor: 'pointer'}} src={Copy} alt='copy' />
             </button>
           </div>
           <div

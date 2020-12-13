@@ -1,37 +1,34 @@
-import styled from "styled-components";
-import crowdclick_logo from "../../../assets/images/miniLogo.png";
-import crowdclick_campaign_placeholder from "../../../assets/userTasksConsole/SocialMediaPlaceholder.png";
+import styled from 'styled-components'
+import { socialMediaPlaceholder, smallCrowdClickLogo } from '../../../assets'
 
 export const StyledPublisherCampaignTaskSummaryLayout = styled.div`
   width: 60vw;
   background: #ffffff 0% 0% no-repeat padding-box;
   box-shadow: 0px 3px 6px #00000029;
-  border-radius: ${(props) =>
-    props.campaignToggle ? "21px 21px 0px 0px" : "21px"};
+  border-radius: ${props =>
+    props.campaignToggle ? '21px 21px 0px 0px' : '21px'};
   display: grid;
   grid-template-columns: 300px 2fr 0.2fr;
   .campaignAvatar {
-    background-image: url(${(props) =>
-      props.og_background
-        ? `"${props.og_background}"`
-        : crowdclick_campaign_placeholder});
+    background-image: url(${props =>
+      props.ogBackground ? `"${props.ogBackground}"` : socialMediaPlaceholder});
     background-size: cover;
     background-position: center;
     background-repeat: no-repeat;
-    border-radius: ${(props) =>
-      props.campaignToggle ? "21px 0px 0px 0px" : "21px 0px 0px 21px"};
+    border-radius: ${props =>
+      props.campaignToggle ? '21px 0px 0px 0px' : '21px 0px 0px 21px'};
     max-height: 100%;
   }
 
   .nextCampaignLogo {
-    background-image: url(${crowdclick_logo});
+    background-image: url(${smallCrowdClickLogo});
     background-size: contain;
     background-position: center;
     background-repeat: no-repeat;
-    border-radius: ${(props) =>
-      props.campaignToggle ? "21px 0px 0px 0px" : "21px 0px 0px 21px"};
+    border-radius: ${props =>
+      props.campaignToggle ? '21px 0px 0px 0px' : '21px 0px 0px 21px'};
   }
-`;
+`
 
 export const StyledPublisherCampaignGeneralTaskLayout = styled.div`
   margin-bottom: 20px;
@@ -56,9 +53,8 @@ export const StyledPublisherCampaignGeneralTaskLayout = styled.div`
     display: flex;
     flex-direction: column;
     align-items: center;
-   
   }
-`;
+`
 
 export const StyledPercentageBarItem = styled.div`
   width: 60%;
@@ -67,9 +63,9 @@ export const StyledPercentageBarItem = styled.div`
   height: 14px;
 
   .itemPercentage {
-    width: ${({percentage}) => Math.round(percentage)}%;
+    width: ${({ percentage }) => Math.round(percentage)}%;
     background-color: #206dff;
     border-radius: 8px;
     height: 14px;
   }
-`;
+`

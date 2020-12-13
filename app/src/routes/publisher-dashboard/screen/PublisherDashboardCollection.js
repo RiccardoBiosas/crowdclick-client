@@ -7,24 +7,22 @@ import StyledGeneralRowWrapper from '../../../shared/styles/StyledGeneralRowWrap
 import StyledGeneralParagraph from '../../../shared/styles/StyledGeneralParagraph'
 import { StyledPercentageBarItem } from '../../publisher-dashboard__new-task/styles/CampaignStyles'
 // utils
-import { isWhatPercentage } from '../../../utils/isWhatPercentage'
-import crowdclickClient from '../../../utils/api/crowdclick'
+import { isWhatPercentage } from '../../../utils'
+import crowdclickClient from '../../../services/api/crowdclickService'
 import { somethingWentWrongIcon } from '../../../assets'
 
 const PublisherDashboardCollection = ({ taskID }) => {
-  const axiosCallbackWrapper = async() => {
+  const axiosCallbackWrapper = async () => {
     return await crowdclickClient.getDashboardTask(taskID)
   }
   return (
     <DataFetcher action={axiosCallbackWrapper}>
       {data => {
         console.log('data: ', data)
-        const answersDashboardData = data.find(x => x.id === taskID)
         const answersCount =
-          (answersDashboardData && answersDashboardData.answers_result_count) ||
-          0
-        const answers = answersDashboardData && answersDashboardData.answers
-        return answersDashboardData && answers.length > 0 ? (
+          (data && data.answers_result_count) || 0
+        const answers = data && data.answers
+        return data && answers.length > 0 ? (
           <>
             <div className='viewsContainer'>
               <h2>Total Count:</h2>

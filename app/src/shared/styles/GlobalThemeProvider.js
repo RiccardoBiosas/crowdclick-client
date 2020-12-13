@@ -14,7 +14,9 @@ const theme = {
       swipeCardsHeadingTwo: '#333333',
       swipeCardsParagraph: '#8E8E8E'
     },
-    desktopNavbar: {},
+    desktopNavbar: {
+      tutorialLink: '#272833CC'
+    },
     publisherForm: {},
     global: {
       background: '#F3F6FE'
@@ -31,7 +33,7 @@ const theme = {
       swipeCardsParagraph: 'white'
     },
     desktopNavbar: {
-      balanceParagraph: 'white'
+      tutorialLink: 'white'
     },
     publisherForm: {
       mainHeading: 'white'

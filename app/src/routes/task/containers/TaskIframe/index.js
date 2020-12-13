@@ -11,8 +11,8 @@ import { FeedbackModal } from '../FeedbackModal'
 import StyledTaskIframeLayout from '../../styles/StyledTaskIframeLayout'
 import StyledIframeProgressBar from '../../styles/StyledIframeProgressBar'
 // utils
-import { isWhatPercentage } from '../../../../utils/isWhatPercentage'
-import crowdclickClient from '../../../../utils/api/crowdclick'
+import { isWhatPercentage } from '../../../../utils'
+import crowdclickClient from '../../../../services/api/crowdclickService'
 // constants
 import {
   iframeFullScreenAction,

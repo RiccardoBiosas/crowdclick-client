@@ -1,7 +1,7 @@
 // theirs
-import React, { useState, useEffect, useRef } from "react";
-import VizSensor from "react-visibility-sensor";
-import { useSelector, useDispatch } from "react-redux";
+import React, { useState, useEffect, useRef } from 'react'
+import VizSensor from 'react-visibility-sensor'
+import { useSelector, useDispatch } from 'react-redux'
 // styles
 import {
   StyledBurger,
@@ -9,62 +9,47 @@ import {
   CustomizedMobileBackgroundThemeButton,
   StyledMobileNavbarLayout,
   StyledCurrencyOption,
-} from "./styles/MobileNavbarStyles";
-import StyledCircleButton from "../../../styles/StyledCircleButton";
-import StyledAnchor from "../../../styles/StyledAnchor";
+} from './styles/MobileNavbarStyles'
+import StyledCircleButton from '../../../styles/StyledCircleButton'
+import StyledAnchor from '../../../styles/StyledAnchor'
 // constants
 import {
   ethereumStyleAction,
   aeternityStyleAction,
-} from "../../../../redux/CurrencyStyle/currencyStyleActions";
+} from '../../../../redux/CurrencyStyle/currencyStyleActions'
 import {
   lightModeAction,
   darkModeAction,
-} from "../../../../redux/ThemeMode/themeModeActions";
+} from '../../../../redux/ThemeMode/themeModeActions'
 // assets
-import {ReactComponent as TelegramIcon} from "../../../../assets/mobileNavbar/telegram_small_icon.svg"
-import { ReactComponent as Sun } from "../../../../assets/navbar/sun.svg";
-import { ReactComponent as Moon } from "../../../../assets/navbar/moon.svg";
+import { ReactComponent as TelegramIcon } from '../../../../assets/mobileNavbar/telegram_small_icon.svg'
+import { ReactComponent as Sun } from '../../../../assets/navbar/sun.svg'
+import { ReactComponent as Moon } from '../../../../assets/navbar/moon.svg'
+import { useHandleEventOutsideRef } from '../../../../hooks/useHandleEventOutsideRef'
 
-
-export const MobileNavbar = () => {
+const MobileNavbar = () => {
   const currentScreenTheme = useSelector((state) => state.themeModeReducer)
-    .screenTheme;
-  const [navbarState, setNavbarState] = useState(false);
-  const mobileNavbarRef = useRef();
-  const dispatch = useDispatch();
+    .screenTheme
+  const [navbarState, setNavbarState] = useState(false)
+  const mobileNavbarRef = useRef()
+  const dispatch = useDispatch()
 
   const handleClick = () => {
-    setNavbarState(!navbarState);
-  };
+    setNavbarState(!navbarState)
+  }
 
   const toggleBackground = () => {
-    const updatedScreenTheme =
-      currentScreenTheme === "light" ? darkModeAction : lightModeAction;
-    dispatch(updatedScreenTheme);
-  };
+    const updatedScreenTheme = currentScreenTheme === 'light' ? darkModeAction : lightModeAction
+    dispatch(updatedScreenTheme)
+  }
 
+  useHandleEventOutsideRef(mobileNavbarRef, () => setNavbarState(false))
 
-  useEffect(() => {
-    const listener = (event) => {
-      if (
-        !mobileNavbarRef.current ||
-        mobileNavbarRef.current.contains(event.target)
-      ) {
-        return;
-      }
-      setNavbarState(false);
-    };
-    document.addEventListener("mousedown", listener);
-    return () => {
-      document.removeEventListener("mousedown", listener);
-    };
-  }, [mobileNavbarRef, navbarState]);
-
+  /** replace with scrolltocoordinate util */
   const scrollToCoordinate = (x) => {
-    window.scrollBy({ top: [x], behavior: "smooth" });
-    setNavbarState(false);
-  };
+    window.scrollBy({ top: [x], behavior: 'smooth' })
+    setNavbarState(false)
+  }
 
   return (
     <StyledMobileNavbarLayout ref={mobileNavbarRef}>
@@ -90,12 +75,12 @@ export const MobileNavbar = () => {
         </div>
       </CustomizedMobileBackgroundThemeButton>
       <VizSensor
-        partialVisibility={true}
-        onChange={(isVisible) => setNavbarState(false)}
+        partialVisibility
+        onChange={() => setNavbarState(false)}
       >
-        {({ isVisible }) => (
+        {() => (
           <StyledMenu navbarState={navbarState}>
-            <div />            
+            <div />
             <div>
               <StyledAnchor
                 anchorColor="white"
@@ -111,13 +96,17 @@ export const MobileNavbar = () => {
                 type="button"
                 onClick={() => scrollToCoordinate(1300)}
               >
-                Launch on <TelegramIcon />
+                Launch on
+                {' '}
+                <TelegramIcon />
               </StyledCircleButton>
-              <StyledCurrencyOption optionMargin="18px 0 0 0" onClick={() => {dispatch(ethereumStyleAction); setNavbarState(false)}}>
+              <StyledCurrencyOption optionMargin="18px 0 0 0" onClick={() => { dispatch(ethereumStyleAction); setNavbarState(false) }}>
                 <div />
                 <p>ethereum</p>
               </StyledCurrencyOption>
-              <StyledCurrencyOption onClick={() => {dispatch(aeternityStyleAction); setNavbarState(false)}}>
+              <StyledCurrencyOption
+                onClick={() => { dispatch(aeternityStyleAction); setNavbarState(false) }}
+              >
                 <div />
                 <p>AE</p>
               </StyledCurrencyOption>
@@ -126,5 +115,7 @@ export const MobileNavbar = () => {
         )}
       </VizSensor>
     </StyledMobileNavbarLayout>
-  );
-};
+  )
+}
+
+export default MobileNavbar

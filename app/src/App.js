@@ -1,5 +1,5 @@
 // theirs
-import React, { Suspense, lazy} from 'react'
+import React, { Suspense, lazy } from 'react'
 import { HashRouter, Route, Switch } from 'react-router-dom'
 // HOC
 import withWeb3Initializer from './hoc/withWeb3Initializer'
@@ -14,26 +14,31 @@ import {
   NO_METAMASK_ROUTE,
   TUTORIAL_ROUTE,
   PUBLISHER_WITHDRAW_ROUTE,
-} from './config/routes-config'
+} from './constants/config/routes-config'
 // components
 import Homepage  from './routes/homepage/containers/index'
 import NavbarWrapper from './shared/components/navbars/NavbarWrapper'
 import LoadingIcon from './shared/components/loadingIcons/LoadingIcon'
 import ProtectedRoute from './hoc/ProtectedRoute'
-import PublisherWithdraw from './routes/publisher-withdraw'
+const PublisherWithdraw = lazy(() => import( './routes/publisher-withdraw'))
+const UserWithdraw = lazy(() => import('./routes/user-withdraw'))
 const Tutorial = lazy(() => import('./shared/components/tutorial/screen'))
 const TaskIframeContainer  = lazy(() => import('./routes/task/containers/TaskIframe/index'))
 const SignupFallback  = lazy(() => import('./routes/register/screen/SignupFallback'))
 const NotFound = lazy(() => import('./routes/404/NotFound'))
-const WithdrawBalance = lazy(() => import('./routes/withdraw/WithdrawComponent'))
 const InstallMetamaskWarning = lazy(() => import('./routes/no-metamask/screen/InstallMetamaskWarning'))
 const TasksConsoleDashboardContainer = lazy(() => import('./routes/user-tasks/containers/index')) 
 const PublisherDashboardContainer = lazy(() => import('./routes/publisher-dashboard/containers/index'))
 const PublisherWizardFormContainer = lazy(() => import('./routes/publisher-dashboard__new-task/containers'))
 const EditPublisherWizardFormCampaignContainer = lazy(() => import('./routes/publisher-dashboard__edit-task/EditPublisherWizardFormCampaignContainer'))
 
+/**
+ * FIX: when you refresh and web3session is fetched from localstorage,
+ * contract is not initialized correctly
+ */
 
 const App = () => {
+
   return (
     <HashRouter>
         <Route path="/" component={NavbarWrapper} />
@@ -82,7 +87,7 @@ const App = () => {
             <ProtectedRoute
               exact
               path={USER_WITHDRAW_ROUTE}
-              component={() => withWeb3Initializer(WithdrawBalance)}
+              component={() => withWeb3Initializer(UserWithdraw)}
             />
 
             <ProtectedRoute

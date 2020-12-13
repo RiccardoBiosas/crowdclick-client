@@ -1,32 +1,33 @@
 // theirs
 import React from 'react'
 // assets
-import { FaTelegramPlane } from 'react-icons/fa'
+import { TelegramIcon } from '../../../../assets/index'
+import { TUTORIAL_ROUTE } from '../../../../constants/config/routes-config'
 // styles
 import {
   StyledFirstDivGroup,
-  StyledTelegramLink
+  StyledTelegramLink,
+  StyledRouterLink
 } from './styles/DesktopNavbarStyles'
 
 export const NavbarNotAuthElements = () => {
   return (
     <StyledFirstDivGroup>
       <div>
-        <p
-          // onClick={() => scrollToCoordinate(800)}
-          style={{ cursor: 'pointer' }}
+        <StyledRouterLink
+          to={TUTORIAL_ROUTE}
         >
           How it works
-        </p>
+        </StyledRouterLink>
       </div>
       <StyledTelegramLink
         styledTextColor={'#FFFFFF'}
-        styledWidth={120}
+        styledWidth={140}
         target='_blank'
         href='https://t.me/crowdclick'
         rel='noopener noreferrer'
       >
-        Launch on <FaTelegramPlane size={24} />
+        Launch on <TelegramIcon size={24} />
       </StyledTelegramLink>
     </StyledFirstDivGroup>
   )

@@ -11,19 +11,19 @@ import {
 import StyledCheckmark from '../../../shared/styles/StyledCheckmark'
 import { StyledCenteredColumn } from '../styles/HomepageStyles'
 // assets
-import Stay_in_the_loop from '../../../assets/homepage/img4.svg'
-import aeternity_stay_in_the_loop from '../../../assets/images/aeternity_stay_in_the_loop.svg'
-import { ReactComponent as SvgSuccess } from '../../../assets/SVG/Success.svg'
-import { ReactComponent as SvgFailure } from '../../../assets/SVG/Failure.svg'
+import { stayInTheLoop } from '../../../assets'
+import { aeternityStayInTheLoop } from '../../../assets'
+// import { SuccessNotification as ReactComponent  } from '../../../assets'
+import { SuccessNotification, FailureNotification } from '../../../assets'
 // utils
-import crowdclickClient from '../../../utils/api/crowdclick'
+import crowdclickClient from '../../../services/api/crowdclickService'
 
 export const SUCCESSFUL_RESPONSE = 'SUCCESS'
 export const UNSUCCESSFUL_RESPONSE = 'UNSUCCESSFUL'
 
 const HomepageContactForm = ({ currencyTheme }) => {
   const [userInput, setUserInput] = useState('')
-  const [wasResponseSuccessful, setWasResponseSuccessful] = useState(null)
+  const [wasResponseSuccessful, setWasResponseSuccessful] = useState()
 
   const handleChange = e => {
     const text = e.target.value
@@ -60,8 +60,8 @@ const HomepageContactForm = ({ currencyTheme }) => {
           <img
             src={
               currencyTheme === 'ethereumStyle'
-                ? Stay_in_the_loop
-                : aeternity_stay_in_the_loop
+                ? stayInTheLoop
+                : aeternityStayInTheLoop
             }
             alt='cryptocurrency-theme'
           />
@@ -72,9 +72,9 @@ const HomepageContactForm = ({ currencyTheme }) => {
             <h3>Launch Coming Soon…</h3>
           </StyledContactHeading>
 
-          <StyledSpinnerWrapper>
+          {/* <StyledSpinnerWrapper>
             {wasResponseSuccessful && (
-              <StyledCheckmark type={'block'}>
+              <StyledCheckmark>
                 {wasResponseSuccessful === SUCCESSFUL_RESPONSE ? (
                   <SvgSuccess />
                 ) : (
@@ -82,7 +82,7 @@ const HomepageContactForm = ({ currencyTheme }) => {
                 )}
               </StyledCheckmark>
             )}
-          </StyledSpinnerWrapper>
+          </StyledSpinnerWrapper> */}
 
           <StyledInputFormWrapper
             currencyTheme={currencyTheme}
@@ -109,12 +109,12 @@ const HomepageContactForm = ({ currencyTheme }) => {
             <div>
               {wasResponseSuccessful && (
                 <div className='desktop-svgWrapper'>
-                  <StyledCheckmark type={'inline'}>
+                  <StyledCheckmark>
                     {wasResponseSuccessful &&
                     wasResponseSuccessful === SUCCESSFUL_RESPONSE ? (
-                      <SvgSuccess />
+                      <SuccessNotification />
                     ) : (
-                      <SvgFailure />
+                     <FailureNotification />
                     )}
                   </StyledCheckmark>
                 </div>

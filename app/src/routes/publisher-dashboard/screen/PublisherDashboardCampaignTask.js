@@ -12,7 +12,7 @@ import StyledGeneralButton from '../../../shared/styles/StyledGeneralButton'
 import {
   PUBLISHER_WITHDRAW_ROUTE,
   PUBLISHER_WIZARD_EDIT_ROUTE_WITH_PARAM
-} from '../../../config/routes-config'
+} from '../../../constants/config/routes-config'
 import PublisherDashboardCollection from './PublisherDashboardCollection'
 // assets
 import { IoCloseCircleOutline } from 'react-icons/io5'
@@ -21,14 +21,15 @@ export const PublisherDashboardCampaignTaskItem = ({
   taskID,
   title,
   campaignDescription,
-  og_image
+  ogImage,
+  campaignUrl
 }) => {
   const history = useHistory()
   const [campaignState, setCampaignState] = useState(false)
 
   const isPlaceholderNeeded =
-    RegExp('foo', 'g').test(og_image) ||
-    RegExp('placeholder', 'g').test(og_image)
+    RegExp('foo', 'g').test(ogImage) ||
+    RegExp('placeholder', 'g').test(ogImage)
 
   const transitions = useTransition(campaignState, null, {
     from: { opacity: 0, transform: 'translateY(-20%)' },
@@ -42,7 +43,7 @@ export const PublisherDashboardCampaignTaskItem = ({
   return (
     <StyledPublisherCampaignGeneralTaskLayout>
       <StyledPublisherCampaignTaskSummaryLayout
-        og_background={!isPlaceholderNeeded ? og_image : ''}
+        ogBackground={isPlaceholderNeeded ? '' : ogImage}
         campaignToggle={campaignState}
       >
         <div className='campaignAvatar' />
@@ -79,7 +80,13 @@ export const PublisherDashboardCampaignTaskItem = ({
           <IoCloseCircleOutline
             role='button'
             style={{ width: '30px', height: '40px', cursor: 'pointer' }}
-            onClick={() => history.push(PUBLISHER_WITHDRAW_ROUTE)}
+            onClick={() => history.push({
+              pathname: PUBLISHER_WITHDRAW_ROUTE,
+              state: {
+                campaignUrl
+              }
+
+            })}
           />
         </div>
       </StyledPublisherCampaignTaskSummaryLayout>

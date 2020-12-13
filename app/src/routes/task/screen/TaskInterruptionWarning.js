@@ -9,7 +9,7 @@ import StyledGeneralParagraph from '../../../shared/styles/StyledGeneralParagrap
 import { StyledGeneralHeadingOne } from '../../../shared/styles/StyledGeneralHeadings'
 // assets
 import { kittenWarning, somethingWentWrongIcon } from '../../../assets'
-import { USER_TASKS_LIST_ROUTE } from '../../../config/routes-config'
+import { USER_TASKS_LIST_ROUTE } from '../../../constants/config/routes-config'
 
 const TaskInterruptionWarning = ({
   taskInterruptions,

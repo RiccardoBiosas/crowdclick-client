@@ -5,7 +5,7 @@ import { StyledGeneralHeadingTwo } from "../../../shared/styles/StyledGeneralHea
 import { StyledWizardInputForms, StyledCustomInputField } from "../styles/WizardFormStyles";
 import StyledGeneralParagraph from "../../../shared/styles/StyledGeneralParagraph";
 // utils
-import { whatIsXPercentOfY } from "../../../utils/isWhatPercentage";
+import { whatIsXPercentOfY } from "../../../utils";
 
 const errorMessageStyle = {
   position: "absolute",

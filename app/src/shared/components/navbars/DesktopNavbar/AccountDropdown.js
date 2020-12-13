@@ -2,6 +2,9 @@
 import React, { useState, useRef } from 'react'
 import { useHistory, NavLink } from 'react-router-dom'
 import { useDispatch, useSelector } from 'react-redux'
+// assets
+import { MdKeyboardArrowDown } from 'react-icons/md'
+import { navAuthFalseAction } from '../../../../redux/NavAuth/navAuthActions'
 // styles
 import {
   StyledArrowLayout,
@@ -9,7 +12,7 @@ import {
   StyledDropdownButton
 } from '../../../styles/StyledDropdownLayout'
 // utils
-import crowdclickClient from '../../../../utils/api/crowdclick'
+import crowdclickClient from '../../../../services/api/crowdclickService'
 import { useHandleEventOutsideRef } from '../../../../hooks/useHandleEventOutsideRef'
 // constants
 import {
@@ -18,26 +21,26 @@ import {
   HOME_ROUTE,
   TUTORIAL_ROUTE,
   USER_WITHDRAW_ROUTE
-} from '../../../../config/routes-config'
-import { SCOPED_LOCAL_STORAGE_USER_PUBLIC_KEY } from '../../../../utils/blockchain/constants'
-// assets
-import { MdKeyboardArrowDown } from 'react-icons/md'
-import { navAuthFalseAction } from '../../../../redux/NavAuth/navAuthActions'
+} from '../../../../constants/config/routes-config'
+import { SCOPED_LOCAL_STORAGE_USER_PUBLIC_KEY } from '../../../../constants/localStorage'
 import { splitTextWithEllipsis } from '../../../../utils'
 import useCopyToClipboard from '../../../../hooks/useCopyToClipboard'
+import WithWeb3Initializer from '../../../../hoc/withWeb3Initializer'
+import ethereumHandler from '../../../../services/blockchain/ethereumHandler'
 
-export const AccountDropdown = () => {
+const AccountDropdown = ({ account }) => {
   const [dropdownStatus, setDropdownStatus] = useState(false)
-  const web3Data = useSelector(
-    ({ ethereumContractReducer }) => ethereumContractReducer
+
+  const [web3Singleton, setWeb3Singleton] = useState(() =>
+    ethereumHandler.getWeb3Singleton()
   )
-  const dispatch = useDispatch()
-  let history = useHistory()
   const [clipboardtext, setValue] = useCopyToClipboard()
   const dropdownContainerRef = useRef()
-
   useHandleEventOutsideRef(dropdownContainerRef, () => setDropdownStatus(false))
+  const dispatch = useDispatch()
+  const history = useHistory()
 
+  /** TODO: replace */
   const handleClick = async () => {
     await crowdclickClient.logout()
     window.localStorage.removeItem(SCOPED_LOCAL_STORAGE_USER_PUBLIC_KEY)
@@ -53,12 +56,18 @@ export const AccountDropdown = () => {
         onClick={() => setDropdownStatus(!dropdownStatus)}
       >
         <p
+          role='button'
           style={{ cursor: 'pointer' }}
           onClick={() =>
-            setValue(web3Data.account, `address copied: ${web3Data.account}`)
+            setValue(
+              web3Singleton.account,
+              `address copied: ${web3Singleton.account}`
+            )
           }
         >
-         { web3Data.account ? splitTextWithEllipsis(web3Data.account, 3) : 'ACCOUNT'}
+          {web3Singleton.account
+            ? splitTextWithEllipsis(web3Singleton.account, 3)
+            : 'ACCOUNT'}
         </p>
         <StyledArrowLayout>
           <MdKeyboardArrowDown size='28px' color='#206dff' className='arrow' />
@@ -68,7 +77,7 @@ export const AccountDropdown = () => {
       <StyledDropdownLayout
         size='medium'
         active={dropdownStatus}
-        activeHeight='10rem'
+        activeHeight='12.4rem'
         itemPadding='12px 0 8px 32px'
       >
         <li>
@@ -107,10 +116,14 @@ export const AccountDropdown = () => {
             Withdraw
           </NavLink>
         </li>
-        <li className='dropdown-item' onClick={handleClick}>
+        <li role='button' className='dropdown-item' onClick={handleClick}>
           Logout
         </li>
       </StyledDropdownLayout>
     </div>
   )
 }
+
+// const AccountDropdown = () => WithWeb3Initializer(WrappedAccountDropdown)
+
+export default AccountDropdown

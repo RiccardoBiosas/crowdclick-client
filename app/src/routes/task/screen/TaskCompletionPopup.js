@@ -4,18 +4,18 @@ import React from 'react'
 import StyledTaskLayout from '../styles/StyledTaskLayout'
 import StyledGeneralButton from '../../../shared/styles/StyledGeneralButton'
 // assets
-import { ReactComponent as SVGReward } from '../../../assets/Iframe/ETH-Reward.svg'
+import { EthRewardIcon } from '../../../assets'
 // components
 import useRedirectWithProps from '../../../hooks/useRedirectWithProps'
 // constants
-import { USER_TASKS_LIST_ROUTE } from '../../../config/routes-config'
+import { USER_TASKS_LIST_ROUTE } from '../../../constants/config/routes-config'
 
 export const TaskCompletionPopup = ({ url }) => {
   return (
     <StyledTaskLayout>
       <h2>Your Ether is on its way</h2>
       <div style={{ width: '180px', height: '180px' }}>
-        <SVGReward />
+        <EthRewardIcon />
       </div>
       <div className='buttonContainer'>
         <StyledGeneralButton

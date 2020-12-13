@@ -1,4 +1,6 @@
 import styled from 'styled-components'
+import { Link } from 'react-router-dom'
+
 
 export const StyledNavbarFlexWrapper = styled.header`
   width: 100%;
@@ -26,12 +28,15 @@ export const StyledFirstDivGroup = styled.div`
   flex: 4;
   display: flex;
   justify-content: center;
+  align-items: center;
   > div:nth-child(1) {
     margin-right: 20px;
   }
 
-  p {
-    color: ${props => props.theme.desktopNavbar.balanceParagraph};
+  a:first-child {
+    text-decoration: none;
+    cursor: pointer;
+    color: ${props => props.theme.desktopNavbar.tutorialLink};
   }
 `
 
@@ -102,6 +107,10 @@ export const StyledBackgroundThemeButton = styled.button`
         props.bgtheme === 'dark' ? 'translateX(0)' : 'translateX(-50px)'};
     }
 }
+`
+
+export const StyledRouterLink = styled(Link)`
+  color: ${(props) => props.theme.homepage.tutorialLink};
 `
 
 export const StyledTelegramLink = styled.a`

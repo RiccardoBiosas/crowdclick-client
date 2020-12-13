@@ -7,8 +7,11 @@ import StyledGeneralCardWrapper from '../../shared/styles/StyledGeneralCardWrapp
 import StyledGlobalButton from '../../shared/styles/StyledGeneralButton'
 import StyledGeneralParagraph from '../../shared/styles/StyledGeneralParagraph'
 // constants
-import { HOME_ROUTE, TUTORIAL_ROUTE } from '../../config/routes-config'
-import config from '../../config/env-config'
+import {
+  HOME_ROUTE,
+  TUTORIAL_ROUTE
+} from '../../constants/config/routes-config'
+import config from '../../constants/config/env-config'
 
 const NetworkFallback = ({ currentNetwork }) => {
   const history = useHistory()

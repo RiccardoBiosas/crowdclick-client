@@ -5,6 +5,7 @@ const StyledGeneralParagraph = styled.p`
   font-size: ${({ paragraphFontSize }) => paragraphFontSize || 'inherit'};
   font-weight: ${({ paragraphFontWeight }) => paragraphFontWeight || '400'};
   text-align: ${({ paragraphTextAlign }) => paragraphTextAlign || 'center'};
+  ${({ paragraphBreak }) => paragraphBreak && `white-space: ${paragraphBreak}`};
   ${({ paragraphMargin }) => paragraphMargin && `margin: ${paragraphMargin}`};
   ${({ paragraphLineHeight }) =>
     paragraphLineHeight && `line-height: ${paragraphLineHeight}`};

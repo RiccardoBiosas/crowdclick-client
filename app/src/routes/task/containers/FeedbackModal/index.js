@@ -1,11 +1,10 @@
 import React, { useState, useEffect } from 'react'
 import { useDispatch } from 'react-redux'
 import { iframeNormalScreenAction } from '../../../../redux/Iframe/IframeActions'
-import  StyledFeedbackModalLayout  from '../../styles/StyledFeedbackModalLayout'
-import  MultichoiceQuestion  from '../MultichoiceQuestion/index'
+import StyledFeedbackModalLayout from '../../styles/StyledFeedbackModalLayout'
+import MultichoiceQuestion from '../MultichoiceQuestion/index'
 import { TaskCompletionPopup } from '../../screen/TaskCompletionPopup'
-import crowdclickClient from '../../../../utils/api/crowdclick'
-
+import crowdclickClient from '../../../../services/api/crowdclickService'
 
 export const FeedbackModal = ({
   slide,
@@ -13,30 +12,30 @@ export const FeedbackModal = ({
   taskID,
   questionID,
   taskQuestions,
-  taskOwnerAddress,
+  taskOwnerAddress
 }) => {
   const dispatch = useDispatch()
   const [indx, setIndx] = useState(0)
   const [selectedAnswer, setSelectedAnswer] = useState(
-    ...Object.keys(taskQuestions).map((x) => {
+    ...Object.keys(taskQuestions).map(x => {
       return { [taskQuestions[x].id]: '' }
-    }),
+    })
   )
 
   useEffect(() => {
     const postAnswers = async () => {
-      const answersBatch = Object.keys(selectedAnswer).map((x) => {
+      const answersBatch = Object.keys(selectedAnswer).map(x => {
         return {
           id: parseInt(x, 10),
           options: [
             {
-              id: selectedAnswer[x],
-            },
-          ],
+              id: selectedAnswer[x]
+            }
+          ]
         }
       })
 
-      await crowdclickClient.postAnswer(taskID, {questions: answersBatch})
+      await crowdclickClient.postAnswer(taskID, { questions: answersBatch })
       await crowdclickClient.getReward(taskID)
     }
     if (indx === taskQuestions.length) {

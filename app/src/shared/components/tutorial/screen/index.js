@@ -20,7 +20,7 @@ import { maticWithEthereumSteps } from '../constants'
 import {
   PUBLISHER_DASHBOARD_ROUTE,
   USER_TASKS_LIST_ROUTE
-} from '../../../../config/routes-config'
+} from '../../../../constants/config/routes-config'
 
 const Tutorial = () => {
   const totalSteps = maticWithEthereumSteps.length

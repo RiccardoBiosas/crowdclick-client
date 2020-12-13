@@ -6,11 +6,10 @@ import DataFetcher from '../../../shared/components/DataFetcher'
 import { StyledWizardPreviewLayout } from '../styles/WizardFormStyles'
 import { StyledGeneralHeadingTwo } from '../../../shared/styles/StyledGeneralHeadings'
 // utils
-import { coingeckoClient } from '../../../utils/api/coingecko'
+import currencyApi from '../../../services/api/currencyService/api'
 
 export const PublisherWizardFormCampaignPreview = ({ step, values }) => {
   const currentDate = new Date()
-
   if (step !== 4) {
     return null
   } else {
@@ -25,7 +24,10 @@ export const PublisherWizardFormCampaignPreview = ({ step, values }) => {
     } = values
 
     return (
-      <DataFetcher loadingIconCustomStyles={{height: '40vh'}} action={coingeckoClient.getEthToUSD}>
+      <DataFetcher
+        loadingIconCustomStyles={{ height: '40vh' }}
+        action={currencyApi.fetchEthToUSD}
+      >
         {data => (
           <>
             <div>
@@ -54,7 +56,7 @@ export const PublisherWizardFormCampaignPreview = ({ step, values }) => {
                   <div className='valuesContainer'>
                     <h4>Reward per click</h4>
                     <p>USD: {pricePerClick}$</p>
-                    <p>ETH: {pricePerClick / data.ethereum.usd} </p>
+                    <p>ETH: {pricePerClick / data} </p>
                     <span style={{ fontSize: '10px' }}>
                       converted at {currentDate.toLocaleString()}
                     </span>
@@ -62,7 +64,7 @@ export const PublisherWizardFormCampaignPreview = ({ step, values }) => {
                   <div className='valuesContainer'>
                     <h4>Budget</h4>
                     <p>{campaignBudget}$</p>
-                    <p>ETH {campaignBudget / data.ethereum.usd} </p>
+                    <p>ETH {campaignBudget / data} </p>
                     <span style={{ fontSize: '10px' }}>
                       converted at {currentDate.toLocaleString()}
                     </span>

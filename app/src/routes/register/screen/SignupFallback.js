@@ -18,11 +18,10 @@ import {
   USER_TASKS_LIST_ROUTE,
   PUBLISHER_WIZARD_ROUTE,
   HOME_ROUTE
-} from '../../../config/routes-config'
-import ethereumHandler from '../../../utils/blockchain/ethereumHandler'
+} from '../../../constants/config/routes-config'
+import ethereumHandler from '../../../services/blockchain/ethereumHandler'
 import StyledGeneralRowWrapper from '../../../shared/styles/StyledGeneralRowWrapper'
 import loginType from '../constants'
-
 
 const SignupFallback = () => {
   const [redirect, setRedirect] = useState(false)
@@ -38,13 +37,14 @@ const SignupFallback = () => {
         break
       case loginType.PORTIS_ON_MUMBAI:
         console.log('signup fallback: mumbai portis wallet selected')
-        const portisMumbai = await ethereumHandler.initPortisAndLogin('maticMumbai')
+        // const portisMumbai = await ethereumHandler.initPortisAndLogin('maticMumbai')
         setRedirect(true)
         break
       case loginType.PORTIS_ON_GOERLI:
         console.log('signup fallback: goerli wallet selected')
         await ethereumHandler.initPortisAndLogin('goerli')
         setRedirect(true)
+        break
       default:
         return
     }

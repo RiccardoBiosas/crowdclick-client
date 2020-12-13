@@ -4,5 +4,5 @@ import { StyledPublisherCampaignTaskSummaryLayout } from '../../publisher-dashbo
 export const StyledUserTaskSummaryLayout = styled(
   StyledPublisherCampaignTaskSummaryLayout
 )`
-  grid-template-columns: 300px 3fr 1fr;
+  grid-template-columns: 300px 3fr;
 `

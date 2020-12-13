@@ -8,7 +8,7 @@
 // import { StyledPercentageBarItem } from '../../publisher-dashboard__new-task/styles/CampaignStyles'
 // // utils
 // import { isWhatPercentage } from '../../../utils/isWhatPercentage'
-// import crowdclickClient from '../../../utils/api/crowdclick'
+// import crowdclickClient from '../../../services/api/crowdclickService'
 // import { somethingWentWrongIcon } from '../../../assets'
 
 /*

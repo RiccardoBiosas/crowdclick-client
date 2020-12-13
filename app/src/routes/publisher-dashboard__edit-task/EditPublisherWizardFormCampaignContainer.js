@@ -5,7 +5,7 @@ import { useParams } from 'react-router-dom'
 import DataFetcher from '../../shared/components/DataFetcher'
 import PublisherWizardFormCampaignContainer from '../publisher-dashboard__new-task/containers'
 // utils
-import crowdclickClient from '../../utils/api/crowdclick'
+import crowdclickClient from '../../services/api/crowdclickService'
 
 const EditPublisherWizardFormCampaignContainer = () => {
   const { id } = useParams()

@@ -9,7 +9,7 @@ import StyledGeneralParagraph from '../../../shared/styles/StyledGeneralParagrap
 // assets
 import { metamaskIcon } from '../../../assets'
 // contants
-import { HOME_ROUTE } from '../../../config/routes-config'
+import { HOME_ROUTE } from '../../../constants/config/routes-config'
 
 const InstallMetamaskWarning = () => {
   const history = useHistory()
@@ -44,7 +44,8 @@ const InstallMetamaskWarning = () => {
             paragraphColor='#000000'
             paragraphFontSize='20px'
           >
-            Our Web 3.0 application doesn’t collect any user data and we strive to respect our users' privacy.
+            Our Web 3.0 application doesn’t collect any user data and we strive
+            to respect our users' privacy.
           </StyledGeneralParagraph>
         </div>
         <div>
