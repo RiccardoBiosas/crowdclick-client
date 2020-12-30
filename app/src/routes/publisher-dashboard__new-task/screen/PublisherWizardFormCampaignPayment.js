@@ -19,6 +19,7 @@ export const PublisherWizardFormCampaignPayment = ({
   step,
   contractAddress,
   txHash,
+  currentChainId,
   currentNetwork,
   currentWallet,
   edit
@@ -28,8 +29,7 @@ export const PublisherWizardFormCampaignPayment = ({
   if (step !== 5) {
     return null
   } else {
-    const blockchainExplorer = getBlockchainExplorerByNetwork(currentNetwork)
-    const chainName = config.blockchain[currentNetwork].chainName || null
+    const blockchainExplorer = getBlockchainExplorerByNetwork(currentChainId)
 
     return (
       <>
@@ -76,7 +76,7 @@ export const PublisherWizardFormCampaignPayment = ({
               type='button'
               onClick={() => setValue(contractAddress)}
             >
-              <img style={{cursor: 'pointer'}} src={Copy} alt='copy' />
+              <img style={{ cursor: 'pointer' }} src={Copy} alt='copy' />
             </button>
           </div>
           <div
@@ -143,7 +143,8 @@ export const PublisherWizardFormCampaignPayment = ({
                   }}
                 >
                   <p style={{ fontWeight: 900, color: '#9ea0a5' }}>
-                    Check your transaction on {chainName} chain explorer:
+                    {`Check your transaction on ${currentNetwork} chain explorer`}
+                    :
                   </p>
                   <div>
                     <a

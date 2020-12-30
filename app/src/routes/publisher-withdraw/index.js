@@ -11,14 +11,11 @@ import StyledGeneralColumnWrapper from '../../shared/styles/StyledGeneralColumnW
 import StyledGeneralParagraph from '../../shared/styles/StyledGeneralParagraph'
 import { StyledGeneralHeadingTwo } from '../../shared/styles/StyledGeneralHeadings'
 // constants
-import {
-  PUBLISHER_DASHBOARD_ROUTE,
-  USER_TASKS_LIST_ROUTE
-} from '../../constants/config/routes-config'
+import { PUBLISHER_DASHBOARD_ROUTE } from '../../constants/config/routes-config'
 // assets
-import { kittenWarning, publisherWithdrawal } from '../../assets'
+import { endCampaign } from '../../assets'
 
-const PublisherWithdraw = ({ contract, account }) => {
+const PublisherWithdraw = ({ contract, account, currentNetwork }) => {
   const [publisherBalance, setPublisherBalance] = useState()
   const history = useHistory()
   const { state } = useLocation()
@@ -31,21 +28,20 @@ const PublisherWithdraw = ({ contract, account }) => {
   }, [state])
 
   useEffect(() => {
-    if (!publisherBalance) {
+    if (!publisherBalance && contract) {
       fetchBalance()
     }
   }, [publisherBalance])
 
   const fetchBalance = useCallback(async () => {
     const balance = await contract.balanceOfPublisher(account)
-    console.log(balance)
     setPublisherBalance(balance)
   })
 
   return (
     <StyledGeneralCardLayout>
       <div>
-        <h1>Withdraw Your Publisher's campaign budget</h1>
+        <h1>Campaign withdrawal</h1>
       </div>
       <StyledGeneralCardWrapper>
         {publisherBalance ? (
@@ -55,53 +51,45 @@ const PublisherWithdraw = ({ contract, account }) => {
             headingFontSize='1.4rem'
             headingFontWeight='500'
           >
-            Your current earnings amount to:{' '}
-            <span style={{ fontWeight: '900' }}>{publisherBalance}</span>{' '}
-            ethereum{' '}
+            Your total publisher's balance amounts to:{' '}
+            <span style={{ fontWeight: '900' }}>{publisherBalance}</span> ETH{' '}
           </StyledGeneralHeadingTwo>
         ) : (
           <StyledGeneralParagraph
             paragraphColor='#272833CC'
             paragraphLineHeight='1.4'
           >
-            Your current earnings amount to: <span>0.0</span> ethereum{' '}
+            Your total publisher's balance amounts to: <span>0.0</span> ETH{' '}
           </StyledGeneralParagraph>
         )}
         <div>
-          <img src={kittenWarning} alt='not-enough-balance' />
+          <img src={endCampaign} alt='end-campaign' />
         </div>
+        <StyledGeneralParagraph
+          paragraphColor='#272833CC'
+          paragraphLineHeight='1.4'
+        >
+          The remaining balance on the selected campaign amounts to:{' '}
+          <span>0.0</span> ETH{' '}
+        </StyledGeneralParagraph>
 
         <StyledGeneralParagraph
           paragraphColor='#272833CC'
           paragraphLineHeight='1.8'
         >
-          The current minimum withdrawal amount is{' '}
-          <span style={{ fontWeight: '900' }}>0.03</span> ethereum <br />
-          <Link to={USER_TASKS_LIST_ROUTE}>Go to our tasks dashboard</Link>,
-          visit a website, share your feedback and <br /> you will soon reach
-          that milestone!{' '}
+          Are you sure you want to end the campaign? <br />
+          Ending the campaign will withdraw the remaining funds to your wallet.
         </StyledGeneralParagraph>
 
         <StyledGeneralColumnWrapper>
-          <StyledGeneralColumnWrapper columnJustify='space-around'>
-            <StyledGlobalButton
-              buttonWidth='180'
-              buttonColor='green'
-              buttonTextColor='white'
-              onClick={() => history.push(PUBLISHER_DASHBOARD_ROUTE)}
-            >
-              Tasks dashboard
-            </StyledGlobalButton>
-            {/* {web3Data.currentNetwork === 80001 && <MaticWidgetAll />} */}
-          </StyledGeneralColumnWrapper>
-          {/* <StyledGlobalButton
-          buttonWidth='180'
-          buttonColor='blue'
-          buttonTextColor='white'
-          onClick={() => withdrawBalance()}
-        >
-          Confirm withdrawal
-        </StyledGlobalButton> */}
+          <StyledGlobalButton
+            buttonWidth='180'
+            buttonColor='blue'
+            buttonTextColor='white'
+            onClick={() => console.log('')}
+          >
+            End Campaign
+          </StyledGlobalButton>
         </StyledGeneralColumnWrapper>
       </StyledGeneralCardWrapper>
     </StyledGeneralCardLayout>

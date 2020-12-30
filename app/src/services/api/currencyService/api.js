@@ -7,7 +7,8 @@ class CurrencyApi {
   }
 
   async fetchEthToUSD () {
-    return coingeckoClient.getEthToUSD()
+    const response = await coingeckoClient.getEthToUSD()
+    return response.data.ethereum.usd
   }
 }
 

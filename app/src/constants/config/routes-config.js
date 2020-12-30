@@ -10,3 +10,4 @@ export const NO_METAMASK_ROUTE = '/no-metamask'
 export const USER_TASK_ROUTE_WITH_PARAM = '/user/task/'
 export const PUBLISHER_WIZARD_EDIT_ROUTE_WITH_PARAM =
   '/publisher-dashboard/edit-task/'
+export const LEARN_MORE_ROUTE = '/learn-more'

@@ -33,11 +33,8 @@ const UserWithdraw = ({ contract }) => {
   }, [userBalance, contract])
 
   const fetchBalance = useCallback(async () => {
-    console.log('about to call balanceofuser')
     const balance = await contract.balanceOfUser()
-    console.log('balance: ', balance)
     setUserBalance(balance)
-    console.log(balance)
   })
 
   // const withdrawBalance = async () => {
@@ -52,7 +49,7 @@ const UserWithdraw = ({ contract }) => {
   return (
     <StyledGeneralCardLayout>
       <div>
-        <h1>Withdraw Your Funds As A User</h1>
+        <h1>Withdraw your user funds</h1>
       </div>
       <StyledGeneralCardWrapper>
         {userBalance ? (
@@ -63,29 +60,36 @@ const UserWithdraw = ({ contract }) => {
             headingFontWeight='500'
           >
             Your current earnings amount to:{' '}
-            <span style={{ fontWeight: '900' }}>{userBalance}</span> ethereum{' '}
+            <span style={{ fontWeight: '900' }}>{userBalance}</span> ETH{' '}
           </StyledGeneralHeadingTwo>
         ) : (
           <StyledGeneralParagraph
             paragraphColor='#272833CC'
             paragraphLineHeight='1.4'
           >
-            Your current earnings amount to: <span>0.0</span> ethereum{' '}
+            Your current earnings amount to: <span>0.0</span> ETH{' '}
           </StyledGeneralParagraph>
         )}
         <div>
-          <img src={kittenWarning} alt='not-enough-balance' />
+          <img src={userWithdrawal} alt='not-enough-balance' />
         </div>
 
         <StyledGeneralParagraph
           paragraphColor='#272833CC'
           paragraphLineHeight='1.8'
+          paragraphMargin='2rem'
         >
           The current minimum withdrawal amount is{' '}
-          <span style={{ fontWeight: '900' }}>0.03</span> ethereum <br />
+          <span style={{ fontWeight: '900' }}>0.03</span> ETH <br />
+        </StyledGeneralParagraph>
+        <StyledGeneralParagraph
+          paragraphColor='#272833CC'
+          paragraphLineHeight='1.8'
+          paragraphMargin='2rem'
+        >
           <Link to={USER_TASKS_LIST_ROUTE}>Go to our tasks dashboard</Link>,
           visit a website, share your feedback and <br /> you will soon reach
-          that milestone!{' '}
+          that milestone!
         </StyledGeneralParagraph>
 
         <StyledGeneralColumnWrapper>

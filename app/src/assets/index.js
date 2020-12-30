@@ -40,10 +40,11 @@ export { default as goerliLogo } from './networksLogo/goerliLogo.svg'
 export { default as aeternityLogo } from './currencies/aeternityCurrency.png'
 export { default as stayInTheLoop } from './homepage/contactForm/stayInTheLoop.svg'
 export { default as aeternityStayInTheLoop } from './homepage/contactForm/aeternityStayInTheLoop.svg'
-export { default as userWithdrawal } from './withdrawals/userWithdraw.svg'
 export { default as publisherWithdrawal } from './withdrawals/publisherWithdraw.svg'
 export { default as noTasksAvailable } from './userTask/noTasksAvailable.png'
 export { default as socialMediaPlaceholder } from './userTask/SocialMediaPlaceholder.png'
+export { default as endCampaign } from './userTask/endCampaign.svg'
+export { default as userWithdrawal } from './userTask/userWithdraw.svg'
 
 // as videos
 export { default as getEtherFromMaticFaucet } from './tutorial/getEtherFromMaticMumbaiFaucet.mp4'

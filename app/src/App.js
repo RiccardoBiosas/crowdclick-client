@@ -14,6 +14,7 @@ import {
   NO_METAMASK_ROUTE,
   TUTORIAL_ROUTE,
   PUBLISHER_WITHDRAW_ROUTE,
+  LEARN_MORE_ROUTE
 } from './constants/config/routes-config'
 // components
 import Homepage  from './routes/homepage/containers/index'
@@ -23,6 +24,7 @@ import ProtectedRoute from './hoc/ProtectedRoute'
 const PublisherWithdraw = lazy(() => import( './routes/publisher-withdraw'))
 const UserWithdraw = lazy(() => import('./routes/user-withdraw'))
 const Tutorial = lazy(() => import('./shared/components/tutorial/screen'))
+const LearnMore = lazy(() => import('./routes/learn-more'))
 const TaskIframeContainer  = lazy(() => import('./routes/task/containers/TaskIframe/index'))
 const SignupFallback  = lazy(() => import('./routes/register/screen/SignupFallback'))
 const NotFound = lazy(() => import('./routes/404/NotFound'))
@@ -31,11 +33,6 @@ const TasksConsoleDashboardContainer = lazy(() => import('./routes/user-tasks/co
 const PublisherDashboardContainer = lazy(() => import('./routes/publisher-dashboard/containers/index'))
 const PublisherWizardFormContainer = lazy(() => import('./routes/publisher-dashboard__new-task/containers'))
 const EditPublisherWizardFormCampaignContainer = lazy(() => import('./routes/publisher-dashboard__edit-task/EditPublisherWizardFormCampaignContainer'))
-
-/**
- * FIX: when you refresh and web3session is fetched from localstorage,
- * contract is not initialized correctly
- */
 
 const App = () => {
 
@@ -52,6 +49,8 @@ const App = () => {
               component={InstallMetamaskWarning}
             />
             <Route exact path={TUTORIAL_ROUTE} component={Tutorial} />
+            <Route exact path={LEARN_MORE_ROUTE} component={LearnMore} />
+
             <ProtectedRoute
               exact
               path={USER_TASKS_LIST_ROUTE}

@@ -28,24 +28,6 @@ import {
   convertChainIdToNetworkName
 } from '../../utils'
 
-/**
- * fix boolean blindness
- */
-/**
- * TODO:
- * think about better error handling process for contract error & wrong network (CHANGE NAME IN INITMETAMASK UPDATEWEB3RESPONSE)
- * think about localstorage: are there possible improvements?
- * think about the flow: login side effect, logout side effect.
- * THINK ABOUT TRY CATCH: WHERE SHOULD IT BE CALLED SO THAT IT DOESN'T CRASH WITH AN ERROR BUT STILL LET THE CONSUMER COMPONENT KNOW THAT SOMETHING WENT WRONG
- * FIX CLOSE MODAL CRASH ERROR WITH WALLET CONNECT. related to the point above about error handling
- * replace redux?
- * add singleton pattern
- * remember that walletconnect add value to localstorage on its own, so use custom localstorage value just for walletconnect to namespace it
- * move it to backend once in the future you'll switch to redux
- * maybe - not priority- change currentNetwork to chainId
- * FIX: portis crashes if i am on a non-supported chain
- */
-
 class EthereumHandler {
   constructor () {
     this.portis = null
@@ -101,24 +83,20 @@ class EthereumHandler {
           !cachedAccount ||
           !isCachedAccountEqualToCurrentAccount
         ) {
-          console.log(
-            'inside INITCACHEWEB3 ----: contract is active? not active  '
-          )
           await this.disconnectFromWeb3AndLogout()
         } else {
-          console.log('inside INITCACHEWEB3 ----: contract is active? TRUE!  ')
           this.active = true
           this.account = currentAccount
           this.currentNetwork = 'goerli' // HARDCODED!
           this.currentChainId = 5 //REPLACE hardcoded value!
-          this.currentWallet = 'METAMASK' // REPLACE hardcoded value!
+          this.currentWallet = WALLETS.METAMASK // REPLACE hardcoded value!
           await this.initMetamask() // hardcoded, use the previous wallet?
           const contractData = getContractByNetwork(
             this.currentChainId,
             this.provider,
             this.account
           )
-          console.log('CONTRACTDATA: ', contractData)
+          console.log('cachedweb3 CONTRACTDATA: ', contractData)
           this.currentContract = contractData.contract
           this.contractAddress = contractData.contractAddress
         }
@@ -142,16 +120,14 @@ class EthereumHandler {
           method: 'eth_requestAccounts'
         })
         this.provider = await initWeb3Session(WALLETS.METAMASK, window.ethereum)
-        // REPLACE THE NAME!
-        const a = await this._updateWeb3SessionData(WALLETS.METAMASK)
-        if (a.error) {
+        const web3Session = await this._updateWeb3SessionData(WALLETS.METAMASK)
+        if (web3Session.error) {
           return {
             wasLoginSuccessful: false,
-            error: a.error
+            error: web3Session.error
           }
         }
         const response = await this._login()
-        console.log('INIT METAMASK RESPONSE: ', response)
 
         if (response.wasLoginSuccessful) {
           this._performLoginSideEffects()

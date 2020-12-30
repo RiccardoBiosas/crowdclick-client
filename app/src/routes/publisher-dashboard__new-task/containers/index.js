@@ -67,6 +67,7 @@ const PublisherWizardFormCampaignContainer = ({
   contract,
   contractAddress,
   currentNetwork,
+  currentChainId,
   currentWallet,
   web3Provider
 }) => {
@@ -328,6 +329,7 @@ const PublisherWizardFormCampaignContainer = ({
                       isBroadcasted={isBroadcasted}
                       txHash={txHash}
                       currentNetwork={currentNetwork}
+                      currentChainId={currentChainId}
                       currentWallet={currentWallet}
                     />
                     <PublisherWizardCampaignOutcome
